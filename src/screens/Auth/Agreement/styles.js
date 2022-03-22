@@ -3,15 +3,12 @@ import {colors, HP, WP, size, family} from '../../../utilities';
 
 const style = StyleSheet.create({
   splashLogo: {
-    width: WP('100%'),
-    height: HP('30%'),
+    width: '100%',
+    height: HP('20%'),
+    marginBottom: HP('1%'),
   },
-  loginText: {
-    fontSize: size.normal,
-    color: colors.gray,
-  },
-  loginText1: {
-    fontSize: size.small,
+  forgotText: {
+    fontSize: size.medium,
     color: colors.black,
     fontWeight: 'bold',
   },

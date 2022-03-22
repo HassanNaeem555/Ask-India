@@ -1,19 +1,21 @@
 import {Dimensions, StyleSheet, Platform} from 'react-native';
+import {RFPercentage} from 'react-native-responsive-fontsize';
 import {colors, HP, WP, size, family} from '../../../utilities';
 
 const style = StyleSheet.create({
   splashLogo: {
     width: WP('100%'),
-    height: HP('30%'),
+    height: HP('20%'),
+    marginBottom: HP('20%'),
   },
-  loginText: {
-    fontSize: size.normal,
-    color: colors.gray,
-  },
-  loginText1: {
-    fontSize: size.small,
+  heading: {
+    fontSize: size.medium,
     color: colors.black,
     fontWeight: 'bold',
+  },
+  subHeading: {
+    fontSize: size.small,
+    color: colors.gray,
   },
 });
 

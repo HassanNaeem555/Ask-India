@@ -10,14 +10,17 @@ import SelectAuth from '../screens/Auth/SelectAuth';
 import Login from '../screens/Auth/Login';
 import Signup from '../screens/Auth/SignUp';
 import ForgotPassword from '../screens/Auth/ForgotPassword';
+import Agreement from '../screens/Auth/Agreement';
+import MobileNumber from '../screens/Auth/MobileNumber';
+import OTP from '../screens/Auth/OTP';
+import Continue from '../screens/Auth/Continue';
+import CreateProfile from '../screens/Auth/CreateProfile';
 import {useNavigation} from '@react-navigation/native';
 
 const RootStack = createStackNavigator();
 
 const navigation = ({initialRoute}) => {
-  // const [AddMobRoute, setAddMobRoute] = useState<boolean>(false);
   const navigations = useNavigation();
-
   return (
     <RootStack.Navigator
       initialRouteName={'SelectAuth'}
@@ -56,6 +59,41 @@ const navigation = ({initialRoute}) => {
         }}
         name="ForgotPassword"
         component={ForgotPassword}
+      />
+      <RootStack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+        name="Agreement"
+        component={Agreement}
+      />
+      <RootStack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+        name="MobileNumber"
+        component={MobileNumber}
+      />
+      <RootStack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+        name="OTP"
+        component={OTP}
+      />
+      <RootStack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+        name="Continue"
+        component={Continue}
+      />
+      <RootStack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+        name="CreateProfile"
+        component={CreateProfile}
       />
     </RootStack.Navigator>
   );

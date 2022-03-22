@@ -13,9 +13,12 @@ const CustomInput = ({
   rightIconShow,
   secureTextEntry,
   error_message,
+  label,
 }) => {
   return (
     <Input
+      label={label && label}
+      labelStyle={{color: colors.black, marginVertical: HP('0.5%')}}
       placeholder={placeholder}
       leftIcon={
         leftIconShow && {
@@ -61,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     paddingHorizontal: 15,
     borderWidth: 1.5,
-    borderColor: colors.lightGray,
+    borderColor: colors.gray,
     borderRadius: 7,
   },
   inputStyles: {

@@ -3,7 +3,8 @@ import {View, Text} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {appLogos} from '../../../assets';
-import Img from '../../../components/Img';
+import {WP, HP} from '../../../utilities';
+import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
 import styles from '../style';
@@ -47,7 +48,7 @@ const SignUp = ({navigation}) => {
       contentContainerStyle={[
         styles.alignCenter,
         styles.justifyEvenly,
-        {flexGrow: 1},
+        {flexGrow: 1, padding: 16},
       ]}
       style={styles.mainContainer}
       showsVerticalScrollIndicator={false}>
@@ -56,12 +57,7 @@ const SignUp = ({navigation}) => {
           alignSelf: 'stretch',
           alignItems: 'center',
         }}>
-        <Img
-          local={true}
-          resizeMode={'contain'}
-          style={style.splashLogo}
-          src={appLogos.logo}
-        />
+        <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
         <CustomInput
           placeholder={'Enter Your Email Address'}
           iconName={'email'}
@@ -91,7 +87,11 @@ const SignUp = ({navigation}) => {
           change={onChangeConfirmPassword}
         />
         <View style={[styles.alignCenter, styles.marginVerticle2Percent]}>
-          <Button buttonText={'SIGNUP'} handlePress={handlePress} />
+          <Button
+            buttonText={'SIGNUP'}
+            handlePress={handlePress}
+            width={WP('90%')}
+          />
         </View>
         <Text style={[style.loginText, styles.marginVerticle4Percent]}>
           Don't have an account?{' '}

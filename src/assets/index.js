@@ -1,9 +1,10 @@
 export const appLogos = {
   logo: require('../assets/image/logo.png'),
+  logos: require('../assets/image/logos.jpg'),
 };
 
 export const appImages = {
-  // splashImage: require('../assets/image/Splash.png'),
+  profileImage: require('../assets/image/guest.png'),
 };
 
 export const appIcons = {

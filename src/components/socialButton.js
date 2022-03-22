@@ -23,7 +23,7 @@ const SocialButton = ({
         },
       ]}>
       <View style={{flex: 1}}>
-        <AntDesign name={iconName} size={23} color={colors.white} />
+        <AntDesign name={iconName} size={20} color={colors.white} />
       </View>
       <View style={{flex: 6}}>
         <Text style={style.buttonText}>{iconText}</Text>
@@ -43,8 +43,7 @@ const style = StyleSheet.create({
     marginVertical: HP('0.7%'),
   },
   buttonText: {
-    fontSize: size.large,
-    fontWeight: '600',
+    fontSize: size.normal,
     color: colors.white,
   },
 });

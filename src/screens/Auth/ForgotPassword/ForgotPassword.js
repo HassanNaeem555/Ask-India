@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import {appLogos} from '../../../assets';
-import Img from '../../../components/Img';
+import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
+import {WP, HP} from '../../../utilities';
 import styles from '../style';
 import style from './styles';
 
@@ -17,24 +18,15 @@ const ForgotPassword = ({navigation}) => {
     navigation.pop();
   };
   return (
-    <View
-      style={[
-        styles.mainContainer,
-        styles.alignCenter,
-        styles.justifyEvenly,
-        {flexGrow: 1},
-      ]}>
+    <ScrollView
+      style={styles.mainContainer}
+      contentContainerStyle={[styles.alignCenter, {flexGrow: 1, padding: 16}]}>
       <View
         style={{
           alignSelf: 'stretch',
           alignItems: 'center',
         }}>
-        <Img
-          local={true}
-          resizeMode={'contain'}
-          style={style.splashLogo}
-          src={appLogos.logo}
-        />
+        <Logo logo={appLogos.logo} marginVertical={HP('5%')} />
         <Text style={[style.forgotText, styles.marginVerticle2Percent]}>
           Forgot Password
         </Text>
@@ -47,10 +39,14 @@ const ForgotPassword = ({navigation}) => {
           change={onChangeEmail}
         />
         <View style={[styles.alignCenter, styles.marginVerticle2Percent]}>
-          <Button buttonText={'DONE'} handlePress={handlePress} />
+          <Button
+            buttonText={'DONE'}
+            handlePress={handlePress}
+            width={WP('90%')}
+          />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

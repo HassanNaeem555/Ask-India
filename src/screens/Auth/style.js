@@ -110,8 +110,14 @@ const styles = StyleSheet.create({
   margin1Percent: {
     marginTop: HP('1%'),
   },
+  marginVerticleHalfPercent: {
+    marginVertical: HP('1%'),
+  },
   marginVerticle1Percent: {
     marginVertical: HP('1%'),
+  },
+  marginVerticle1HalfPercent: {
+    marginVertical: HP('1.5%'),
   },
   marginVerticle2Percent: {
     marginVertical: HP('2%'),
@@ -185,6 +191,12 @@ const styles = StyleSheet.create({
   paddingHorizontal5Percent: {
     paddingHorizontal: WP('5%'),
   },
+  paddingHorizontal6Percent: {
+    paddingHorizontal: WP('6%'),
+  },
+  paddingHorizontal7Percent: {
+    paddingHorizontal: WP('7%'),
+  },
   textCenter: {
     textAlign: 'center',
   },
@@ -213,6 +225,12 @@ const styles = StyleSheet.create({
   },
   font16: {
     fontSize: size.normal,
+  },
+  positionRelative: {
+    position: 'relative',
+  },
+  positionAbsolute: {
+    position: 'absolute',
   },
 });
 

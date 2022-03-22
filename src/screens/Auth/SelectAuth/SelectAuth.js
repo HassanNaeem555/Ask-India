@@ -1,14 +1,13 @@
 import React, {useEffect} from 'react';
-import {View, Dimensions, ScrollView} from 'react-native';
-import {colors} from '../../../utilities';
+import {View, ScrollView} from 'react-native';
+import {colors, HP} from '../../../utilities';
 import SplashScreen from 'react-native-splash-screen';
 import {appLogos} from '../../../assets';
-import Img from '../../../components/Img';
+import Logo from '../../../components/logo';
 import SocialButton from '../../../components/socialButton';
 import styles from '../style';
 import style from './styles';
 // redux stuff
-const {width} = Dimensions.get('screen');
 const SelectAuth = ({navigation}) => {
   const {navigate} = navigation;
   useEffect(() => {
@@ -27,18 +26,13 @@ const SelectAuth = ({navigation}) => {
           alignSelf: 'stretch',
           alignItems: 'center',
         }}>
-        <Img
-          local={true}
-          resizeMode={'contain'}
-          style={style.splashLogo}
-          src={appLogos.logo}
-        />
+        <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
         <SocialButton
           backgroundColor={colors.primary}
           iconName={'phone'}
           iconText={'Signin with Phone'}
           navigate={navigate}
-          screen_name={'Login'}
+          screen_name={'Agreement'}
         />
         <SocialButton
           backgroundColor={colors.primary}

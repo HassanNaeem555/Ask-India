@@ -2,13 +2,15 @@ import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Dimensions} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {appLogos} from '../../../assets';
-import Img from '../../../components/Img';
+import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
 import styles from '../style';
 import style from './styles';
+import {WP, HP} from '../../../utilities';
 // redux stuff
 const {width} = Dimensions.get('screen');
+
 const Login = ({navigation}) => {
   const {navigate} = navigation;
   const [email, setEmail] = useState('');
@@ -36,7 +38,7 @@ const Login = ({navigation}) => {
       contentContainerStyle={[
         styles.alignCenter,
         styles.justifyEvenly,
-        {flexGrow: 1},
+        {flexGrow: 1, padding: 16},
       ]}
       style={styles.mainContainer}
       showsVerticalScrollIndicator={false}>
@@ -45,12 +47,7 @@ const Login = ({navigation}) => {
           alignSelf: 'stretch',
           alignItems: 'center',
         }}>
-        <Img
-          local={true}
-          resizeMode={'contain'}
-          style={style.splashLogo}
-          src={appLogos.logo}
-        />
+        <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
         <CustomInput
           placeholder={'Enter Your Email Address'}
           iconName={'email'}
@@ -80,7 +77,11 @@ const Login = ({navigation}) => {
           <Text style={style.loginText1}>Forget Password?</Text>
         </TouchableOpacity>
         <View style={[styles.alignCenter, styles.marginVerticle2Percent]}>
-          <Button buttonText={'LOGIN'} handlePress={handlePress} />
+          <Button
+            buttonText={'LOGIN'}
+            handlePress={handlePress}
+            width={WP('90%')}
+          />
         </View>
         <Text style={[style.loginText, styles.marginVerticle4Percent]}>
           Don't have an account?{' '}
