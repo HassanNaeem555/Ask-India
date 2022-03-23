@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Image} from 'react-native';
+import {View, Image,TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import * as ImagePicker from 'react-native-image-picker';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -12,9 +12,9 @@ import style from './styles';
 import {colors, HP, WP, size} from '../../../utilities';
 // redux stuff
 
-const CreateProfile = () => {
+const CreateProfile = ({navigation}) => {
   const [errorMsg, setErrorMsg] = useState('');
-  const [profilePhotoUri, setprofilePhotoUri] = useState('');
+  const [profilePhotoUri, setprofilePhotoUri] = useState(appImages?.profileImage);
   const [profilePhoto, setprofilePhoto] = useState([]);
   const launchImageLibrary = () => {
     let options = {
@@ -39,7 +39,9 @@ const CreateProfile = () => {
     });
   };
   const onChangeEmail = val => {};
-  const handlePress = () => {};
+  const handlePress = () => {
+    navigation.navigate('PlaceLocation')
+  };
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={[styles.alignCenter, {flexGrow: 1, padding: 16}]}
@@ -59,7 +61,7 @@ const CreateProfile = () => {
           ]}>
           <Image
             resizeMode={'contain'}
-            source={profilePhotoUriappImages.profileImage}
+            source={profilePhotoUri}
             style={[
               styles.w_30,
               {
@@ -68,7 +70,9 @@ const CreateProfile = () => {
               },
             ]}
           />
-          <View
+          <TouchableOpacity
+          activeOpacity={0.8}
+           onPress={launchImageLibrary}
             style={[
               styles.positionAbsolute,
               styles.paddingHorizontal2Percent,
@@ -84,7 +88,7 @@ const CreateProfile = () => {
               size={size.normal}
               color={colors.white}
             />
-          </View>
+          </TouchableOpacity>
         </View>
         <CustomInput
           label={'Enter Your Name'}

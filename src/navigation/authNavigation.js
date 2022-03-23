@@ -15,6 +15,7 @@ import MobileNumber from '../screens/Auth/MobileNumber';
 import OTP from '../screens/Auth/OTP';
 import Continue from '../screens/Auth/Continue';
 import CreateProfile from '../screens/Auth/CreateProfile';
+import PlaceLocation from '../screens/Auth/PlaceLocation';
 import {useNavigation} from '@react-navigation/native';
 
 const RootStack = createStackNavigator();
@@ -94,6 +95,13 @@ const navigation = ({initialRoute}) => {
         }}
         name="CreateProfile"
         component={CreateProfile}
+      />
+      <RootStack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+        name="PlaceLocation"
+        component={PlaceLocation}
       />
     </RootStack.Navigator>
   );
