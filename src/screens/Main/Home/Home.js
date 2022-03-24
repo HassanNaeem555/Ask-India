@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -8,6 +9,9 @@ import styles from '../style';
 import style from './styles';
 
 function Home() {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
       <View style={[styles.directionRow, styles.justifySpaceBetween]}>
