@@ -13,7 +13,7 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
   },
   countryPickerContainer: {
-    height: HP('7%'),
+    height: HP('6.2%'),
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 7,

@@ -7,10 +7,22 @@ const style = StyleSheet.create({
     height: HP('20%'),
     marginBottom: HP('1%'),
   },
-  forgotText: {
-    fontSize: size.medium,
+  headingText: {
+    fontSize: size.xlarge,
     color: colors.black,
     fontWeight: 'bold',
+  },
+  subHeadingText: {
+    fontSize: size.normal,
+    color: colors.black,
+    fontWeight: 'bold',
+  },
+  selectionText: {
+    fontSize: size.xsmall,
+    fontWeight: '600',
+  },
+  descriptionText: {
+    fontSize: size.xxsmall,
   },
 });
 

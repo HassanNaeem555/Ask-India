@@ -1,7 +1,8 @@
 import React from 'react';
 import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
 import {LogBox, View, KeyboardAvoidingView, Platform} from 'react-native';
-import store from './src/store';
+import store, {persistor} from './src/store';
 import MainNavigation from './src/navigation';
 
 // ignore warnings
@@ -14,7 +15,9 @@ const App = () => {
   return (
     <Wrapper>
       <Provider store={store}>
-        <MainNavigation />
+        <PersistGate persistor={persistor}>
+          <MainNavigation />
+        </PersistGate>
       </Provider>
     </Wrapper>
   );

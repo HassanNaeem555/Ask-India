@@ -1,7 +1,7 @@
 import {ISUSERLOGIN} from '../../constants';
 
-export function validateUserLogin(bol) {
+export function validateUserLogin() {
   return async dispatch => {
-    dispatch({type: ISUSERLOGIN, payload: bol});
+    dispatch({type: ISUSERLOGIN});
   };
 }

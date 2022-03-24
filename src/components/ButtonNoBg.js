@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity, Text} from 'react-native';
 import {colors, HP, WP, size} from '../utilities';
 
-const Button = ({buttonText, handlePress, width, rightMargin}) => {
+const ButtonNoBg = ({buttonText, handlePress, width, rightMargin}) => {
   return (
     <TouchableOpacity
       style={[styles.buttonContainer, {width: width, marginRight: rightMargin}]}
@@ -15,11 +15,13 @@ const Button = ({buttonText, handlePress, width, rightMargin}) => {
   );
 };
 
-export default Button;
+export default ButtonNoBg;
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.white,
+    borderColor: colors.primary,
+    borderWidth: 1,
     alignItems: 'center',
     padding: 15,
     borderRadius: 5,
@@ -27,6 +29,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: size.medium,
     fontWeight: 'bold',
-    color: colors.white,
+    color: colors.primary,
   },
 });

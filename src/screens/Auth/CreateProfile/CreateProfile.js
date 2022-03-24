@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Image,TouchableOpacity} from 'react-native';
+import {View, Image, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import * as ImagePicker from 'react-native-image-picker';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -14,7 +14,10 @@ import {colors, HP, WP, size} from '../../../utilities';
 
 const CreateProfile = ({navigation}) => {
   const [errorMsg, setErrorMsg] = useState('');
-  const [profilePhotoUri, setprofilePhotoUri] = useState(appImages?.profileImage);
+  const [profilePhotoUri, setprofilePhotoUri] = useState(
+    appImages?.profileImage,
+  );
+  const [profilePhotoUris, setprofilePhotoUris] = useState('');
   const [profilePhoto, setprofilePhoto] = useState([]);
   const launchImageLibrary = () => {
     let options = {
@@ -31,16 +34,16 @@ const CreateProfile = ({navigation}) => {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        const source = {uri: response.uri};
-        console.log('itis Profile', response);
+        const source = {uri: response.assets[0].uri};
+        console.log('itis Profile', response.assets[0].uri);
         setprofilePhoto(response.assets);
-        setprofilePhotoUri(response.assets[0].uri);
+        setprofilePhotoUris(source);
       }
     });
   };
   const onChangeEmail = val => {};
   const handlePress = () => {
-    navigation.navigate('PlaceLocation')
+    navigation.navigate('PlaceLocation');
   };
   return (
     <KeyboardAwareScrollView
@@ -61,18 +64,17 @@ const CreateProfile = ({navigation}) => {
           ]}>
           <Image
             resizeMode={'contain'}
-            source={profilePhotoUri}
+            source={profilePhotoUris == '' ? profilePhotoUri : profilePhotoUris}
             style={[
               styles.w_30,
               {
-                height: HP('15%'),
-                borderRadius: HP('15%') / 2,
+                height: HP('12%'),
               },
             ]}
           />
           <TouchableOpacity
-          activeOpacity={0.8}
-           onPress={launchImageLibrary}
+            activeOpacity={0.8}
+            onPress={launchImageLibrary}
             style={[
               styles.positionAbsolute,
               styles.paddingHorizontal2Percent,

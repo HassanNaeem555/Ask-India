@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Dimensions} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+import {validateUserLogin} from '../../../store/actions/authAction';
 import {appLogos} from '../../../assets';
 import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
@@ -12,6 +14,7 @@ import {WP, HP} from '../../../utilities';
 const {width} = Dimensions.get('screen');
 
 const Login = ({navigation}) => {
+  const dispatch = useDispatch();
   const {navigate} = navigation;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,6 +31,7 @@ const Login = ({navigation}) => {
     setPassword(val);
   };
   const handlePress = () => {
+    dispatch(validateUserLogin());
     // navigate('Pin');
   };
   const changeScreen = screen_name => {

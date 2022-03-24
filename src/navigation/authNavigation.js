@@ -16,6 +16,8 @@ import OTP from '../screens/Auth/OTP';
 import Continue from '../screens/Auth/Continue';
 import CreateProfile from '../screens/Auth/CreateProfile';
 import PlaceLocation from '../screens/Auth/PlaceLocation';
+import EnrolledProgram from '../screens/Auth/EnrolledProgram';
+import TopicFollow from '../screens/Auth/TopicFollow';
 import {useNavigation} from '@react-navigation/native';
 
 const RootStack = createStackNavigator();
@@ -102,6 +104,20 @@ const navigation = ({initialRoute}) => {
         }}
         name="PlaceLocation"
         component={PlaceLocation}
+      />
+      <RootStack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+        name="EnrolledProgram"
+        component={EnrolledProgram}
+      />
+      <RootStack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+        name="TopicFollow"
+        component={TopicFollow}
       />
     </RootStack.Navigator>
   );

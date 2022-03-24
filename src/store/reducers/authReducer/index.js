@@ -10,7 +10,7 @@ export default (states = INITIAL_STATE, action) => {
     case ISUSERLOGIN:
       return {
         ...states,
-        isUserLogin: action.payload,
+        isUserLogin: !states.isUserLogin,
       };
     default:
       return states;
