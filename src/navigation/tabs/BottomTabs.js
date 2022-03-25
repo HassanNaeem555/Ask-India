@@ -1,7 +1,12 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {HP, colors, platform} from '../../utilities';
-import HomeStack from '../stacks/HomeStack';
+import TabBarComponent from '../../components/TabBarComponent';
+import FeedStack from '../stacks/FeedStack';
+import TopicStack from '../stacks/TopicsStack';
+import ProfileStack from '../stacks/ProfileStack';
+import QAStack from '../stacks/QAStacks';
+import DiscoverStack from '../stacks/DiscoverStack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import style from '../style';
@@ -17,22 +22,64 @@ export const BottomTabs = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName="HomeStack"
+      initialRouteName="FeedStack"
+      tabBar={props => <TabBarComponent {...props} />}
       screenOptions={{
         tabBarLabelStyle: [tabBarLabelStyle, {marginBottom: 15}],
         tabBarHideOnKeyboard: true,
         tabBarActiveTintColor: colors.white,
         headerShown: false,
         tabBarLabelPosition: 'below-icon',
-        tabBarStyle: [tabBarStyle, {height: 50}],
+        tabBarStyle: [tabBarStyle, {height: 50, elevation: 7}],
+        tabBarStyle: [tabBarStyle, {height: 500, backgroundColor: 'blue'}],
       }}>
       <Tab.Screen
-        name="HomeStack"
-        component={HomeStack}
+        name="FeedStack"
+        component={FeedStack}
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Feed',
           tabBarIcon: ({color, size}) => (
-            <Ionicons name="home" size={50} style={{color: color}} />
+            <Ionicons name="home" size={50} style={{color: 'blue'}} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="TopicStack"
+        component={TopicStack}
+        options={{
+          tabBarLabel: 'Topic',
+          tabBarIcon: ({color, size}) => (
+            <Ionicons name="home" size={50} style={{color: 'blue'}} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ProfileStack"
+        component={ProfileStack}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({color, size}) => (
+            <Ionicons name="home" size={50} style={{color: 'blue'}} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="QAStack"
+        component={QAStack}
+        options={{
+          tabBarLabel: 'QA',
+          tabBarIcon: ({color, size}) => (
+            <Ionicons name="home" size={50} style={{color: 'blue'}} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="DiscoverStack"
+        component={DiscoverStack}
+        options={{
+          tabBarLabel: 'Discover',
+          tabBarIcon: ({color, size}) => (
+            <Ionicons name="home" size={50} style={{color: 'blue'}} />
           ),
         }}
       />

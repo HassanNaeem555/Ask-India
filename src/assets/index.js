@@ -5,6 +5,7 @@ export const appLogos = {
 
 export const appImages = {
   profileImage: require('../assets/image/guest.png'),
+  postImage: require('../assets/image/user-mock.jpg'),
 };
 
 export const appIcons = {
