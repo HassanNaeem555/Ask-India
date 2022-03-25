@@ -46,7 +46,7 @@ export default SearchBarComponent;
 const style = StyleSheet.create({
   containerStyle: {
     backgroundColor: colors.white,
-    height: HP('6%'),
+    height: HP('7%'),
   },
   inputContainerStyle: {
     backgroundColor: colors.white,

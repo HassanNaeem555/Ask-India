@@ -1,11 +1,10 @@
 import * as React from 'react';
-
 import {View, Text, TouchableOpacity, ImageBackground} from 'react-native';
 import {appImages} from '../assets';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Entypo from 'react-native-vector-icons/Entypo';
-import {colors} from '../utilities';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {colors, size} from '../utilities';
 import styles from './style';
 
 export default function MyTabBar({state, descriptors, navigation}) {
@@ -60,125 +59,152 @@ export default function MyTabBar({state, descriptors, navigation}) {
               {label === 'Feed' && (
                 <View
                   style={{
-                    backgroundColor: isFocused ? 'white' : undefined,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    position: isFocused ? 'absolute' : 'relative',
-                    zIndex: isFocused ? 1 : 0,
-                    top: isFocused ? '-75%' : '0%',
-                    width: isFocused ? 50 : undefined,
-                    height: isFocused ? 50 : undefined,
-                    borderRadius: isFocused ? 25 : 0,
+                    position: 'relative',
+                    zIndex: 0,
+                    top: '0%',
+                    borderRadius: 0,
                   }}>
-                  <Entypo
+                  <MaterialIcons
                     style={{
-                      position: isFocused ? 'absolute' : 'relative',
-                      zIndex: isFocused ? 1 : 0,
+                      position: 'relative',
+                      zIndex: 0,
                     }}
-                    name="home"
-                    size={isFocused ? 30 : 22}
-                    color={isFocused ? colors.primary : 'white'}
+                    name="my-library-books"
+                    size={size.h6}
+                    color={isFocused ? colors.primary : colors.black}
                   />
+                  <Text
+                    style={{
+                      color: isFocused ? colors.primary : colors.black,
+                      fontSize: size.tiny,
+                      top: 3,
+                    }}>
+                    My Feed
+                  </Text>
                 </View>
               )}
               {label === 'Topic' && (
                 <View
                   style={{
-                    backgroundColor: isFocused ? 'white' : undefined,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    position: isFocused ? 'absolute' : 'relative',
-                    zIndex: isFocused ? 1 : 0,
-                    top: isFocused ? '-75%' : '0%',
-                    width: isFocused ? 50 : undefined,
-                    height: isFocused ? 50 : undefined,
-                    borderRadius: isFocused ? 25 : 0,
+                    position: 'relative',
+                    zIndex: 0,
+                    top: '0%',
+                    borderRadius: 0,
                   }}>
-                  <Ionicons
+                  <FontAwesome
                     style={{
-                      position: isFocused ? 'absolute' : 'relative',
-                      zIndex: isFocused ? 1 : 0,
+                      position: 'relative',
+                      zIndex: 0,
                     }}
-                    name="ios-list-circle-sharp"
-                    size={isFocused ? 30 : 22}
-                    color={isFocused ? colors.primary : 'white'}
+                    name="hashtag"
+                    size={size.h6}
+                    color={isFocused ? colors.primary : colors.black}
                   />
+                  <Text
+                    style={{
+                      color: isFocused ? colors.primary : colors.black,
+                      fontSize: size.tiny,
+                      top: 3,
+                    }}>
+                    Topics
+                  </Text>
                 </View>
               )}
               {label === 'Profile' && (
                 <View
                   style={{
-                    backgroundColor: isFocused ? 'white' : undefined,
+                    backgroundColor: 'white',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    position: isFocused ? 'absolute' : 'relative',
-                    zIndex: isFocused ? 1 : 0,
-                    top: isFocused ? '-75%' : '0%',
-                    width: isFocused ? 50 : undefined,
-                    height: isFocused ? 50 : undefined,
-                    borderRadius: isFocused ? 25 : 0,
+                    position: 'absolute',
+                    zIndex: 1,
+                    top: '-88%',
+                    width: 50,
+                    height: 50,
+                    elevation: 4,
+                    // borderRadius: 25,
                   }}>
-                  <MaterialCommunityIcons
+                  <FontAwesome
                     style={{
-                      position: isFocused ? 'absolute' : 'relative',
-                      zIndex: isFocused ? 1 : 0,
+                      position: 'absolute',
+                      zIndex: 1,
                     }}
-                    name="storefront"
-                    size={isFocused ? 30 : 22}
-                    color={isFocused ? colors.primary : 'white'}
+                    name="user"
+                    size={size.h1}
+                    color={isFocused ? colors.primary : colors.black}
                   />
+                  <Text
+                    style={{
+                      top: '85%',
+                      color: isFocused ? colors.primary : colors.black,
+                      fontSize: size.tiny,
+                    }}>
+                    {label}
+                  </Text>
                 </View>
               )}
               {label === 'QA' && (
                 <View
                   style={{
-                    backgroundColor: isFocused ? 'white' : undefined,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    position: isFocused ? 'absolute' : 'relative',
-                    zIndex: isFocused ? 1 : 0,
-                    top: isFocused ? '-75%' : '0%',
-                    width: isFocused ? 50 : undefined,
-                    height: isFocused ? 50 : undefined,
-                    borderRadius: isFocused ? 25 : 0,
+                    position: 'relative',
+                    zIndex: 0,
+                    top: '0%',
+                    borderRadius: 0,
                   }}>
-                  <MaterialCommunityIcons
+                  <FontAwesome
                     style={{
-                      position: isFocused ? 'absolute' : 'relative',
-                      zIndex: isFocused ? 1 : 0,
+                      position: 'relative',
+                      zIndex: 0,
                     }}
-                    name="brightness-percent"
-                    size={isFocused ? 30 : 22}
-                    color={isFocused ? colors.primary : 'white'}
+                    name="comment"
+                    size={size.h6}
+                    color={isFocused ? colors.primary : colors.black}
                   />
+                  <Text
+                    style={{
+                      color: isFocused ? colors.primary : colors.black,
+                      fontSize: size.tiny,
+                      top: 3,
+                    }}>
+                    Q&A
+                  </Text>
                 </View>
               )}
               {label === 'Discover' && (
                 <View
                   style={{
-                    backgroundColor: isFocused ? 'white' : undefined,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    position: isFocused ? 'absolute' : 'relative',
-                    zIndex: isFocused ? 1 : 0,
-                    top: isFocused ? '-75%' : '0%',
-                    width: isFocused ? 50 : undefined,
-                    height: isFocused ? 50 : undefined,
-                    borderRadius: isFocused ? 25 : 0,
+                    position: 'relative',
+                    zIndex: 0,
+                    top: '0%',
+                    borderRadius: 0,
                   }}>
-                  <MaterialCommunityIcons
+                  <Ionicons
                     style={{
-                      position: isFocused ? 'absolute' : 'relative',
-                      zIndex: isFocused ? 1 : 0,
+                      position: 'relative',
+                      zIndex: 0,
                     }}
-                    name="brightness-percent"
-                    size={isFocused ? 30 : 22}
-                    color={isFocused ? colors.primary : 'white'}
+                    name="compass"
+                    size={size.h6}
+                    color={isFocused ? colors.primary : colors.black}
                   />
+                  <Text
+                    style={{
+                      color: isFocused ? colors.primary : colors.black,
+                      fontSize: size.tiny,
+                      top: 3,
+                    }}>
+                    {label}
+                  </Text>
                 </View>
               )}
-
-              {!isFocused && <Text style={{color: 'white'}}>{label}</Text>}
             </TouchableOpacity>
           );
         })}

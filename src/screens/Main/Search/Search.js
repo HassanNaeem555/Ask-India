@@ -88,31 +88,8 @@ const Search = ({navigation}) => {
             );
           })}
         </ScrollView>
-        <View
-          style={[
-            styles.directionRow,
-            styles.justifyEnd,
-            styles.margin3Percent,
-            {marginRight: WP('4%')},
-          ]}>
-          <Text style={style.normalText}>Sort By: </Text>
-          <View
-            style={[
-              style.filterSelection,
-              styles.w_25,
-              styles.directionRow,
-              styles.justifySpaceBetween,
-            ]}>
-            <Text style={style.filterText}>Latest</Text>
-            <TouchableOpacity
-              activeOpacity={0.9}
-              style={[style.chevoronBg, styles.alignCenter]}>
-              <AntDesign name={'down'} size={13} color={colors.white} />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Post showPostImage={false} showTag={true} />
-        <Post showPostImage={true} showTag={false} />
+        <Post showPostImage={false} showTag={true} navigation={navigation} />
+        <Post showPostImage={true} showTag={false} navigation={navigation} />
       </ScrollView>
     </View>
   );

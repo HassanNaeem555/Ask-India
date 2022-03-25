@@ -32,7 +32,10 @@ const HeaderMain = ({
       <Text style={style.headerHeading}>{headerText}</Text>
       <View style={[styles.directionRow, styles.justifySpaceBetween]}>
         {showSearch && (
-          <TouchableOpacity style={style.marginRight} activeOpacity={0.9}>
+          <TouchableOpacity
+            style={style.marginRight}
+            activeOpacity={0.9}
+            onPress={() => navigation.navigate('Search')}>
             <AntDesign name={'search1'} size={30} color={colors.black} />
           </TouchableOpacity>
         )}
@@ -69,8 +72,8 @@ const style = StyleSheet.create({
     top: 0,
     left: -5,
     borderRadius: 50,
-    width: WP('5%'),
-    height: HP('2.5%'),
+    width: WP('4.5%'),
+    height: HP('2.8%'),
     alignItems: 'center',
   },
   notifyText: {
