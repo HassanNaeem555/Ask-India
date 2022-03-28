@@ -26,11 +26,7 @@ const App = () => {
 function Wrapper({children}) {
   if (Platform.OS === 'ios')
     return (
-      <KeyboardAvoidingView
-        style={{flex: 1}}
-        behavior="padding"
-        // keyboardVerticalOffset={20}
-      >
+      <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
         {children}
       </KeyboardAvoidingView>
     );

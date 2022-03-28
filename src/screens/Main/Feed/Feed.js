@@ -5,6 +5,8 @@ import {
   ScrollView,
   TouchableOpacity,
   Dimensions,
+  SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
@@ -90,7 +92,9 @@ const FeedStack = ({navigation}) => {
     console.log('function run on device Rotation', isLandscape);
   });
   return (
-    <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
+    <SafeAreaView
+      style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
+      <StatusBar backgroundColor={'red'} barStyle="light-content" />
       <HeaderMain
         leftIcon={'ios-grid'}
         showSearch={true}
@@ -166,7 +170,7 @@ const FeedStack = ({navigation}) => {
           tappableDots={true}
         />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
