@@ -3,6 +3,7 @@ import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import HeaderMain from '../../../components/HeaderMain';
+import HorizontalCategories from '../../../components/horizontalCategories';
 import SearchBar from '../../../components/SearchBar';
 import Post from '../../../components/Post';
 import {WP, HP, colors, size} from '../../../utilities';
@@ -61,32 +62,11 @@ const Search = ({navigation}) => {
         <ScrollView
           horizontal={true}
           style={[styles.paddingHorizontal4Percent, styles.margin3Percent]}>
-          {category.map((item, index) => {
-            return (
-              <TouchableOpacity
-                key={index}
-                activeOpacity={0.9}
-                onPress={() => {
-                  selectCategory(item?.id);
-                }}
-                style={
-                  selectedCategory.length > 0 &&
-                  selectedCategory.filter(e => e?.id === item?.id).length > 0
-                    ? [style.categoryButton, style.activeCategoryButton]
-                    : [style.categoryButton]
-                }>
-                <Text
-                  style={
-                    selectedCategory.length > 0 &&
-                    selectedCategory.filter(e => e?.id === item?.id).length > 0
-                      ? [style.catgoryTitle, style.activeCatgoryTitle]
-                      : [style.catgoryTitle]
-                  }>
-                  {item?.title}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
+          <HorizontalCategories
+            category={category}
+            selectCategory={selectCategory}
+            selectedCategory={selectedCategory}
+          />
         </ScrollView>
         <Post showPostImage={false} showTag={true} navigation={navigation} />
         <Post showPostImage={true} showTag={false} navigation={navigation} />

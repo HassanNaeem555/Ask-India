@@ -14,6 +14,11 @@ const style = StyleSheet.create({
   normalText: {
     fontSize: size.xsmall,
   },
+  Logo: {
+    width: WP('70%'),
+    height: HP('20%'),
+    marginLeft: -25,
+  },
   categoryButton: {
     backgroundColor: colors.white,
     ...Platform.select({

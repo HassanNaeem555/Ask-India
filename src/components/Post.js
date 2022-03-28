@@ -27,7 +27,8 @@ const Post = ({showPostImage, showTag, navigation}) => {
         style={styles.positionRelative}
         containerStyle={[
           styles.paddingHorizontal1Percent,
-          {overflow: 'hidden'},
+          styles.margin4Percent,
+          {overflow: 'hidden', marginHorizontal: 0},
         ]}>
         <View
           style={[
@@ -186,8 +187,8 @@ const style = StyleSheet.create({
   tags: {
     backgroundColor: colors.primary,
     position: 'absolute',
-    top: HP('0.9%'),
-    right: WP('15%'),
+    top: HP('1.7%'),
+    right: WP('10%'),
     paddingHorizontal: WP('4.5%'),
     paddingVertical: HP('0.6%'),
     zIndex: 3,

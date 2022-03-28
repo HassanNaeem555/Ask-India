@@ -40,7 +40,10 @@ const HeaderMain = ({
           </TouchableOpacity>
         )}
         {showNotifications && (
-          <TouchableOpacity activeOpacity={0.9} style={styles.positionRelative}>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            style={styles.positionRelative}
+            onPress={() => navigation.navigate('Notification')}>
             <MaterialCommunityIcons
               name={'bell'}
               size={30}

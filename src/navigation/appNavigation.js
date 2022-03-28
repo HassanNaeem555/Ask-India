@@ -1,10 +1,14 @@
 // @app
 import * as React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 // @stack screens
 
 import {BottomTabs} from './tabs/BottomTabs';
-
+import Notification from '../screens/Main/Notification';
+import EditProfile from '../screens/Main/EditProfile';
 const RootStack = createStackNavigator();
 
 const navigation = ({}) => {
@@ -20,6 +24,20 @@ const navigation = ({}) => {
         gestureEnabled: true,
       }}>
       <RootStack.Screen name={'App'} component={BottomTabs} />
+      <RootStack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+        name="Notification"
+        component={Notification}
+      />
+      <RootStack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+        name="EditProfile"
+        component={EditProfile}
+      />
     </RootStack.Navigator>
   );
 };

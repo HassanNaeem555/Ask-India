@@ -15,37 +15,6 @@ const style = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
   },
-  categoryButton: {
-    backgroundColor: colors.white,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-      },
-      android: {
-        elevation: 5,
-      },
-    }),
-    paddingVertical: HP('1%'),
-    paddingHorizontal: WP('8%'),
-    borderWidth: 1.2,
-    borderColor: colors.lightGray,
-    marginRight: WP('1.8%'),
-  },
-  activeCategoryButton: {
-    backgroundColor: colors.primary,
-  },
-  catgoryTitle: {
-    fontSize: size.small,
-  },
-  activeCatgoryTitle: {
-    color: colors.white,
-  },
   filterSelection: {
     backgroundColor: colors.white,
     ...Platform.select({

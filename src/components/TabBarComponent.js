@@ -52,6 +52,7 @@ export default function MyTabBar({state, descriptors, navigation}) {
               accessibilityRole="button"
               accessibilityState={isFocused ? {selected: true} : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
+              activeOpacity={0.9}
               testID={options.tabBarTestID}
               onPress={onPress}
               onLongPress={onLongPress}

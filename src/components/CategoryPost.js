@@ -19,7 +19,10 @@ const CategoryPost = ({showPostImage, navigation}) => {
   return (
     <Card
       style={styles.positionRelative}
-      containerStyle={[styles.paddingHorizontal1Percent, {overflow: 'hidden'}]}>
+      containerStyle={[
+        styles.paddingHorizontal1Percent,
+        {overflow: 'hidden', marginHorizontal: 0},
+      ]}>
       <View
         style={[
           styles.alignCenter,

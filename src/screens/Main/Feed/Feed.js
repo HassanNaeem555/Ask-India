@@ -11,15 +11,15 @@ import Carousel, {Pagination} from 'react-native-snap-carousel';
 import SplashScreen from 'react-native-splash-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import HeaderMain from '../../../components/HeaderMain';
-import SearchBar from '../../../components/SearchBar';
+import HorizontalCategories from '../../../components/horizontalCategories';
 import Post from '../../../components/Post';
 import CategoryPost from '../../../components/CategoryPost';
 import {WP, HP, colors, size} from '../../../utilities';
 import styles from '../style';
 import style from './styles';
 
-let SLIDER_WIDTH = Dimensions.get('window').width;
-let ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.955);
+let SLIDER_WIDTH = Dimensions.get('window').width - 0.99;
+let ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.99);
 
 const category = [
   {
@@ -108,32 +108,11 @@ const FeedStack = ({navigation}) => {
         <ScrollView
           horizontal={true}
           style={[styles.paddingHorizontal4Percent, styles.margin3Percent]}>
-          {category.map((item, index) => {
-            return (
-              <TouchableOpacity
-                key={index}
-                activeOpacity={0.9}
-                onPress={() => {
-                  selectCategory(item?.id);
-                }}
-                style={
-                  selectedCategory.length > 0 &&
-                  selectedCategory.filter(e => e?.id === item?.id).length > 0
-                    ? [style.categoryButton, style.activeCategoryButton]
-                    : [style.categoryButton]
-                }>
-                <Text
-                  style={
-                    selectedCategory.length > 0 &&
-                    selectedCategory.filter(e => e?.id === item?.id).length > 0
-                      ? [style.catgoryTitle, style.activeCatgoryTitle]
-                      : [style.catgoryTitle]
-                  }>
-                  {item?.title}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
+          <HorizontalCategories
+            category={category}
+            selectCategory={selectCategory}
+            selectedCategory={selectedCategory}
+          />
         </ScrollView>
         <View
           style={[
