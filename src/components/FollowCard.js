@@ -7,9 +7,9 @@ import {WP, HP, colors, size} from '../utilities';
 import {appImages} from '../assets';
 import styles from '../screens/Main/style';
 
-const Product = () => {
+const FollowCard = ({showFollowButton}) => {
   return (
-    <Card containerStyle={{marginHorizontal: 0}}>
+    <Card containerStyle={{marginHorizontal: 0, paddingVertical: HP('1.2%')}}>
       <View style={{flexDirection: 'row'}}>
         <View style={{flex: 2}}>
           <Image
@@ -19,37 +19,28 @@ const Product = () => {
             src={appImages?.postImage}
           />
         </View>
-        <View style={{flex: 6, marginLeft: WP('2%')}}>
+        <View
+          style={[
+            styles.justifyCenter,
+            {flex: showFollowButton ? 6 : 8, marginLeft: WP('2%')},
+          ]}>
           <Text style={style.heading} numberOfLines={2}>
             Mini Drone
           </Text>
-          <View style={[styles.marginHalfPercent, {flex: 1}]}>
-            <Text style={style.subHeading} numberOfLines={1}>
-              Used
-            </Text>
-            <Text style={style.subHeading} numberOfLines={1}>
-              San Jose, CA
-            </Text>
-            <Text style={style.subHeading} numberOfLines={1}>
-              $150
-            </Text>
+        </View>
+        {showFollowButton && (
+          <View style={[styles.justifyCenter, styles.alignCenter, {flex: 2}]}>
+            <TouchableOpacity activeOpacity={0.9} style={style.button}>
+              <Text style={[style.subHeading, styles.colorWhite]}>Follow</Text>
+            </TouchableOpacity>
           </View>
-        </View>
-        <View style={[styles.justifyCenter, styles.alignCenter, {flex: 2}]}>
-          <TouchableOpacity activeOpacity={0.9} style={style.button}>
-            <AntDesign
-              name={'caretright'}
-              size={size.small}
-              color={colors.white}
-            />
-          </TouchableOpacity>
-        </View>
+        )}
       </View>
     </Card>
   );
 };
 
-export default Product;
+export default FollowCard;
 
 const style = StyleSheet.create({
   postImage: {

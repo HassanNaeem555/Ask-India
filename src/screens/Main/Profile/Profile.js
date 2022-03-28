@@ -57,6 +57,9 @@ const Profile = ({navigation}) => {
                   <Text style={[style.normalText, styles.fontBold]}>Post</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('Followers');
+                  }}
                   activeOpacity={0.9}
                   style={[styles.alignCenter]}>
                   <Text style={[style.normalText, styles.fontBold]}>1,201</Text>
@@ -65,6 +68,9 @@ const Profile = ({navigation}) => {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('Following');
+                  }}
                   activeOpacity={0.9}
                   style={[styles.alignCenter]}>
                   <Text style={[style.normalText, styles.fontBold]}>1,201</Text>
@@ -171,6 +177,14 @@ const Profile = ({navigation}) => {
           </>
         ) : selectedTab === 'My Services' ? (
           <>
+            <Product />
+            <Product />
+            <Product />
+          </>
+        ) : selectedTab === 'My Products' ? (
+          <>
+            <Product />
+            <Product />
             <Product />
           </>
         ) : null}

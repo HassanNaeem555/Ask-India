@@ -9,6 +9,7 @@ import {
 import {BottomTabs} from './tabs/BottomTabs';
 import Notification from '../screens/Main/Notification';
 import EditProfile from '../screens/Main/EditProfile';
+
 const RootStack = createStackNavigator();
 
 const navigation = ({}) => {
