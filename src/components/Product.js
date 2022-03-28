@@ -7,7 +7,7 @@ import {WP, HP, colors, size} from '../utilities';
 import {appImages} from '../assets';
 import styles from '../screens/Main/style';
 
-const Product = () => {
+const Product = ({navigation, name, id}) => {
   return (
     <Card containerStyle={{marginHorizontal: 0}}>
       <View style={{flexDirection: 'row'}}>
@@ -36,7 +36,12 @@ const Product = () => {
           </View>
         </View>
         <View style={[styles.justifyCenter, styles.alignCenter, {flex: 2}]}>
-          <TouchableOpacity activeOpacity={0.9} style={style.button}>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            style={style.button}
+            onPress={() => {
+              navigation.navigate('ProductDetail', {name, id});
+            }}>
             <AntDesign
               name={'caretright'}
               size={size.small}

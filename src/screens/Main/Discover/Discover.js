@@ -133,24 +133,24 @@ const Discover = ({navigation}) => {
         </View>
         {selectedTab === 'Services' ? (
           <>
-            <Product />
-            <Product />
-            <Product />
-            <Product />
+            <Product navigation={navigation} name={'Services'} id={0} />
+            <Product navigation={navigation} name={'Services'} id={1} />
+            <Product navigation={navigation} name={'Services'} id={2} />
+            <Product navigation={navigation} name={'Services'} id={3} />
           </>
         ) : selectedTab === 'Products' ? (
           <>
-            <Product />
-            <Product />
-            <Product />
-            <Product />
+            <Product navigation={navigation} name={'Products'} id={0} />
+            <Product navigation={navigation} name={'Products'} id={1} />
+            <Product navigation={navigation} name={'Products'} id={2} />
+            <Product navigation={navigation} name={'Products'} id={3} />
           </>
         ) : selectedTab === 'Counselling' ? (
           <>
-            <Product />
-            <Product />
-            <Product />
-            <Product />
+            <Product navigation={navigation} name={'Counselling'} id={0} />
+            <Product navigation={navigation} name={'Counselling'} id={1} />
+            <Product navigation={navigation} name={'Counselling'} id={2} />
+            <Product navigation={navigation} name={'Counselling'} id={3} />
           </>
         ) : null}
       </ScrollView>

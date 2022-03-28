@@ -9,6 +9,7 @@ import {
 import {BottomTabs} from './tabs/BottomTabs';
 import Notification from '../screens/Main/Notification';
 import EditProfile from '../screens/Main/EditProfile';
+import ProductDetail from '../screens/Main/ProductDetail';
 
 const RootStack = createStackNavigator();
 
@@ -38,6 +39,13 @@ const navigation = ({}) => {
         }}
         name="EditProfile"
         component={EditProfile}
+      />
+      <RootStack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+        name="ProductDetail"
+        component={ProductDetail}
       />
     </RootStack.Navigator>
   );

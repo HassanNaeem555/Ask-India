@@ -177,15 +177,15 @@ const Profile = ({navigation}) => {
           </>
         ) : selectedTab === 'My Services' ? (
           <>
-            <Product />
-            <Product />
-            <Product />
+            <Product navigation={navigation} name={'Services'} id={0} />
+            <Product navigation={navigation} name={'Services'} id={1} />
+            <Product navigation={navigation} name={'Services'} id={2} />
           </>
         ) : selectedTab === 'My Products' ? (
           <>
-            <Product />
-            <Product />
-            <Product />
+            <Product navigation={navigation} name={'Products'} id={0} />
+            <Product navigation={navigation} name={'Products'} id={1} />
+            <Product navigation={navigation} name={'Products'} id={2} />
           </>
         ) : null}
       </ScrollView>
