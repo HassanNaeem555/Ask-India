@@ -10,6 +10,9 @@ import {BottomTabs} from './tabs/BottomTabs';
 import Notification from '../screens/Main/Notification';
 import EditProfile from '../screens/Main/EditProfile';
 import ProductDetail from '../screens/Main/ProductDetail';
+import OtherProfile from '../screens/Main/OtherProfile';
+import Followers from '../screens/Main/Followers';
+import Following from '../screens/Main/Following';
 
 const RootStack = createStackNavigator();
 
@@ -46,6 +49,27 @@ const navigation = ({}) => {
         }}
         name="ProductDetail"
         component={ProductDetail}
+      />
+      <RootStack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+        name="OtherProfile"
+        component={OtherProfile}
+      />
+      <RootStack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+        name="Followers"
+        component={Followers}
+      />
+      <RootStack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+        name="Following"
+        component={Following}
       />
     </RootStack.Navigator>
   );

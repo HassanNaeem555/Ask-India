@@ -12,10 +12,8 @@ const style = StyleSheet.create({
     fontSize: size.h5,
   },
   subHeading: {
-    color: colors.white,
-    fontSize: size.xxlarge,
-    textAlign: 'center',
-    marginTop: 10,
+    fontSize: size.xsmall,
+    marginTop: 5,
   },
   normalText: {
     fontSize: size.xsmall,
@@ -26,6 +24,26 @@ const style = StyleSheet.create({
     backgroundColor: colors.primary,
     paddingVertical: HP('0.3%'),
     paddingHorizontal: WP('0.9%'),
+  },
+  socialButton: {
+    backgroundColor: colors.white,
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+      },
+      android: {
+        elevation: 5,
+      },
+    }),
+    paddingHorizontal: WP('3.7%'),
+    paddingVertical: HP('2%'),
+    marginRight: WP('1.2%'),
   },
 });
 

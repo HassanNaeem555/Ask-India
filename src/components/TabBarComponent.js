@@ -127,7 +127,7 @@ export default function MyTabBar({state, descriptors, navigation}) {
                     width: 50,
                     height: 50,
                     elevation: 4,
-                    // borderRadius: 25,
+                    borderRadius: 25,
                   }}>
                   <FontAwesome
                     style={{

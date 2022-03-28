@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import HeaderMain from '../../../components/HeaderMain';
 import Image from '../../../components/Img';
-import Post from '../../../components/Post';
 import {WP, HP, colors, size} from '../../../utilities';
 import {appLogos, appImages} from '../../../assets';
 import styles from '../style';
@@ -12,7 +12,7 @@ import style from './styles';
 const ProductDetail = ({navigation, route}) => {
   const {name, id} = route.params;
   return (
-    <View style={[styles.mainContainer]}>
+    <View style={[styles.mainContainer, {backgroundColor: colors.whiteLow}]}>
       <HeaderMain
         navigateLeftIcon={navigation.goBack}
         leftIcon={'ios-caret-back-outline'}
@@ -38,12 +38,33 @@ const ProductDetail = ({navigation, route}) => {
           ]}>
           <Text style={[style.heading, styles.fontBold]}>Details</Text>
           <View style={[styles.margin2Percent]}>
-            <Text>Title: Room Availble</Text>
-            <Text>Type: 3 bed on sharing</Text>
-            <Text>Number: (408) 300-0855</Text>
-            <Text>
+            <Text style={style.subHeading}>Title: Room Availble</Text>
+            <Text style={style.subHeading}>Type: 3 bed on sharing</Text>
+            <Text style={style.subHeading}>Number: (408) 300-0855</Text>
+            <Text style={style.subHeading}>
               Address: 954 Walglen Ct City: San Jose, California (CA), 91536
             </Text>
+          </View>
+          <View
+            style={[
+              styles.margin2Percent,
+              styles.directionRow,
+              styles.justifyStart,
+            ]}>
+            <TouchableOpacity activeOpacity={0.9} style={[style.socialButton]}>
+              <FontAwesome
+                name={'phone'}
+                size={size.large}
+                color={colors.primary}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.9} style={[style.socialButton]}>
+              <Ionicons
+                name={'mail'}
+                size={size.large}
+                color={colors.primary}
+              />
+            </TouchableOpacity>
           </View>
         </View>
       </View>

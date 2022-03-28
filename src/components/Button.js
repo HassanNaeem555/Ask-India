@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   buttonText: {
-    fontSize: size.medium,
+    fontSize: size.small,
     fontWeight: 'bold',
     color: colors.white,
   },

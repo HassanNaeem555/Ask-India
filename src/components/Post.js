@@ -36,21 +36,32 @@ const Post = ({showPostImage, showTag, navigation}) => {
             styles.justifyCenter,
             styles.positionRelative,
           ]}>
-          <View style={[style.postImageDivision, styles.alignCenter]}>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            style={[style.postImageDivision, styles.alignCenter]}
+            onPress={() => {
+              navigation.navigate('OtherProfile');
+            }}>
             <Image
               local={true}
               resizeMode={'contain'}
               style={style.postImage}
               src={appImages?.postImage}
             />
-          </View>
+          </TouchableOpacity>
           <View
             style={[
               style.postContentDivision,
               styles.paddingHorizontal4Percent,
               styles.margin1Percent,
             ]}>
-            <Text style={style.postHeading}>Mark Smith</Text>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              onPress={() => {
+                navigation.navigate('OtherProfile');
+              }}>
+              <Text style={style.postHeading}>Mark Smith</Text>
+            </TouchableOpacity>
             <Text style={style.postDate}>Mark Smith</Text>
           </View>
           <View style={[styles.alignCenter, style.postIconDivision]}>

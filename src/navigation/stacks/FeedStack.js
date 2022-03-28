@@ -10,7 +10,7 @@ import Comment from '../../screens/Main/PostAssets/Comment';
 
 const Stack = createStackNavigator();
 
-function FeedStack() {
+const FeedStack = () => {
   return (
     <Stack.Navigator
       initialRouteName="Feed"
@@ -45,6 +45,6 @@ function FeedStack() {
       />
     </Stack.Navigator>
   );
-}
+};
 
 export default FeedStack;

@@ -9,16 +9,6 @@ const style = StyleSheet.create({
     fontSize: size.xxlarge,
     textAlign: 'center',
   },
-  notificationText: {
-    color: colors.black,
-    fontSize: size.small,
-    fontWeight: 'bold',
-    lineHeight: 21,
-  },
-  dateTime: {
-    fontSize: size.xxsmall,
-    fontWeight: '400',
-  },
 });
 
 export default style;
