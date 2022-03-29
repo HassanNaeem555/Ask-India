@@ -1,17 +1,27 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, Text} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import {colors, HP, WP, size} from '../utilities';
 
 const Button = ({buttonText, handlePress, width, rightMargin}) => {
   return (
-    <TouchableOpacity
-      style={[styles.buttonContainer, {width: width, marginRight: rightMargin}]}
-      onPress={() => {
-        handlePress();
-      }}
-      activeOpacity={0.9}>
-      <Text style={styles.buttonText}>{buttonText}</Text>
-    </TouchableOpacity>
+    <LinearGradient
+      colors={['#40C1FF', colors.primary]}
+      start={{x: 0, y: 1}}
+      end={{x: 0, y: 0}}
+      style={[
+        styles.margin1Percent,
+        {borderRadius: 15, width: width, marginRight: rightMargin},
+      ]}>
+      <TouchableOpacity
+        style={[styles.buttonContainer]}
+        onPress={() => {
+          handlePress();
+        }}
+        activeOpacity={0.9}>
+        <Text style={styles.buttonText}>{buttonText}</Text>
+      </TouchableOpacity>
+    </LinearGradient>
   );
 };
 
