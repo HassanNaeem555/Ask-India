@@ -29,7 +29,7 @@ const SelectAuth = ({navigation}) => {
         <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
         <SocialButton
           backgroundColor={colors.primary}
-          gradientColor={'#40C1FF'}
+          gradientColor={colors.secondary}
           iconName={'phone'}
           iconText={'Signin with Phone'}
           navigate={navigate}
@@ -37,7 +37,7 @@ const SelectAuth = ({navigation}) => {
         />
         <SocialButton
           backgroundColor={colors.primary}
-          gradientColor={'#40C1FF'}
+          gradientColor={colors.secondary}
           iconName={'mail'}
           iconText={'Signin with Email'}
           navigate={navigate}

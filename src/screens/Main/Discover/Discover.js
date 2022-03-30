@@ -19,14 +19,18 @@ const Discover = ({navigation}) => {
   const selectTab = item => {
     setSelectedTab(item);
   };
+  const drawerOpen = () => {
+    navigation.toggleDrawer();
+  };
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
       <HeaderMain
-        leftIcon={'ios-grid'}
-        showSearch={false}
+        leftIcon={'ios-menu-sharp'}
+        showSearch={true}
         showNotifications={true}
-        headerText={'Discover'}
+        headerText={'DISCOVER'}
         navigation={navigation}
+        navigateLeftIcon={drawerOpen}
       />
       <ScrollView>
         <TouchableOpacity

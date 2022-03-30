@@ -1,7 +1,8 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
-import {LogBox, View, KeyboardAvoidingView, Platform} from 'react-native';
+import {LogBox, View, SafeAreaView, Platform} from 'react-native';
 import store, {persistor} from './src/store';
 import MainNavigation from './src/navigation';
 
@@ -24,17 +25,7 @@ const App = () => {
 };
 
 function Wrapper({children}) {
-  if (Platform.OS === 'ios')
-    return (
-      <KeyboardAvoidingView
-        style={{flex: 1}}
-        behavior="padding"
-        // keyboardVerticalOffset={20}
-      >
-        {children}
-      </KeyboardAvoidingView>
-    );
-  return <View style={{flex: 1}}>{children}</View>;
+  return <SafeAreaView style={{flex: 1}}>{children}</SafeAreaView>;
 }
 
 export default App;

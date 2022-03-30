@@ -5,7 +5,7 @@ import {
   CardStyleInterpolators,
 } from '@react-navigation/stack';
 // @stack screens
-
+import MyDrawer from '../navigation/drawer/sideDrawer';
 import {BottomTabs} from './tabs/BottomTabs';
 import Notification from '../screens/Main/Notification';
 import EditProfile from '../screens/Main/EditProfile';
@@ -19,7 +19,7 @@ const RootStack = createStackNavigator();
 const navigation = ({}) => {
   return (
     <RootStack.Navigator
-      initialRouteName="App"
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
         headerTransparent: true,
@@ -28,7 +28,13 @@ const navigation = ({}) => {
         gestureDirection: 'horizontal',
         gestureEnabled: true,
       }}>
-      <RootStack.Screen name={'App'} component={BottomTabs} />
+      <RootStack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+        name={'Home'}
+        component={MyDrawer}
+      />
       <RootStack.Screen
         options={{
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,

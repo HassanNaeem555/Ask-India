@@ -13,14 +13,18 @@ import styles from '../style';
 import style from './styles';
 
 const QA = ({navigation}) => {
+  const drawerOpen = () => {
+    navigation.toggleDrawer();
+  };
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
       <HeaderMain
-        leftIcon={'ios-grid'}
-        showSearch={false}
+        leftIcon={'ios-menu-sharp'}
+        showSearch={true}
         showNotifications={true}
         headerText={'Q & A'}
         navigation={navigation}
+        navigateLeftIcon={drawerOpen}
       />
       <View style={{flex: 8.8}}>
         <ScrollView>

@@ -14,14 +14,18 @@ import styles from '../style';
 import style from './styles';
 
 const Topic = ({navigation}) => {
+  const drawerOpen = () => {
+    navigation.toggleDrawer();
+  };
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
       <HeaderMain
-        leftIcon={'ios-grid'}
-        showSearch={false}
+        leftIcon={'ios-menu-sharp'}
+        showSearch={true}
         showNotifications={true}
-        headerText={'Topics'}
+        headerText={'TOPICS'}
         navigation={navigation}
+        navigateLeftIcon={drawerOpen}
       />
       <TouchableOpacity
         activeOpacity={0.9}

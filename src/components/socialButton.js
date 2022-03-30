@@ -40,7 +40,8 @@ const style = StyleSheet.create({
   buttonContainer: {
     width: WP('90%'),
     alignItems: 'center',
-    padding: 15,
+    paddingHorizontal: WP('5%'),
+    paddingVertical: HP('1.5%'),
     marginVertical: HP('0.7%'),
   },
   buttonText: {

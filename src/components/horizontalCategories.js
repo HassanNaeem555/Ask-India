@@ -1,34 +1,46 @@
 import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import {WP, HP, colors, size} from '../utilities';
+import LinearGradient from 'react-native-linear-gradient';
+import styles from '../screens/Main/style';
 
 const HorizontalCategories = ({category, selectCategory, selectedCategory}) => {
   return (
     <>
       {category.map((item, index) => {
         return (
-          <TouchableOpacity
-            key={index}
-            activeOpacity={0.9}
-            onPress={() => {
-              selectCategory(item?.id);
-            }}
-            style={
-              selectedCategory.length > 0 &&
-              selectedCategory.filter(e => e?.id === item?.id).length > 0
-                ? [style.categoryButton, style.activeCategoryButton]
-                : [style.categoryButton]
-            }>
-            <Text
-              style={
-                selectedCategory.length > 0 &&
-                selectedCategory.filter(e => e?.id === item?.id).length > 0
-                  ? [style.catgoryTitle, style.activeCatgoryTitle]
-                  : [style.catgoryTitle]
-              }>
-              {item?.title}
-            </Text>
-          </TouchableOpacity>
+          <>
+            {selectedCategory.length > 0 &&
+            selectedCategory.filter(e => e?.id === item?.id).length > 0 ? (
+              <LinearGradient
+                colors={[colors.secondary, colors.primary]}
+                start={{x: 0, y: 1}}
+                end={{x: 0, y: 0}}
+                style={[styles.margin1Percent, {borderRadius: 15}]}>
+                <TouchableOpacity
+                  key={index}
+                  activeOpacity={0.9}
+                  onPress={() => {
+                    selectCategory(item?.id);
+                  }}
+                  style={style.activeCategoryButton}>
+                  <Text style={[style.catgoryTitle, style.activeCatgoryTitle]}>
+                    {item?.title}
+                  </Text>
+                </TouchableOpacity>
+              </LinearGradient>
+            ) : (
+              <TouchableOpacity
+                key={index}
+                activeOpacity={0.9}
+                onPress={() => {
+                  selectCategory(item?.id);
+                }}
+                style={[style.categoryButton, styles.margin1Percent]}>
+                <Text style={style.catgoryTitle}>{item?.title}</Text>
+              </TouchableOpacity>
+            )}
+          </>
         );
       })}
     </>
@@ -38,33 +50,20 @@ const HorizontalCategories = ({category, selectCategory, selectedCategory}) => {
 export default HorizontalCategories;
 
 const style = StyleSheet.create({
-  categoryButton: {
-    backgroundColor: colors.white,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-      },
-      android: {
-        elevation: 5,
-      },
-    }),
+  activeCategoryButton: {
     paddingVertical: HP('1%'),
-    paddingHorizontal: WP('8%'),
+    paddingHorizontal: WP('7%'),
     borderWidth: 1.2,
     borderColor: colors.lightGray,
     marginRight: WP('1.8%'),
   },
-  activeCategoryButton: {
-    backgroundColor: colors.primary,
+  categoryButton: {
+    paddingVertical: HP('1%'),
+    paddingHorizontal: WP('6%'),
   },
   catgoryTitle: {
     fontSize: size.small,
+    color: colors.gray,
   },
   activeCatgoryTitle: {
     color: colors.white,

@@ -4,6 +4,11 @@ import {colors, HP, WP, size, family} from '../../../utilities';
 const {width} = Dimensions.get('window');
 
 const style = StyleSheet.create({
+  mainHeading: {
+    color: colors.primary,
+    fontSize: size.xxlarge,
+    fontWeight: '500',
+  },
   heading: {
     color: colors.white,
     fontSize: size.xxlarge,
@@ -37,10 +42,10 @@ const style = StyleSheet.create({
     paddingHorizontal: WP('0.9%'),
   },
   filterText: {
-    fontSize: size.xsmall,
+    fontSize: size.small,
   },
   normalText: {
-    fontSize: size.xsmall,
+    fontSize: size.small,
     marginVertical: HP('0.5%'),
     marginRight: WP('0.6%'),
   },
@@ -67,10 +72,10 @@ const style = StyleSheet.create({
     }),
     borderWidth: 0.3,
     borderColor: colors.lightGray,
-    paddingVertical: HP('1.3%'),
+    paddingVertical: HP('1.8%'),
     paddingHorizontal: WP('5%'),
     marginHorizontal: WP('4.5%'),
-    marginVertical: WP('1.5%'),
+    marginVertical: WP('1.7%'),
   },
 });
 

@@ -1,10 +1,12 @@
 export const colors = {
   // App Colors
   primary: '#00A1EF',
-  secondary: '#000000',
+  secondary: '#40C1FF',
   blue: '#397EE6',
   white: '#FFFFFF',
   whiteLow: '#f7f6fc',
+  whiteMedium: '#f5f6fb',
+  mediumGray: '#1e1e1e',
   red: '#C24C47',
   googleColor: '#F88C84',
   facebookColor: '#58A1FE',

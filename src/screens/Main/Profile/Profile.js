@@ -23,14 +23,18 @@ const Profile = ({navigation}) => {
   const selectTab = item => {
     setSelectedTab(item);
   };
+  const drawerOpen = () => {
+    navigation.toggleDrawer();
+  };
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
       <HeaderMain
-        leftIcon={'ios-grid'}
-        showSearch={false}
+        leftIcon={'ios-menu-sharp'}
+        showSearch={true}
         showNotifications={true}
-        headerText={'Profile'}
+        headerText={'PROFILE'}
         navigation={navigation}
+        navigateLeftIcon={drawerOpen}
       />
       <ScrollView>
         <Card containerStyle={{marginHorizontal: 0, overflow: 'hidden'}}>

@@ -231,6 +231,9 @@ const styles = StyleSheet.create({
   colorWhite: {
     color: colors.white,
   },
+  bgWhite: {
+    backgroundColor: colors.whiteMedium,
+  },
   font16: {
     fontSize: size.normal,
   },

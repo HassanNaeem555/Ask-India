@@ -19,7 +19,7 @@ const HeaderMain = ({
       style={[
         styles.directionRow,
         styles.justifySpaceBetween,
-        styles.padding2Percent,
+        styles.padding3Percent,
         styles.paddingHorizontal2Percent,
       ]}>
       <TouchableOpacity
@@ -36,7 +36,7 @@ const HeaderMain = ({
             style={style.marginRight}
             activeOpacity={0.9}
             onPress={() => navigation.navigate('Search')}>
-            <AntDesign name={'search1'} size={30} color={colors.black} />
+            <AntDesign name={'search1'} size={size.h4} color={colors.black} />
           </TouchableOpacity>
         )}
         {showNotifications && (
@@ -46,7 +46,7 @@ const HeaderMain = ({
             onPress={() => navigation.navigate('Notification')}>
             <MaterialCommunityIcons
               name={'bell'}
-              size={30}
+              size={size.h4}
               color={colors.black}
             />
             <View style={style.notify}>
@@ -64,7 +64,7 @@ export default HeaderMain;
 const style = StyleSheet.create({
   headerHeading: {
     fontSize: size.xxlarge,
-    fontWeight: 'bold',
+    fontWeight: '500',
   },
   marginRight: {
     marginRight: WP('3%'),
@@ -72,10 +72,10 @@ const style = StyleSheet.create({
   notify: {
     backgroundColor: 'red',
     position: 'absolute',
-    top: 0,
+    top: -4,
     left: -5,
     borderRadius: 50,
-    width: WP('4.5%'),
+    width: WP('4.3%'),
     height: HP('2.8%'),
     alignItems: 'center',
   },

@@ -10,6 +10,7 @@ import DeviceInfo from 'react-native-device-info';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import SplashScreen from 'react-native-splash-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Entypo from 'react-native-vector-icons/Entypo';
 import HeaderMain from '../../../components/HeaderMain';
 import HorizontalCategories from '../../../components/horizontalCategories';
 import Post from '../../../components/Post';
@@ -76,6 +77,9 @@ const FeedStack = ({navigation}) => {
   const CarouselCardItem = ({item, index}) => {
     return <CategoryPost showPostImage={false} navigation={navigation} />;
   };
+  const drawerOpen = () => {
+    navigation.toggleDrawer();
+  };
   useEffect(() => {
     setSelectedCategory([{id: category[0]?.id}]);
     SplashScreen.hide();
@@ -90,15 +94,29 @@ const FeedStack = ({navigation}) => {
     console.log('function run on device Rotation', isLandscape);
   });
   return (
-    <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
+    <View
+      style={[
+        styles.mainContainer,
+        styles.paddingHorizontal2Percent,
+        styles.bgWhite,
+      ]}>
       <HeaderMain
-        leftIcon={'ios-grid'}
+        leftIcon={'ios-menu-sharp'}
         showSearch={true}
         showNotifications={true}
-        headerText={'Welcome, Rajesh'}
+        headerText={'HOME'}
         navigation={navigation}
+        navigateLeftIcon={drawerOpen}
       />
       <ScrollView>
+        <Text
+          style={[
+            style.mainHeading,
+            styles.marginHalfPercent,
+            {marginLeft: WP('4%')},
+          ]}>
+          Welcome, John
+        </Text>
         <TouchableOpacity
           activeOpacity={0.9}
           style={style.searchBar}
@@ -107,7 +125,7 @@ const FeedStack = ({navigation}) => {
         </TouchableOpacity>
         <ScrollView
           horizontal={true}
-          style={[styles.paddingHorizontal4Percent, styles.margin3Percent]}>
+          style={[styles.paddingHorizontal4Percent, styles.margin1Percent]}>
           <HorizontalCategories
             category={category}
             selectCategory={selectCategory}
@@ -117,54 +135,27 @@ const FeedStack = ({navigation}) => {
         <View
           style={[
             styles.directionRow,
-            styles.justifyEnd,
-            styles.margin3Percent,
+            styles.justifySpaceBetween,
+            styles.margin2Percent,
+            styles.paddingHorizontal2Percent,
             {marginRight: WP('4%')},
           ]}>
           <Text style={style.normalText}>Sort By: </Text>
-          <View
-            style={[
-              style.filterSelection,
-              styles.w_25,
-              styles.directionRow,
-              styles.justifySpaceBetween,
-            ]}>
-            <Text style={style.filterText}>Latest</Text>
-            <TouchableOpacity
-              activeOpacity={0.9}
-              style={[style.chevoronBg, styles.alignCenter]}>
-              <AntDesign name={'down'} size={13} color={colors.white} />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            style={[styles.directionRow, styles.justifySpaceBetween]}>
+            <Text style={[style.filterText, , {marginRight: WP('1%')}]}>
+              Latest
+            </Text>
+            <Entypo
+              name="arrow-with-circle-down"
+              size={size.xxlarge}
+              color={colors.primary}
+            />
+          </TouchableOpacity>
         </View>
         <Post showPostImage={false} showTag={true} navigation={navigation} />
         <Post showPostImage={true} showTag={false} navigation={navigation} />
-        <Carousel
-          layout="tinder"
-          layoutCardOffset={9}
-          ref={isCarousel}
-          data={data}
-          renderItem={CarouselCardItem}
-          sliderWidth={SLIDER_WIDTH}
-          itemWidth={ITEM_WIDTH}
-          inactiveSlideShift={0}
-          useScrollView={true}
-        />
-        <Pagination
-          dotsLength={data.length}
-          activeDotIndex={index}
-          carouselRef={isCarousel}
-          dotStyle={{
-            width: 10,
-            height: 10,
-            borderRadius: 5,
-            marginHorizontal: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.92)',
-          }}
-          inactiveDotOpacity={0.4}
-          inactiveDotScale={0.6}
-          tappableDots={true}
-        />
       </ScrollView>
     </View>
   );
