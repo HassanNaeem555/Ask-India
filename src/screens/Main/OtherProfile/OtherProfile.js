@@ -23,14 +23,18 @@ const OtherProfile = ({navigation}) => {
   const selectTab = item => {
     setSelectedTab(item);
   };
+  const navgateBack = () => {
+    navigation.goBack();
+  };
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
       <HeaderMain
-        leftIcon={'ios-grid'}
+        leftIcon={'chevron-back'}
         showSearch={false}
         showNotifications={true}
-        headerText={'Other Profile'}
+        headerText={'OTHER PROFILE'}
         navigation={navigation}
+        navigateLeftIcon={navgateBack}
       />
       <ScrollView>
         <Card containerStyle={{marginHorizontal: 0, overflow: 'hidden'}}>

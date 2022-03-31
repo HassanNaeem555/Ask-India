@@ -118,21 +118,17 @@ export default function MyTabBar({state, descriptors, navigation}) {
               {label === 'Profile' && (
                 <View
                   style={{
-                    backgroundColor: 'white',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    position: 'absolute',
-                    zIndex: 1,
-                    top: '-88%',
-                    width: 50,
-                    height: 50,
-                    elevation: 4,
-                    borderRadius: 25,
+                    position: 'relative',
+                    zIndex: 0,
+                    top: '0%',
+                    borderRadius: 0,
                   }}>
                   <FontAwesome
                     style={{
-                      position: 'absolute',
-                      zIndex: 1,
+                      position: 'relative',
+                      zIndex: 0,
                     }}
                     name="user"
                     size={size.h1}
@@ -140,7 +136,7 @@ export default function MyTabBar({state, descriptors, navigation}) {
                   />
                   <Text
                     style={{
-                      top: '85%',
+                      top: 3,
                       color: isFocused ? colors.primary : colors.black,
                       fontSize: size.tiny,
                     }}>
