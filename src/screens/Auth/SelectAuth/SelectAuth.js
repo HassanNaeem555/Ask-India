@@ -1,7 +1,8 @@
-import React, {useEffect} from 'react';
-import {View, ScrollView} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, ScrollView, Text} from 'react-native';
 import {colors, HP} from '../../../utilities';
 import SplashScreen from 'react-native-splash-screen';
+import {CheckBox} from 'react-native-elements';
 import {appLogos} from '../../../assets';
 import Logo from '../../../components/logo';
 import SocialButton from '../../../components/socialButton';
@@ -9,6 +10,7 @@ import styles from '../style';
 import style from './styles';
 // redux stuff
 const SelectAuth = ({navigation}) => {
+  const [termsCondition, setTermsCondition] = useState(false);
   const {navigate} = navigation;
   useEffect(() => {
     SplashScreen.hide();
@@ -64,6 +66,14 @@ const SelectAuth = ({navigation}) => {
           iconText={'Signin with Google'}
           navigate={navigate}
         />
+        <View style={styles.justifyEnd}>
+          <Text style={[style.loginText, styles.marginVerticle4Percent]}>
+            Don't have an account?{' '}
+            <Text style={style.loginText1} onPress={() => navigate('Signup')}>
+              Sign up here
+            </Text>
+          </Text>
+        </View>
       </View>
     </ScrollView>
   );

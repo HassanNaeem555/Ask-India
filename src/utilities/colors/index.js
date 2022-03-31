@@ -1,6 +1,8 @@
 export const colors = {
   // App Colors
   primary: '#00A1EF',
+  primarySelected: '#0095DE',
+  primarySecondaryMix: '#06A4F1',
   secondary: '#40C1FF',
   blue: '#397EE6',
   white: '#FFFFFF',

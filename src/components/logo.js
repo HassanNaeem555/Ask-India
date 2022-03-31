@@ -19,6 +19,6 @@ export default Logo;
 const style = StyleSheet.create({
   Logo: {
     width: WP('100%'),
-    height: HP('22%'),
+    height: HP('20%'),
   },
 });

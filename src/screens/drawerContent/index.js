@@ -8,82 +8,111 @@ import {
   Image,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {colors, WP, HP} from '../../utilities';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {colors, WP, HP, size} from '../../utilities';
 import {appImages} from '../../assets';
 import styles from '../Main/style';
 
 export default function DrawerContent({navigation}) {
   console.log('drawer Navigation');
   return (
-    <>
+    <View style={styles.mainContainer}>
       <View style={[style.header, styles.justifyCenter, styles.alignCenter]}>
-        <View style={styles.margin1Percent}>
+        <View
+          style={[
+            styles.margin1Percent,
+            styles.justifyCenter,
+            styles.alignCenter,
+          ]}>
           <Image source={appImages.profileImage} style={style.profileImage} />
-          <Text style={style.name}>JOHN SMITH</Text>
+          <Text style={[style.name, styles.margin1Percent]}>JOHN SMITH</Text>
           <Text style={style.email}>johnsmith@gmail.com</Text>
         </View>
       </View>
-      <View style={style.container} showsVerticalScrollIndicator={false}>
-        <TouchableOpacity
-          style={style.itemContainer}
-          onPress={() => {
-            navigation.navigate('Home');
-            navigation.closeDrawer();
-          }}>
-          <Text style={style.itemText}>
-            <AntDesign name={'home'} size={19} color={colors.primary} />
-            {'\b \b \b'}
-            Home
-          </Text>
-        </TouchableOpacity>
-        {/* {isLogin && (
+      <View style={style.container}>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <TouchableOpacity
-            style={styles.itemContainer}
-            onPress={() => navigation.navigate('UserProfile')}>
-            <Text style={styles.itemText}>
-              <AntDesign name={'user'} size={19} color={colors.primary} />
+            style={style.itemContainer}
+            onPress={() => {
+              navigation.navigate('Home');
+              navigation.closeDrawer();
+            }}>
+            <Text style={style.itemText}>
+              <Entypo name={'home'} size={size.h4} color={colors.white} />
               {'\b \b \b'}
-              Profile
+              Home
             </Text>
           </TouchableOpacity>
-        )} */}
-        <TouchableOpacity
-          style={{
-            ...style.itemContainer,
-            borderBottomWidth: 1,
-            borderBottomColor: colors.lightGray,
-          }}
-          onPress={() => navigation.navigate('ContactUs')}>
-          <Text style={style.itemText}>
-            <AntDesign name={'contacts'} size={19} color={colors.primary} />
-            {'\b \b \b'}
-            Contact Us
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={style.itemContainer}
-          onPress={() => navigation.navigate('Faq')}>
-          <Text style={style.itemText}>
-            <AntDesign
-              name={'questioncircleo'}
-              size={19}
-              color={colors.primary}
-            />
-            {'\b \b \b'}
-            FAQ's
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={style.itemContainer}
-          onPress={() => navigation.navigate('TermsAndConditions')}>
-          <Text style={style.itemText}>
-            <AntDesign name={'flag'} size={19} color={colors.primary} />
-            {'\b \b \b'}
-            Terms & Conditions
-          </Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              ...style.itemContainer,
+            }}
+            onPress={() => navigation.navigate('ContactUs')}>
+            <Text style={style.itemText}>
+              <Entypo name={'chat'} size={size.h4} color={colors.white} />
+              {'\b \b \b'}
+              Messages
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={style.itemContainer}
+            onPress={() => navigation.navigate('Faq')}>
+            <Text style={style.itemText}>
+              <Ionicons name={'settings'} size={size.h4} color={colors.white} />
+              {'\b \b \b'}
+              Settings
+            </Text>
+          </TouchableOpacity>
+          <View
+            style={{
+              backgroundColor: colors.primarySecondaryMix,
+              marginLeft: WP('5%'),
+            }}>
+            <TouchableOpacity
+              style={style.itemContainer}
+              onPress={() => navigation.navigate('TermsAndConditions')}>
+              <Text style={style.itemText}>
+                <AntDesign name={'flag'} size={19} color={colors.primary} />
+                {'\b \b \b'}
+                Terms & Conditions
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={style.itemContainer}
+              onPress={() => navigation.navigate('TermsAndConditions')}>
+              <Text style={style.itemText}>
+                <AntDesign name={'flag'} size={19} color={colors.primary} />
+                {'\b \b \b'}
+                Privacy Policy
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={style.itemContainer}
+              onPress={() => navigation.navigate('TermsAndConditions')}>
+              <Text style={style.itemText}>
+                <AntDesign name={'flag'} size={19} color={colors.primary} />
+                {'\b \b \b'}
+                Change Password
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            style={style.itemContainer}
+            onPress={() => navigation.navigate('Faq')}>
+            <Text style={style.itemText}>
+              <Ionicons
+                name={'log-out-sharp'}
+                size={size.h4}
+                color={colors.white}
+              />
+              {'\b \b \b'}
+              Logout
+            </Text>
+          </TouchableOpacity>
+        </ScrollView>
       </View>
-    </>
+    </View>
   );
 }
 
@@ -104,11 +133,11 @@ const style = StyleSheet.create({
     borderRadius: 50,
   },
   name: {
-    fontSize: 16,
-    fontWeight: '700',
+    fontSize: size.medium,
+    fontWeight: '400',
   },
   email: {
-    fontSize: 14,
+    fontSize: size.tiny,
   },
   itemContainer: {
     flexDirection: 'row',
@@ -118,8 +147,8 @@ const style = StyleSheet.create({
     paddingHorizontal: 15,
   },
   itemText: {
-    fontSize: 16,
-    color: colors.gray,
+    fontSize: size.normal,
+    color: colors.white,
     width: WP('60%'),
   },
   icon: {

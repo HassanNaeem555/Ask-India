@@ -13,12 +13,12 @@ const HorizontalCategories = ({category, selectCategory, selectedCategory}) => {
             {selectedCategory.length > 0 &&
             selectedCategory.filter(e => e?.id === item?.id).length > 0 ? (
               <LinearGradient
+                key={index}
                 colors={[colors.secondary, colors.primary]}
                 start={{x: 0, y: 1}}
                 end={{x: 0, y: 0}}
                 style={[styles.margin1Percent, {borderRadius: 15}]}>
                 <TouchableOpacity
-                  key={index}
                   activeOpacity={0.9}
                   onPress={() => {
                     selectCategory(item?.id);
