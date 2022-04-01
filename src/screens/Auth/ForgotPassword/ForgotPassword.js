@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text} from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {appLogos} from '../../../assets';
+import HeaderMain from '../../../components/HeaderMain';
 import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
@@ -15,38 +17,43 @@ const ForgotPassword = ({navigation}) => {
     setEmail(val);
   };
   const handlePress = () => {
-    navigation.pop();
+    navigation.navigate('OTP', {from: 'forget'});
   };
   return (
-    <ScrollView
-      style={styles.mainContainer}
-      contentContainerStyle={[styles.alignCenter, {flexGrow: 1, padding: 16}]}>
-      <View
-        style={{
-          alignSelf: 'stretch',
-          alignItems: 'center',
-        }}>
-        <Logo logo={appLogos.logo} marginVertical={HP('5%')} />
-        <Text style={[style.forgotText, styles.marginVerticle2Percent]}>
-          Forgot Password
-        </Text>
-        <CustomInput
-          placeholder={'Enter Your Email Address'}
-          iconName={'email'}
-          iconType={'fontisto'}
-          leftIconShow={true}
-          error_message={errorMsg}
-          change={onChangeEmail}
+    <View style={[styles.mainContainer, {padding: 16}]}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
+        showsVerticalScrollIndicator={false}>
+        <HeaderMain
+          navigateLeftIcon={navigation.pop}
+          leftIcon={'chevron-back'}
+          showSearch={false}
+          showNotifications={false}
+          headerText={'FORGET PASSWORD'}
+          navigation={navigation}
         />
-        <View style={[styles.alignCenter, styles.marginVerticle2Percent]}>
-          <Button
-            buttonText={'DONE'}
-            handlePress={handlePress}
-            width={WP('90%')}
+        <View style={[styles.alignCenter, styles.alignSelfStretch]}>
+          <Logo logo={appLogos.logo} marginVertical={HP('5%')} />
+          <CustomInput
+            placeholder={'Enter Your Email Address'}
+            iconName={'email'}
+            iconType={'fontisto'}
+            leftIconShow={true}
+            error_message={errorMsg}
+            change={onChangeEmail}
           />
+          <View style={[styles.alignCenter, styles.marginVerticle2Percent]}>
+            <Button
+              buttonText={'GET CODE'}
+              handlePress={handlePress}
+              width={WP('90%')}
+            />
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </KeyboardAwareScrollView>
+    </View>
   );
 };
 

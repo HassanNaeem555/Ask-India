@@ -6,9 +6,9 @@ import {colors, HP, WP, size} from '../utilities';
 const Button = ({buttonText, handlePress, width, rightMargin}) => {
   return (
     <LinearGradient
-      colors={['#40C1FF', colors.primary]}
-      start={{x: 0, y: 1}}
-      end={{x: 0, y: 0}}
+      colors={[colors.primary, colors.secondary]}
+      start={{x: 1, y: 1}}
+      end={{x: 1, y: 0}}
       style={[
         styles.margin1Percent,
         {borderRadius: 15, width: width, marginRight: rightMargin},
@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     alignItems: 'center',
     padding: 15,
-    borderRadius: 5,
   },
   buttonText: {
     fontSize: size.small,

@@ -4,6 +4,7 @@ import {colors, HP} from '../../../utilities';
 import SplashScreen from 'react-native-splash-screen';
 import {CheckBox} from 'react-native-elements';
 import {appLogos} from '../../../assets';
+import FooterAuth from '../../../components/footerAuth';
 import Logo from '../../../components/logo';
 import SocialButton from '../../../components/socialButton';
 import styles from '../style';
@@ -16,66 +17,58 @@ const SelectAuth = ({navigation}) => {
     SplashScreen.hide();
   }, []);
   return (
-    <ScrollView
-      contentContainerStyle={[
-        styles.alignCenter,
-        styles.justifyEvenly,
-        {flexGrow: 1},
-      ]}
-      style={styles.mainContainer}>
-      <View
-        style={{
-          alignSelf: 'stretch',
-          alignItems: 'center',
-        }}>
-        <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
-        <SocialButton
-          backgroundColor={colors.primary}
-          gradientColor={colors.secondary}
-          iconName={'phone'}
-          iconText={'Signin with Phone'}
-          navigate={navigate}
-          screen_name={'Agreement'}
-        />
-        <SocialButton
-          backgroundColor={colors.primary}
-          gradientColor={colors.secondary}
-          iconName={'mail'}
-          iconText={'Signin with Email'}
-          navigate={navigate}
-          screen_name={'Login'}
-        />
-        <SocialButton
-          backgroundColor={'#4A4949'}
-          gradientColor={'#1E1E1E'}
-          iconName={'apple1'}
-          iconText={'Signin with Apple'}
-          navigate={navigate}
-        />
-        <SocialButton
-          backgroundColor={colors.facebookColor}
-          gradientColor={'#1778F1'}
-          iconName={'facebook-square'}
-          iconText={'Signin with Facebook'}
-          navigate={navigate}
-        />
-        <SocialButton
-          backgroundColor={colors.googleColor}
-          gradientColor={'#EF4235'}
-          iconName={'google'}
-          iconText={'Signin with Google'}
-          navigate={navigate}
-        />
-        <View style={styles.justifyEnd}>
-          <Text style={[style.loginText, styles.marginVerticle4Percent]}>
-            Don't have an account?{' '}
-            <Text style={style.loginText1} onPress={() => navigate('Signup')}>
-              Sign up here
-            </Text>
-          </Text>
+    <View style={styles.mainContainer}>
+      <View style={styles.flex8}>
+        <View style={[styles.alignCenter, styles.alignSelfStretch]}>
+          <Logo logo={appLogos.logo} marginVertical={HP('4%')} />
+          <SocialButton
+            backgroundColor={colors.primary}
+            gradientColor={colors.secondary}
+            iconName={'phone'}
+            iconText={'Signin with Phone'}
+            navigate={navigate}
+            screen_name={'MobileNumber'}
+          />
+          <SocialButton
+            backgroundColor={colors.primary}
+            gradientColor={colors.secondary}
+            iconName={'mail'}
+            iconText={'Signin with Email'}
+            navigate={navigate}
+            screen_name={'Login'}
+          />
+          <SocialButton
+            backgroundColor={'#4A4949'}
+            gradientColor={'#1E1E1E'}
+            iconName={'apple1'}
+            iconText={'Signin with Apple'}
+            navigate={navigate}
+          />
+          <SocialButton
+            backgroundColor={colors.facebookColor}
+            gradientColor={'#1778F1'}
+            iconName={'facebook-square'}
+            iconText={'Signin with Facebook'}
+            navigate={navigate}
+          />
+          <SocialButton
+            backgroundColor={colors.googleColor}
+            gradientColor={'#EF4235'}
+            iconName={'google'}
+            iconText={'Signin with Google'}
+            navigate={navigate}
+          />
         </View>
       </View>
-    </ScrollView>
+      <View style={[styles.justifyCenter, styles.alignCenter, styles.flex2]}>
+        <FooterAuth
+          mainText={"Don't have an account?"}
+          where={'Sign up here'}
+          navigation={navigation}
+          screen_name={'Signup'}
+        />
+      </View>
+    </View>
   );
 };
 

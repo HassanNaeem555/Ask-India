@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+import HeaderMain from '../../../components/HeaderMain';
+import Logo from '../../../components/logo';
 import {appLogos} from '../../../assets';
-import Img from '../../../components/Img';
-import ButtonNoBg from '../../../components/ButtonNoBg';
 import Button from '../../../components/Button';
-import {WP, HP} from '../../../utilities';
+import {colors, WP, HP} from '../../../utilities';
 import styles from '../style';
 import style from './styles';
 
@@ -74,67 +75,74 @@ const EnrolledProgram = ({navigation}) => {
   };
   console.log('selectedProgram', selectedProgram);
   return (
-    <ScrollView
-      style={styles.mainContainer}
-      contentContainerStyle={[styles.alignCenter, {flexGrow: 1, padding: 16}]}>
-      <View style={styles.alignSelfStretch}>
-        <Img
-          local={true}
-          resizeMode={'contain'}
-          style={style.Logo}
-          src={appLogos?.logo}
+    <View style={[styles.mainContainer, {padding: 16}]}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
+        showsVerticalScrollIndicator={false}>
+        <HeaderMain
+          navigateLeftIcon={navigation.pop}
+          leftIcon={'chevron-back'}
+          showSearch={false}
+          showNotifications={false}
+          headerText={'SELECT ENROLLED'}
+          navigation={navigation}
         />
-        <Text style={style.subHeading}>Select Program Enrolled</Text>
-        {data.map((item, index) => {
-          return (
-            <TouchableOpacity
-              key={index}
-              activeOpacity={0.9}
-              style={[
-                styles.directionRow,
-                styles.justifySpaceBetween,
-                styles.margin1Percent,
-                styles.padding2Percent,
-                styles.paddingHorizontal4Percent,
-                style.customSelectionBox,
-              ]}
-              onPress={() => {
-                handlePress(item?.id);
-              }}>
-              <Text style={style.selectionBoxText}>{item?.title}</Text>
-              <View
-                style={
+        <View style={styles.alignSelfStretch}>
+          <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
+          {data.map((item, index) => {
+            return (
+              <TouchableOpacity
+                key={index}
+                activeOpacity={0.9}
+                style={[
+                  styles.directionRow,
+                  styles.justifySpaceBetween,
+                  styles.margin1Percent,
+                  styles.padding2Percent,
+                  styles.paddingHorizontal4Percent,
+                  style.customSelectionBox,
                   selectedProgram.length > 0 &&
                   selectedProgram.filter(e => e[0]?.id === item?.id).length > 0
-                    ? [
-                        style.customSelectionCircle,
-                        style.customSelectionCircleActive,
-                      ]
-                    : style.customSelectionCircle
-                }></View>
-            </TouchableOpacity>
-          );
-        })}
-        <View
-          style={[
-            styles.directionRow,
-            styles.alignCenter,
-            styles.marginVerticle2Percent,
-          ]}>
-          <ButtonNoBg
-            buttonText={'PREVIOUS'}
-            handlePress={goBack}
-            width={WP('45%')}
-            rightMargin={HP('1%')}
-          />
-          <Button
-            buttonText={'NEXT'}
-            handlePress={handleNavigate}
-            width={WP('45%')}
-          />
+                    ? {
+                        borderColor: colors.primary,
+                      }
+                    : {borderColor: colors.lightGray},
+                ]}
+                onPress={() => {
+                  handlePress(item?.id);
+                }}>
+                <Text style={style.selectionBoxText}>{item?.title}</Text>
+                <View
+                  style={
+                    selectedProgram.length > 0 &&
+                    selectedProgram.filter(e => e[0]?.id === item?.id).length >
+                      0
+                      ? [
+                          style.customSelectionCircle,
+                          style.customSelectionCircleActive,
+                        ]
+                      : style.customSelectionCircle
+                  }></View>
+              </TouchableOpacity>
+            );
+          })}
+          <View
+            style={[
+              styles.directionRow,
+              styles.alignCenter,
+              styles.marginVerticle2Percent,
+            ]}>
+            <Button
+              buttonText={'CONTINUE'}
+              handlePress={handleNavigate}
+              width={WP('90%')}
+            />
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </KeyboardAwareScrollView>
+    </View>
   );
 };
 

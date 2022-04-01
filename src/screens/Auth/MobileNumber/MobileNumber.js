@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {appLogos} from '../../../assets';
 import {colors, size, WP, HP} from '../../../utilities';
+import HeaderMain from '../../../components/HeaderMain';
+import FooterAuth from '../../../components/footerAuth';
 import CountryPicker from 'react-native-country-picker-modal';
 import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
@@ -37,56 +40,75 @@ const MobileNumber = ({navigation}) => {
     navigation.navigate('OTP');
   };
   return (
-    <ScrollView
-      style={styles.mainContainer}
-      contentContainerStyle={[styles.alignCenter, {flexGrow: 1, padding: 16}]}>
-      <View
-        style={{
-          alignSelf: 'stretch',
-          alignItems: 'center',
-        }}>
-        {pickerEnabled && (
-          <CountryPicker
-            {...{
-              withFilter,
-              withAlphaFilter,
-              withCallingCode,
-              onSelect,
-            }}
-            onClose={() => setpickerEnabled(false)}
-            visible
+    <View style={[styles.mainContainer, {padding: 16}]}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.flex8}>
+          <HeaderMain
+            navigateLeftIcon={navigation.pop}
+            leftIcon={'chevron-back'}
+            showSearch={false}
+            showNotifications={false}
+            headerText={'PHONE NUMBER'}
+            navigation={navigation}
           />
-        )}
-        <Logo logo={appLogos.logo} marginVertical={HP('5%')} />
-        <View style={[styles.directionRow, styles.marginVerticle2Percent]}>
-          <View style={style.inputLeftPanel}>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => setpickerEnabled(true)}
-              style={style.countryPickerContainer}>
-              <Text style={{color: colors.white}}>
-                {country !== null ? `+${country?.callingCode[0]}` : `+962`}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={style.inputRightPanel}>
-            <CustomInput
-              placeholder={'000 0000 0000'}
-              iconName={'phone'}
-              iconType={'fontisto'}
-              leftIconShow={true}
-            />
+          <View style={[styles.alignCenter, styles.alignSelfStretch]}>
+            {pickerEnabled && (
+              <CountryPicker
+                {...{
+                  withFilter,
+                  withAlphaFilter,
+                  withCallingCode,
+                  onSelect,
+                }}
+                onClose={() => setpickerEnabled(false)}
+                visible
+              />
+            )}
+            <Logo logo={appLogos.logo} marginVertical={HP('4%')} />
+            <View
+              style={[styles.directionRow, styles.marginVerticle1HalfPercent]}>
+              <View style={style.inputLeftPanel}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => setpickerEnabled(true)}
+                  style={style.countryPickerContainer}>
+                  <Text style={{color: colors.white}}>
+                    {country !== null ? `+${country?.callingCode[0]}` : `+962`}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={style.inputRightPanel}>
+                <CustomInput
+                  placeholder={'000 0000 0000'}
+                  iconName={'phone'}
+                  iconType={'fontisto'}
+                  leftIconShow={true}
+                />
+              </View>
+            </View>
+            <View style={[styles.alignCenter, styles.marginVerticle1Percent]}>
+              <Button
+                buttonText={'CONTINUE'}
+                handlePress={handlePress}
+                width={WP('90%')}
+              />
+            </View>
           </View>
         </View>
-        <View style={[styles.alignCenter, styles.marginVerticle2Percent]}>
-          <Button
-            buttonText={'NEXT'}
-            handlePress={handlePress}
-            width={WP('90%')}
+        <View style={[styles.justifyCenter, styles.alignCenter, styles.flex2]}>
+          <FooterAuth
+            mainText={'Already have an account ? '}
+            where={'Login here'}
+            navigation={navigation}
+            screen_name={'Login'}
           />
         </View>
-      </View>
-    </ScrollView>
+      </KeyboardAwareScrollView>
+    </View>
   );
 };
 

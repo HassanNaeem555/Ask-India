@@ -34,7 +34,8 @@ const navigation = ({initialRoute}) => {
         headerTitleAllowFontScaling: true,
         gestureDirection: 'horizontal',
         gestureEnabled: true,
-      }}>
+      }}
+      animation="fade">
       <RootStack.Screen
         options={{
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,

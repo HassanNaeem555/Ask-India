@@ -4,6 +4,8 @@ import SplashScreen from 'react-native-splash-screen';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {appLogos} from '../../../assets';
 import {WP, HP} from '../../../utilities';
+import HeaderMain from '../../../components/HeaderMain';
+import FooterAuth from '../../../components/footerAuth';
 import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
@@ -44,63 +46,70 @@ const SignUp = ({navigation}) => {
     SplashScreen.hide();
   }, []);
   return (
-    <KeyboardAwareScrollView
-      contentContainerStyle={[
-        styles.alignCenter,
-        styles.justifyEvenly,
-        {flexGrow: 1, padding: 16},
-      ]}
-      style={styles.mainContainer}
-      showsVerticalScrollIndicator={false}>
-      <View
-        style={{
-          alignSelf: 'stretch',
-          alignItems: 'center',
-        }}>
-        <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
-        <CustomInput
-          placeholder={'Enter Your Email Address'}
-          iconName={'email'}
-          iconType={'fontisto'}
-          leftIconShow={true}
-          error_message={errorMsg}
-          change={onChangeEmail}
+    <View style={[styles.mainContainer, {padding: 16}]}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
+        showsVerticalScrollIndicator={false}>
+        <HeaderMain
+          navigateLeftIcon={navigation.pop}
+          leftIcon={'chevron-back'}
+          showSearch={false}
+          showNotifications={false}
+          headerText={'SIGNUP'}
+          navigation={navigation}
         />
-        <CustomInput
-          placeholder={'Enter Your Password'}
-          iconName={showPassword ? 'lock' : 'lock-open'}
-          iconType={'simple-line-icons'}
-          leftIconShow={true}
-          handlePress={handleShowPassword}
-          secureTextEntry={showPassword}
-          error_message={errorMsgPassword}
-          change={onChangePassword}
-        />
-        <CustomInput
-          placeholder={'Confirm Password'}
-          iconName={showConfirmPassword ? 'lock' : 'lock-open'}
-          iconType={'simple-line-icons'}
-          leftIconShow={true}
-          handlePress={handleShowConfirmPassword}
-          secureTextEntry={showConfirmPassword}
-          error_message={errorMsgPassword}
-          change={onChangeConfirmPassword}
-        />
-        <View style={[styles.alignCenter, styles.marginVerticle2Percent]}>
-          <Button
-            buttonText={'SIGNUP'}
-            handlePress={handlePress}
-            width={WP('90%')}
+        <View style={styles.flex8}>
+          <View style={[styles.alignCenter, styles.alignSelfStretch]}>
+            <Logo logo={appLogos.logo} marginVertical={HP('3%')} />
+            <CustomInput
+              placeholder={'Enter Your Email Address'}
+              iconName={'email'}
+              iconType={'fontisto'}
+              leftIconShow={true}
+              error_message={errorMsg}
+              change={onChangeEmail}
+            />
+            <CustomInput
+              placeholder={'Enter Your Password'}
+              iconName={showPassword ? 'lock' : 'lock-open'}
+              iconType={'simple-line-icons'}
+              leftIconShow={true}
+              handlePress={handleShowPassword}
+              secureTextEntry={showPassword}
+              error_message={errorMsgPassword}
+              change={onChangePassword}
+            />
+            <CustomInput
+              placeholder={'Confirm Password'}
+              iconName={showConfirmPassword ? 'lock' : 'lock-open'}
+              iconType={'simple-line-icons'}
+              leftIconShow={true}
+              handlePress={handleShowConfirmPassword}
+              secureTextEntry={showConfirmPassword}
+              error_message={errorMsgPassword}
+              change={onChangeConfirmPassword}
+            />
+            <View style={[styles.alignCenter, styles.marginVerticle2Percent]}>
+              <Button
+                buttonText={'SIGNUP'}
+                handlePress={handlePress}
+                width={WP('90%')}
+              />
+            </View>
+          </View>
+        </View>
+        <View style={[styles.justifyCenter, styles.alignCenter, styles.flex2]}>
+          <FooterAuth
+            mainText={'Already have an account ? '}
+            where={'Login here'}
+            navigation={navigation}
+            screen_name={'Login'}
           />
         </View>
-        <Text style={[style.loginText, styles.marginVerticle4Percent]}>
-          Don't have an account?{' '}
-          <Text style={style.loginText1} onPress={() => navigate('Login')}>
-            Login
-          </Text>
-        </Text>
-      </View>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
+    </View>
   );
 };
 

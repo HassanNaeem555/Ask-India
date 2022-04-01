@@ -6,15 +6,6 @@ const style = StyleSheet.create({
     width: WP('100%'),
     height: HP('30%'),
   },
-  loginText: {
-    fontSize: size.normal,
-    color: colors.gray,
-  },
-  loginText1: {
-    fontSize: size.small,
-    color: colors.black,
-    fontWeight: 'bold',
-  },
 });
 
 export default style;

@@ -13,7 +13,7 @@ const style = StyleSheet.create({
   },
   customSelectionBox: {
     borderWidth: 1,
-    borderColor: colors.gray,
+    borderRadius: 10,
   },
   selectionBoxText: {
     fontSize: size.small,

@@ -1,166 +1,147 @@
-import React from 'react';
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+import HeaderMain from '../../../components/HeaderMain';
+import Logo from '../../../components/logo';
+import {appLogos} from '../../../assets';
 import Button from '../../../components/Button';
-import {WP, HP} from '../../../utilities';
+import {colors, WP, HP} from '../../../utilities';
 import styles from '../style';
 import style from './styles';
 
-const topics = [
+const data = [
   {
+    title: '11th / 12th',
     id: 0,
-    title: 'Technology',
   },
   {
+    title: 'Bachelors of Arts / MA',
     id: 1,
-    title: 'Start ups',
   },
   {
+    title: 'Bachelors of Commerce / Mcom',
     id: 2,
-    title: 'Current affair',
   },
   {
+    title: 'Bachelors of Science / Bsc / BTech',
     id: 3,
-    title: 'Education Related News',
   },
   {
+    title: 'Bachelors of Agriculture / Master',
     id: 4,
-    title: 'Crypto Currency',
   },
   {
+    title: 'UPSC',
     id: 5,
-    title: 'Stock Market',
   },
   {
+    title: 'SSC',
     id: 6,
-    title: 'Travel',
   },
   {
+    title: 'Banking',
     id: 7,
-    title: 'Photography',
   },
   {
+    title: 'State PSC',
     id: 8,
-    title: 'Sports',
   },
   {
+    title: 'Others',
     id: 9,
-    title: 'Online Marketing',
-  },
-  {
-    id: 10,
-    title: 'Interview',
-  },
-  {
-    id: 11,
-    title: 'Group Discussion',
   },
 ];
 const TopicFollow = ({navigation, route}) => {
-  const {id} = route?.params;
-  const handlePress = () => {
+  const {id} = route.params;
+  const [selectedProgram, setSelectedProgram] = useState([]);
+  const handlePress = id => {
+    const foundItem = selectedProgram.filter(e => e[0]?.id === id);
+    if (foundItem && foundItem.length > 0) {
+      const foundItem = selectedProgram.filter(e => e[0]?.id !== id);
+      setSelectedProgram(foundItem);
+      console.log('inside if');
+    } else {
+      const idSave = [{id}];
+      const newUpdatedArray = [...selectedProgram, idSave];
+      setSelectedProgram(newUpdatedArray);
+      console.log('inside else', idSave);
+    }
+  };
+  const handleNavigate = () => {
+    navigation.pop();
+  };
+  const goBack = () => {
     navigation.goBack();
   };
-  console.log('id', id);
+  console.log('selectedProgram', selectedProgram);
   return (
-    <View style={styles.mainContainer}>
-      <View
-        style={[
-          style.firstSection,
-          styles.directionRow,
-          styles.justifySpaceBetween,
-          styles.alignCenter,
-          styles.paddingHorizontal4Percent,
-        ]}>
-        <TouchableOpacity activeOpacity={0.9} onPress={handlePress}>
-          <AntDesign name={'left'} size={25} color={'#000'} />
-        </TouchableOpacity>
-        <Text style={style.heading}>Follow Topics</Text>
-        <View></View>
-      </View>
-      <View
-        style={[
-          style.secondSection,
-          styles.directionRow,
-          styles.flexWrap,
-          styles.justifyCenter,
-          styles.paddingHorizontal1Percent,
-        ]}>
-        <TouchableOpacity
-          style={[
-            styles.margin1Percent,
-            style.selectionButton,
-            style.selectedButton,
-          ]}>
-          <Text style={style.selectionButtonText}>@NEET</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[style.selectionButton, styles.margin1Percent]}>
-          <Text style={style.selectionButtonText}>@JEE MAIN</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[style.selectionButton, styles.margin1Percent]}>
-          <Text>@JEE ADVANCE</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.margin1Percent, style.selectionButton]}>
-          <Text style={style.selectionButtonText}>@CA FOUNDATION</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[style.selectionButton, styles.margin1Percent]}>
-          <Text style={style.selectionButtonText}>@CS FOUNDATION</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[style.selectionButton, styles.margin1Percent]}>
-          <Text>@SSC</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[style.selectionButton, styles.margin1Percent]}>
-          <Text>@ITI CERTIFICATE COURSES</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[style.selectionButton, styles.margin1Percent]}>
-          <Text>@POLYTECHNIC</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={[style.thirdSection, styles.paddingHorizontal4Percent]}>
-        <ScrollView showsVerticalScrollIndicator={true}>
-          {topics.map((item, index) => {
+    <View style={[styles.mainContainer, {padding: 16}]}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
+        showsVerticalScrollIndicator={false}>
+        <HeaderMain
+          navigateLeftIcon={navigation.pop}
+          leftIcon={'chevron-back'}
+          showSearch={false}
+          showNotifications={false}
+          headerText={'FOLLOW TOPICS'}
+          navigation={navigation}
+        />
+        <View style={styles.alignSelfStretch}>
+          <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
+          {data.map((item, index) => {
             return (
-              <View style={styles.directionRow} key={index}>
-                <TouchableOpacity
-                  style={[
-                    style.selectionTopic,
-                    styles.alignCenter,
-                    styles.padding3Percent,
-                    styles.margin1Percent,
-                    style.selectedTopic,
-                  ]}
-                  activeOpacity={0.9}>
-                  <Text>{item?.title}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    style.selectionTopic,
-                    styles.padding3Percent,
-                    styles.margin1Percent,
-                    styles.alignCenter,
-                  ]}
-                  activeOpacity={0.9}>
-                  <Text>{topics[index + 2]?.title}</Text>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity
+                key={index}
+                activeOpacity={0.9}
+                style={[
+                  styles.directionRow,
+                  styles.justifySpaceBetween,
+                  styles.margin1Percent,
+                  styles.padding2Percent,
+                  styles.paddingHorizontal4Percent,
+                  style.customSelectionBox,
+                  selectedProgram.length > 0 &&
+                  selectedProgram.filter(e => e[0]?.id === item?.id).length > 0
+                    ? {
+                        borderColor: colors.primary,
+                      }
+                    : {borderColor: colors.lightGray},
+                ]}
+                onPress={() => {
+                  handlePress(item?.id);
+                }}>
+                <Text style={style.selectionBoxText}>{item?.title}</Text>
+                <View
+                  style={
+                    selectedProgram.length > 0 &&
+                    selectedProgram.filter(e => e[0]?.id === item?.id).length >
+                      0
+                      ? [
+                          style.customSelectionCircle,
+                          style.customSelectionCircleActive,
+                        ]
+                      : style.customSelectionCircle
+                  }></View>
+              </TouchableOpacity>
             );
           })}
-        </ScrollView>
-      </View>
-      <View style={[style.fourthSection, styles.alignCenter]}>
-        <Button
-          buttonText={'DONE'}
-          handlePress={handlePress}
-          width={WP('90%')}
-        />
-      </View>
+          <View
+            style={[
+              styles.directionRow,
+              styles.alignCenter,
+              styles.marginVerticle2Percent,
+            ]}>
+            <Button
+              buttonText={'DONE'}
+              handlePress={handleNavigate}
+              width={WP('90%')}
+            />
+          </View>
+        </View>
+      </KeyboardAwareScrollView>
     </View>
   );
 };

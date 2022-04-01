@@ -1,42 +1,31 @@
-import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-  ScrollView,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text} from 'react-native';
 import {
   CodeField,
   Cursor,
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
-import Entypo from 'react-native-vector-icons/Entypo';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
+import HeaderMain from '../../../components/HeaderMain';
 import {appLogos} from '../../../assets';
 import {colors, size, WP, HP} from '../../../utilities';
 import Logo from '../../../components/logo';
-import CountDown from 'react-native-countdown-component';
-import Button from '../../../components/Button';
 import styles from '../style';
 import style from './styles';
+
 const CELL_COUNT = 6;
-const {width} = Dimensions.get('screen');
+
 const OTP = ({navigation, route}) => {
+  const {from} = route.params;
   const [value, setValue] = useState('');
   const [enableMask, setEnableMask] = useState(true);
-  const [otpTimer, setOtpTimer] = useState(60 * 2);
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
-  const [errorMsg, setErrorMsg] = useState('');
-  const toggleMask = () => setEnableMask(f => !f);
-
-  const handlePress = () => {
-    navigation.navigate('Continue');
-  };
   const renderCell = ({index, symbol, isFocused}) => {
     let textChild = null;
     if (symbol) {
@@ -54,81 +43,105 @@ const OTP = ({navigation, route}) => {
       </Text>
     );
   };
-  useEffect(() => {
-    return () => {
-      setOtpTimer(0);
-    };
-  }, []);
+  const onCompleteTimer = () => {
+    console.log('onCompleteTimer');
+    if (from && from == 'forget') {
+      navigation.navigate('Login');
+    } else {
+      navigation.navigate('Continue');
+    }
+  };
   return (
-    <View style={[styles.mainContainer, styles.alignCenter, {flexGrow: 1}]}>
-      <View
-        style={{
-          alignSelf: 'stretch',
-          alignItems: 'center',
-        }}>
-        <Logo logo={appLogos.logo} marginVertical={HP('5%')} />
-        <View style={{paddingHorizontal: WP('2%')}}>
-          <View
-            style={[styles.w_100, styles.alignCenter, styles.justifyCenter]}>
-            <Text style={style.heading}>Enter OTP Here</Text>
-            <CodeField
-              ref={ref}
-              {...props}
-              value={value}
-              onChangeText={setValue}
-              cellCount={CELL_COUNT}
-              rootStyle={style.codeFieldRoot}
-              keyboardType="number-pad"
-              textContentType="oneTimeCode"
-              renderCell={renderCell}
-            />
-            {/* <TouchableOpacity
-              activeOpacity={0.9}
-              onPress={toggleMask}
-              style={[styles.directionRow, styles.margin2Percent]}>
-              <Entypo
-                name={enableMask ? 'eye' : 'eye-with-line'}
-                size={size.h4}
-                color={colors.gray}
-              />
-              <Text style={style.toggle}>View Code</Text>
-            </TouchableOpacity> */}
-          </View>
-          <View
-            style={[
-              styles.directionRow,
-              styles.justifySpaceBetween,
-              styles.marginVerticle1Percent,
-              styles.paddingHorizontal6Percent,
-            ]}>
-            <Text style={[style.subHeading]}>
-              Didn't recieve Code?{' '}
-              <Text
-                style={[style.subHeading, styles.fontBold, styles.colorBlack]}
-                onPress={() => console.log('Running')}>
-                Resend
-              </Text>
-            </Text>
-            <CountDown
-              until={otpTimer}
-              size={9}
-              timeLabels={{m: null, s: null}}
-              // onFinish={() => setResent(true)}
-              digitStyle={{backgroundColor: '#FFF', width: 40}}
-              digitTxtStyle={{color: colors.primary, fontSize: size.xsmall}}
-              timeToShow={['M', 'S']}
-              showSeparator={true}
-            />
-          </View>
-        </View>
-        <View style={[styles.alignCenter, styles.marginVerticle2Percent]}>
-          <Button
-            buttonText={'NEXT'}
-            handlePress={handlePress}
-            width={WP('90%')}
+    <View style={[styles.mainContainer, {padding: 16}]}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.flex8}>
+          <HeaderMain
+            navigateLeftIcon={navigation.pop}
+            leftIcon={'chevron-back'}
+            showSearch={false}
+            showNotifications={false}
+            headerText={'VERIFICATION'}
+            navigation={navigation}
           />
+          <View style={[styles.alignCenter, styles.alignSelfStretch]}>
+            <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
+            <View style={{paddingHorizontal: WP('2%')}}>
+              <View
+                style={[
+                  styles.w_100,
+                  styles.alignCenter,
+                  styles.justifyCenter,
+                ]}>
+                <Text
+                  style={[
+                    style.subHeading,
+                    styles.colorBlack,
+                    styles.w_85,
+                    {textAlign: 'center'},
+                  ]}>
+                  We have sent you an email containing VERIFICATION CODE and
+                  instructions, please follow the instructions to verify your
+                  email address.
+                </Text>
+                <CodeField
+                  ref={ref}
+                  {...props}
+                  value={value}
+                  onChangeText={setValue}
+                  cellCount={CELL_COUNT}
+                  rootStyle={style.codeFieldRoot}
+                  keyboardType="number-pad"
+                  textContentType="oneTimeCode"
+                  renderCell={renderCell}
+                  onEndEditing={() => {
+                    navigation.navigate('Continue');
+                  }}
+                />
+              </View>
+              <View
+                style={[
+                  styles.justifyCenter,
+                  styles.alignCenter,
+                  styles.margin2Percent,
+                ]}>
+                <CountdownCircleTimer
+                  isPlaying
+                  duration={120}
+                  colors={[colors.secondary, colors.primary]}
+                  colorsTime={[6, 4]}
+                  size={140}
+                  onComplete={onCompleteTimer}>
+                  {({remainingTime}) => {
+                    const minutes = Math.floor((remainingTime % 3600) / 60);
+                    const seconds = remainingTime % 60;
+                    return (
+                      <Text
+                        style={{
+                          color: colors.primary,
+                          fontSize: size.medium,
+                        }}>{`0${minutes}:${seconds}`}</Text>
+                    );
+                  }}
+                </CountdownCircleTimer>
+              </View>
+            </View>
+          </View>
         </View>
-      </View>
+        <View style={[styles.justifyCenter, styles.alignCenter, styles.flex2]}>
+          <Text style={styles.footerText}>
+            Didn't recieve code ?{' '}
+            <Text
+              style={[styles.footerTextAuth, styles.colorPrimary]}
+              onPress={() => navigation.navigate(screen_name)}>
+              Resend
+            </Text>
+          </Text>
+        </View>
+      </KeyboardAwareScrollView>
     </View>
   );
 };

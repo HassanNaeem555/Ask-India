@@ -8,10 +8,17 @@ const style = StyleSheet.create({
     height: HP('20%'),
     marginBottom: HP('20%'),
   },
+  logo: {
+    width: WP('24%'),
+    height: HP('22%'),
+    zIndex: 10,
+    top: -15,
+  },
   heading: {
-    fontSize: size.medium,
-    color: colors.black,
+    fontSize: size.h6,
+    color: colors.white,
     fontWeight: 'bold',
+    top: 15,
   },
   subHeading: {
     fontSize: size.small,

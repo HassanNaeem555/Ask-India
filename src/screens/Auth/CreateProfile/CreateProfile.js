@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {View, Image, TouchableOpacity} from 'react-native';
+import {View, Image, ImageBackground, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import * as ImagePicker from 'react-native-image-picker';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import HeaderMain from '../../../components/HeaderMain';
 import {appLogos, appImages} from '../../../assets';
 import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
@@ -46,70 +47,73 @@ const CreateProfile = ({navigation}) => {
     navigation.navigate('PlaceLocation');
   };
   return (
-    <KeyboardAwareScrollView
-      contentContainerStyle={[styles.alignCenter, {flexGrow: 1, padding: 16}]}
-      style={styles.mainContainer}
-      showsVerticalScrollIndicator={false}>
-      <View
-        style={{
-          alignSelf: 'stretch',
-          alignItems: 'center',
-        }}>
-        <Logo logo={appLogos.logo} marginVertical={HP('3%')} />
-        <View
-          style={[
-            styles.directionRow,
-            styles.alignCenter,
-            styles.positionRelative,
-          ]}>
-          <Image
-            resizeMode={'contain'}
-            source={profilePhotoUris == '' ? profilePhotoUri : profilePhotoUris}
-            style={[
-              styles.w_30,
-              {
-                height: HP('12%'),
-              },
-            ]}
-          />
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={launchImageLibrary}
-            style={[
-              styles.positionAbsolute,
-              styles.paddingHorizontal2Percent,
-              styles.padding1Percent,
-              {
-                backgroundColor: colors.primary,
-                left: WP('11.5%'),
-                bottom: HP('-1.5%'),
-              },
-            ]}>
-            <AntDesign
-              name={'download'}
-              size={size.normal}
-              color={colors.white}
-            />
-          </TouchableOpacity>
-        </View>
-        <CustomInput
-          label={'Enter Your Name'}
-          placeholder={'Enter Your Name'}
-          iconName={'user'}
-          iconType={'ant-design'}
-          leftIconShow={true}
-          error_message={errorMsg}
-          change={onChangeEmail}
+    <View style={[styles.mainContainer, {padding: 16}]}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
+        showsVerticalScrollIndicator={false}>
+        <HeaderMain
+          navigateLeftIcon={navigation.pop}
+          leftIcon={'chevron-back'}
+          showSearch={false}
+          showNotifications={false}
+          headerText={'CREATE PROFILE'}
+          navigation={navigation}
         />
-        <View style={[styles.alignCenter, styles.marginVerticle5Percent]}>
-          <Button
-            buttonText={'NEXT'}
-            handlePress={handlePress}
-            width={WP('90%')}
-          />
+        <View style={[styles.alignCenter, styles.alignSelfStretch]}>
+          <View
+            style={[
+              styles.directionRow,
+              styles.alignCenter,
+              styles.positionRelative,
+            ]}>
+            <ImageBackground
+              source={appImages.userProfileBg}
+              resizeMode={'contain'}
+              style={{
+                width: WP('30%'),
+                height: HP('20%'),
+              }}>
+              <TouchableOpacity
+                style={{top: HP('4%')}}
+                activeOpacity={0.8}
+                onPress={launchImageLibrary}>
+                <Image
+                  resizeMode={'contain'}
+                  source={
+                    profilePhotoUris == '' ? profilePhotoUri : profilePhotoUris
+                  }
+                  style={[
+                    styles.w_30,
+                    {
+                      height: HP('12%'),
+                    },
+                  ]}
+                />
+              </TouchableOpacity>
+            </ImageBackground>
+          </View>
+          <View style={[styles.margin3Percent, styles.w_90]}>
+            <CustomInput
+              placeholder={'Enter Your Name'}
+              iconName={'user'}
+              iconType={'ant-design'}
+              leftIconShow={true}
+              error_message={errorMsg}
+              change={onChangeEmail}
+            />
+          </View>
+          <View style={[styles.alignCenter, styles.marginVerticle2Percent]}>
+            <Button
+              buttonText={'CONTINUE'}
+              handlePress={handlePress}
+              width={WP('90%')}
+            />
+          </View>
         </View>
-      </View>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
+    </View>
   );
 };
 

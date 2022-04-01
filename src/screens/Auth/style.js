@@ -49,6 +49,26 @@ const styles = StyleSheet.create({
   flexNoWrap: {
     flexWrap: 'nowrap',
   },
+  flex1: {flex: 1},
+  flex1Half: {flex: 1.5},
+  flex2: {flex: 2},
+  flex2Half: {flex: 2.5},
+  flex3: {flex: 3},
+  flex3Half: {flex: 3.5},
+  flex4: {flex: 4},
+  flex4Half: {flex: 4.5},
+  flex5: {flex: 5},
+  flex5Half: {flex: 5.5},
+  flex6: {flex: 6},
+  flex6Half: {flex: 6.5},
+  flex7: {flex: 7},
+  flex7Half: {flex: 7.5},
+  flex8: {flex: 8},
+  flex8Half: {flex: 8.5},
+  flex9: {flex: 9},
+  flex9Half: {flex: 9.5},
+  flex10: {flex: 10},
+  flex10Half: {flex: 10.5},
   w_100: {
     width: WP('100%'),
   },
@@ -214,6 +234,9 @@ const styles = StyleSheet.create({
   colorWhite: {
     color: colors.white,
   },
+  colorPrimary: {
+    color: colors.primary,
+  },
   fontBold: {
     fontWeight: 'bold',
   },
@@ -239,6 +262,15 @@ const styles = StyleSheet.create({
   },
   positionAbsolute: {
     position: 'absolute',
+  },
+  footerText: {
+    fontSize: size.normal,
+    color: colors.gray,
+  },
+  footerTextAuth: {
+    fontSize: size.small,
+    color: colors.black,
+    fontWeight: 'bold',
   },
 });
 
