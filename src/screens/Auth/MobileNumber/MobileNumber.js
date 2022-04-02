@@ -37,7 +37,7 @@ const MobileNumber = ({navigation}) => {
   };
   const handlePress = () => {
     console.log('runnung');
-    navigation.navigate('OTP');
+    navigation.navigate('OTP', {from: 'MobileNumber'});
   };
   return (
     <View style={[styles.mainContainer, {padding: 16}]}>

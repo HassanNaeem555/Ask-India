@@ -21,7 +21,7 @@ const style = StyleSheet.create({
   },
   customSelectionCircle: {
     backgroundColor: colors.white,
-    width: WP('6%'),
+    width: WP('5%'),
     height: HP('2.9%'),
     borderRadius: 50,
     borderWidth: 1,
@@ -29,6 +29,10 @@ const style = StyleSheet.create({
   },
   customSelectionCircleActive: {
     backgroundColor: colors.primary,
+  },
+  selectedTopic: {
+    fontSize: size.small,
+    color: colors.gray,
   },
 });
 

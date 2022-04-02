@@ -47,6 +47,7 @@ const style = StyleSheet.create({
   containerStyle: {
     backgroundColor: colors.white,
     height: HP('7%'),
+    borderRadius: 10,
   },
   inputContainerStyle: {
     backgroundColor: colors.white,

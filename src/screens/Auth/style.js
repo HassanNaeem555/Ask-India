@@ -186,6 +186,9 @@ const styles = StyleSheet.create({
   margin5Percent: {
     marginTop: HP('5%'),
   },
+  paddingHalfPercent: {
+    paddingVertical: HP('0.5%'),
+  },
   padding1Percent: {
     paddingVertical: HP('1%'),
   },

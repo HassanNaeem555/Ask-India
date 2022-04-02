@@ -12,5 +12,12 @@ export const appImages = {
 };
 
 export const appIcons = {
-  lock: require('../assets/image/Lock.png'),
+  camera: require('../assets/image/Icon-metro-camera.png'),
+  changePassword: require('../assets/image/changePassword.png'),
+  home: require('../assets/image/home.png'),
+  logOut: require('../assets/image/logout.png'),
+  messages: require('../assets/image/messages.png'),
+  settings: require('../assets/image/settings.png'),
+  termsCondition: require('../assets/image/termsCondition.png'),
+  privacyPolicy: require('../assets/image/privacyPolicy.png'),
 };

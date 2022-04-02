@@ -5,7 +5,7 @@ import {colors, HP, WP, size, family} from '../../utilities';
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.whiteMedium,
   },
   justifyCenter: {
     justifyContent: 'center',

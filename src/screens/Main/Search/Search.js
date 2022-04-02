@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
-import SplashScreen from 'react-native-splash-screen';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import HeaderMain from '../../../components/HeaderMain';
 import HorizontalCategories from '../../../components/horizontalCategories';
 import SearchBar from '../../../components/SearchBar';
@@ -12,20 +10,28 @@ import style from './styles';
 
 const category = [
   {
-    title: 'Tech',
+    title: 'People',
     id: 0,
   },
   {
-    title: 'Commerce',
+    title: 'Topics',
     id: 1,
   },
   {
-    title: 'Startups',
+    title: 'Post',
     id: 2,
   },
   {
-    title: 'Lookups',
+    title: 'Q/A',
     id: 3,
+  },
+  {
+    title: 'Service',
+    id: 4,
+  },
+  {
+    title: 'Product',
+    id: 5,
   },
 ];
 
@@ -38,30 +44,32 @@ const Search = ({navigation}) => {
       setSelectedCategory(foundItem);
       console.log('inside if');
     } else {
-      const idSave = [{id}];
+      const idSave = [{id, title}];
       setSelectedCategory(idSave);
-      console.log('inside else', idSave);
     }
   };
   useEffect(() => {
-    setSelectedCategory([{id: category[0]?.id}]);
-    SplashScreen.hide();
+    setSelectedCategory([{id: category[0]?.id, title: category[0]?.title}]);
   }, []);
+  console.log('selectedCategory', selectedCategory);
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
       <HeaderMain
-        navigateLeftIcon={navigation.goBack}
-        leftIcon={'ios-caret-back-outline'}
+        navigateLeftIcon={navigation.pop}
+        leftIcon={'chevron-back'}
         showSearch={false}
         showNotifications={false}
-        headerText={'Search'}
+        headerText={'SEARCH'}
         navigation={navigation}
       />
       <ScrollView>
         <SearchBar placeholder={'Ask Something'} showSearchIcon={true} />
         <ScrollView
           horizontal={true}
-          style={[styles.paddingHorizontal4Percent, styles.margin3Percent]}>
+          style={[
+            styles.margin2Percent,
+            {marginLeft: WP('4%'), marginRight: WP('4%')},
+          ]}>
           <HorizontalCategories
             category={category}
             selectCategory={selectCategory}

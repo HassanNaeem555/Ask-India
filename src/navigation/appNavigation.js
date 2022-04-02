@@ -6,13 +6,17 @@ import {
 } from '@react-navigation/stack';
 // @stack screens
 import MyDrawer from '../navigation/drawer/sideDrawer';
-import {BottomTabs} from './tabs/BottomTabs';
+import Search from '../screens/Main/Search';
+import Like from '../screens/Main/PostAssets/Like';
+import Comment from '../screens/Main/PostAssets/Comment';
 import Notification from '../screens/Main/Notification';
 import EditProfile from '../screens/Main/EditProfile';
 import ProductDetail from '../screens/Main/ProductDetail';
 import OtherProfile from '../screens/Main/OtherProfile';
 import Followers from '../screens/Main/Followers';
 import Following from '../screens/Main/Following';
+import TermsCondition from '../screens/Main/CMS/PrivacyPolicy';
+import PrivacyPolicy from '../screens/Main/CMS/TermsCondition';
 
 const RootStack = createStackNavigator();
 
@@ -76,6 +80,41 @@ const navigation = ({}) => {
         }}
         name="Following"
         component={Following}
+      />
+      <RootStack.Screen
+        name="Like"
+        component={Like}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <RootStack.Screen
+        name="Comment"
+        component={Comment}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <RootStack.Screen
+        name="Search"
+        component={Search}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <RootStack.Screen
+        name="PrivacyPolicy"
+        component={PrivacyPolicy}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <RootStack.Screen
+        name="TermsCondition"
+        component={TermsCondition}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
       />
     </RootStack.Navigator>
   );

@@ -72,6 +72,7 @@ const style = StyleSheet.create({
     }),
     borderWidth: 0.3,
     borderColor: colors.lightGray,
+    borderRadius: 10,
     paddingVertical: HP('1.8%'),
     paddingHorizontal: WP('5%'),
     marginHorizontal: WP('4.5%'),

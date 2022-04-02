@@ -91,6 +91,31 @@ const Post = ({showPostImage, showTag, navigation}) => {
           </View>
         </View>
       )}
+      <View
+        style={[
+          styles.directionRow,
+          styles.justifySpaceBetween,
+          styles.marginVerticle2Percent,
+        ]}>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          style={[styles.directionRow]}
+          onPress={() => navigation.navigate('Like', {id: 1})}>
+          <AntDesign
+            name={'like1'}
+            size={size.xxlarge}
+            color={colors.primary}
+            style={{marginRight: WP('2%')}}
+          />
+          <Text style={style.innerSelectionText}>622 Likes</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          style={[styles.directionRow]}
+          onPress={() => navigation.navigate('Comment', {id: 1})}>
+          <Text style={style.innerSelectionText}>5,622 Comments</Text>
+        </TouchableOpacity>
+      </View>
       <View style={[styles.margin1Percent, style.seperator]} />
       <View
         style={[

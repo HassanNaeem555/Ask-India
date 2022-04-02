@@ -4,7 +4,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import * as ImagePicker from 'react-native-image-picker';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import HeaderMain from '../../../components/HeaderMain';
-import {appLogos, appImages} from '../../../assets';
+import {appLogos, appImages, appIcons} from '../../../assets';
 import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
@@ -15,9 +15,7 @@ import {colors, HP, WP, size} from '../../../utilities';
 
 const CreateProfile = ({navigation}) => {
   const [errorMsg, setErrorMsg] = useState('');
-  const [profilePhotoUri, setprofilePhotoUri] = useState(
-    appImages?.profileImage,
-  );
+  const [profilePhotoUri, setprofilePhotoUri] = useState(appIcons?.camera);
   const [profilePhotoUris, setprofilePhotoUris] = useState('');
   const [profilePhoto, setprofilePhoto] = useState([]);
   const launchImageLibrary = () => {
@@ -76,7 +74,7 @@ const CreateProfile = ({navigation}) => {
                 height: HP('20%'),
               }}>
               <TouchableOpacity
-                style={{top: HP('4%')}}
+                style={[styles.alignCenter, {top: HP('4%')}]}
                 activeOpacity={0.8}
                 onPress={launchImageLibrary}>
                 <Image
@@ -85,7 +83,7 @@ const CreateProfile = ({navigation}) => {
                     profilePhotoUris == '' ? profilePhotoUri : profilePhotoUris
                   }
                   style={[
-                    styles.w_30,
+                    styles.w_15,
                     {
                       height: HP('12%'),
                     },

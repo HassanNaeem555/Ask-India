@@ -7,15 +7,23 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Img from '../../components/Img';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {validateUserLogin} from '../../store/actions/authAction';
 import {colors, WP, HP, size} from '../../utilities';
-import {appImages} from '../../assets';
+import {appImages, appIcons} from '../../assets';
 import styles from '../Main/style';
 
 export default function DrawerContent({navigation}) {
   console.log('drawer Navigation');
+  const dispatch = useDispatch();
+  const logOut = () => {
+    dispatch(validateUserLogin());
+    // navigate('Pin');
+  };
   return (
     <View style={styles.mainContainer}>
       <View style={[style.header, styles.justifyCenter, styles.alignCenter]}>
@@ -38,10 +46,17 @@ export default function DrawerContent({navigation}) {
               navigation.navigate('Home');
               navigation.closeDrawer();
             }}>
-            <Text style={style.itemText}>
-              <Entypo name={'home'} size={size.h4} color={colors.white} />
-              {'\b \b \b'}
-              Home
+            <Img
+              local={true}
+              resizeMode={'contain'}
+              style={{
+                width: WP('5%'),
+                height: HP('5%'),
+              }}
+              src={appIcons?.home}
+            />
+            <Text style={[style.itemText, styles.margin1Percent]}>
+              {'\b \b \b'}Home
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -49,8 +64,16 @@ export default function DrawerContent({navigation}) {
               ...style.itemContainer,
             }}
             onPress={() => navigation.navigate('ContactUs')}>
-            <Text style={style.itemText}>
-              <Entypo name={'chat'} size={size.h4} color={colors.white} />
+            <Img
+              local={true}
+              resizeMode={'contain'}
+              style={{
+                width: WP('5%'),
+                height: HP('5%'),
+              }}
+              src={appIcons?.messages}
+            />
+            <Text style={[style.itemText, styles.margin1Percent]}>
               {'\b \b \b'}
               Messages
             </Text>
@@ -58,8 +81,16 @@ export default function DrawerContent({navigation}) {
           <TouchableOpacity
             style={style.itemContainer}
             onPress={() => navigation.navigate('Faq')}>
-            <Text style={style.itemText}>
-              <Ionicons name={'settings'} size={size.h4} color={colors.white} />
+            <Img
+              local={true}
+              resizeMode={'contain'}
+              style={{
+                width: WP('5%'),
+                height: HP('5%'),
+              }}
+              src={appIcons?.settings}
+            />
+            <Text style={[style.itemText, styles.margin1Percent]}>
               {'\b \b \b'}
               Settings
             </Text>
@@ -72,8 +103,16 @@ export default function DrawerContent({navigation}) {
             <TouchableOpacity
               style={style.itemContainer}
               onPress={() => navigation.navigate('TermsAndConditions')}>
-              <Text style={style.itemText}>
-                <AntDesign name={'flag'} size={19} color={colors.primary} />
+              <Img
+                local={true}
+                resizeMode={'contain'}
+                style={{
+                  width: WP('5%'),
+                  height: HP('5%'),
+                }}
+                src={appIcons?.termsCondition}
+              />
+              <Text style={[style.itemText, styles.margin1Percent]}>
                 {'\b \b \b'}
                 Terms & Conditions
               </Text>
@@ -81,8 +120,16 @@ export default function DrawerContent({navigation}) {
             <TouchableOpacity
               style={style.itemContainer}
               onPress={() => navigation.navigate('TermsAndConditions')}>
-              <Text style={style.itemText}>
-                <AntDesign name={'flag'} size={19} color={colors.primary} />
+              <Img
+                local={true}
+                resizeMode={'contain'}
+                style={{
+                  width: WP('5%'),
+                  height: HP('5%'),
+                }}
+                src={appIcons?.privacyPolicy}
+              />
+              <Text style={[style.itemText, styles.margin1Percent]}>
                 {'\b \b \b'}
                 Privacy Policy
               </Text>
@@ -90,22 +137,36 @@ export default function DrawerContent({navigation}) {
             <TouchableOpacity
               style={style.itemContainer}
               onPress={() => navigation.navigate('TermsAndConditions')}>
-              <Text style={style.itemText}>
-                <AntDesign name={'flag'} size={19} color={colors.primary} />
+              <Img
+                local={true}
+                resizeMode={'contain'}
+                style={{
+                  width: WP('5%'),
+                  height: HP('5%'),
+                }}
+                src={appIcons?.changePassword}
+              />
+              <Text style={[style.itemText, styles.margin1Percent]}>
                 {'\b \b \b'}
                 Change Password
               </Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
-            style={style.itemContainer}
-            onPress={() => navigation.navigate('Faq')}>
-            <Text style={style.itemText}>
-              <Ionicons
-                name={'log-out-sharp'}
-                size={size.h4}
-                color={colors.white}
-              />
+            style={{
+              ...style.itemContainer,
+            }}
+            onPress={() => logOut()}>
+            <Img
+              local={true}
+              resizeMode={'contain'}
+              style={{
+                width: WP('5%'),
+                height: HP('5%'),
+              }}
+              src={appIcons?.logOut}
+            />
+            <Text style={[style.itemText, styles.margin1Percent]}>
               {'\b \b \b'}
               Logout
             </Text>
@@ -141,8 +202,7 @@ const style = StyleSheet.create({
   },
   itemContainer: {
     flexDirection: 'row',
-    paddingTop: 12,
-    paddingBottom: 12,
+    paddingVertical: HP('1.3%'),
     justifyContent: 'space-between',
     paddingHorizontal: 15,
   },

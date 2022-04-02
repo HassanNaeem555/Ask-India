@@ -16,19 +16,21 @@ const Like = ({navigation}) => {
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
       <HeaderMain
-        navigateLeftIcon={navigation.goBack}
-        leftIcon={'ios-caret-back-outline'}
+        navigateLeftIcon={navigation.pop}
+        leftIcon={'chevron-back'}
         showSearch={true}
         showNotifications={false}
-        headerText={'People Who Like'}
+        headerText={'LIKES'}
         navigation={navigation}
       />
-      <LikeCard />
-      <LikeCard />
-      <LikeCard />
-      <LikeCard />
-      <LikeCard />
-      <LikeCard />
+      <ScrollView>
+        <LikeCard followed={true} navigation={navigation} />
+        <LikeCard followed={true} navigation={navigation} />
+        <LikeCard followed={false} navigation={navigation} />
+        <LikeCard followed={true} navigation={navigation} />
+        <LikeCard followed={true} navigation={navigation} />
+        <LikeCard followed={false} navigation={navigation} />
+      </ScrollView>
     </View>
   );
 };

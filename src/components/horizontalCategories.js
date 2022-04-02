@@ -1,5 +1,5 @@
-import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import React from 'react';
+import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {WP, HP, colors, size} from '../utilities';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from '../screens/Main/style';
@@ -17,13 +17,17 @@ const HorizontalCategories = ({category, selectCategory, selectedCategory}) => {
                 colors={[colors.secondary, colors.primary]}
                 start={{x: 0, y: 1}}
                 end={{x: 0, y: 0}}
-                style={[styles.margin1Percent, {borderRadius: 15}]}>
+                style={[styles.marginHalfPercent, {borderRadius: 30}]}>
                 <TouchableOpacity
                   activeOpacity={0.9}
                   onPress={() => {
                     selectCategory(item?.id);
                   }}
-                  style={style.activeCategoryButton}>
+                  style={[
+                    style.activeCategoryButton,
+                    styles.alignCenter,
+                    styles.justifyCenter,
+                  ]}>
                   <Text style={[style.catgoryTitle, style.activeCatgoryTitle]}>
                     {item?.title}
                   </Text>
@@ -51,10 +55,9 @@ export default HorizontalCategories;
 
 const style = StyleSheet.create({
   activeCategoryButton: {
-    paddingVertical: HP('1%'),
-    paddingHorizontal: WP('7%'),
-    borderWidth: 1.2,
-    borderColor: colors.lightGray,
+    paddingVertical: HP('1.1%'),
+    paddingLeft: WP('4%'),
+    paddingRight: WP('3%'),
     marginRight: WP('1.8%'),
   },
   categoryButton: {
