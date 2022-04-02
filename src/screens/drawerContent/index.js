@@ -102,7 +102,7 @@ export default function DrawerContent({navigation}) {
             }}>
             <TouchableOpacity
               style={style.itemContainer}
-              onPress={() => navigation.navigate('TermsAndConditions')}>
+              onPress={() => navigation.navigate('TermsCondition')}>
               <Img
                 local={true}
                 resizeMode={'contain'}
@@ -119,7 +119,7 @@ export default function DrawerContent({navigation}) {
             </TouchableOpacity>
             <TouchableOpacity
               style={style.itemContainer}
-              onPress={() => navigation.navigate('TermsAndConditions')}>
+              onPress={() => navigation.navigate('PrivacyPolicy')}>
               <Img
                 local={true}
                 resizeMode={'contain'}
