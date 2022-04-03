@@ -9,6 +9,12 @@ const style = StyleSheet.create({
     fontSize: size.xxlarge,
     textAlign: 'center',
   },
+  when: {
+    color: '#1E1E1E',
+    fontSize: size.normal,
+    marginVertical: HP('1.5%'),
+    fontWeight: 'bold',
+  },
 });
 
 export default style;

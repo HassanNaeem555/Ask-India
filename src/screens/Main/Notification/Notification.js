@@ -12,17 +12,23 @@ const Notification = ({navigation}) => {
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
       <HeaderMain
         navigateLeftIcon={navigation.goBack}
-        leftIcon={'ios-caret-back-outline'}
+        leftIcon={'chevron-back'}
         showSearch={false}
         showNotifications={false}
-        headerText={'Notifications'}
+        headerText={'NOTIFICATIONS'}
         navigation={navigation}
       />
       <ScrollView>
-        <NotificationCard />
-        <NotificationCard />
-        <NotificationCard />
-        <NotificationCard />
+        <Text style={style.when}>New</Text>
+        <NotificationCard which={'like'} what={'Like your photo'} />
+        <NotificationCard which={'comment'} what={'Comment on your Post'} />
+        <NotificationCard which={'share'} what={'Share your Post'} />
+        <Text style={style.when}>Today</Text>
+        <NotificationCard which={'like'} what={'Like your post'} />
+        <Text style={style.when}>This Month</Text>
+        <NotificationCard which={'comment'} what={'Comment on your Post'} />
+        <NotificationCard which={'share'} what={'Share your Post'} />
+        <NotificationCard which={'like'} what={'Like your post'} />
       </ScrollView>
     </View>
   );

@@ -20,4 +20,7 @@ export const appIcons = {
   settings: require('../assets/image/settings.png'),
   termsCondition: require('../assets/image/termsCondition.png'),
   privacyPolicy: require('../assets/image/privacyPolicy.png'),
+  like: require('../assets/image/like.png'),
+  comment: require('../assets/image/comment.png'),
+  share: require('../assets/image/share.png'),
 };
