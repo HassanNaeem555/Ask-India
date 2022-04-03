@@ -63,7 +63,7 @@ export default function DrawerContent({navigation}) {
             style={{
               ...style.itemContainer,
             }}
-            onPress={() => navigation.navigate('ContactUs')}>
+            onPress={() => navigation.navigate('UsersForChat')}>
             <Img
               local={true}
               resizeMode={'contain'}
@@ -78,9 +78,7 @@ export default function DrawerContent({navigation}) {
               Messages
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={style.itemContainer}
-            onPress={() => navigation.navigate('Faq')}>
+          <View style={style.itemContainer}>
             <Img
               local={true}
               resizeMode={'contain'}
@@ -94,7 +92,7 @@ export default function DrawerContent({navigation}) {
               {'\b \b \b'}
               Settings
             </Text>
-          </TouchableOpacity>
+          </View>
           <View
             style={{
               backgroundColor: colors.primarySecondaryMix,
@@ -136,7 +134,7 @@ export default function DrawerContent({navigation}) {
             </TouchableOpacity>
             <TouchableOpacity
               style={style.itemContainer}
-              onPress={() => navigation.navigate('TermsAndConditions')}>
+              onPress={() => navigation.navigate('ChangePassword')}>
               <Img
                 local={true}
                 resizeMode={'contain'}

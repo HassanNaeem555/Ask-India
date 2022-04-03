@@ -8,6 +8,7 @@ const CustomInput = ({
   change,
   placeholder,
   iconName,
+  iconNameRight,
   iconType,
   leftIconShow,
   rightIconShow,
@@ -34,7 +35,7 @@ const CustomInput = ({
       rightIcon={
         rightIconShow && {
           type: iconType,
-          name: iconName,
+          name: iconNameRight,
           color: colors.primary,
           size: size.xxlarge,
           onPress: () => {
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     paddingHorizontal: 15,
     borderWidth: 1.5,
-    borderColor: colors.gray,
+    borderColor: colors.lightGray,
     borderRadius: 7,
   },
   inputStyles: {

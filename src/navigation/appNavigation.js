@@ -15,8 +15,11 @@ import ProductDetail from '../screens/Main/ProductDetail';
 import OtherProfile from '../screens/Main/OtherProfile';
 import Followers from '../screens/Main/Followers';
 import Following from '../screens/Main/Following';
-import TermsCondition from '../screens/Main/CMS/PrivacyPolicy';
-import PrivacyPolicy from '../screens/Main/CMS/TermsCondition';
+import TermsCondition from '../screens/Main/CMS/TermsCondition';
+import PrivacyPolicy from '../screens/Main/CMS/PrivacyPolicy';
+import ChangePassword from '../screens/Main/ChangePassword';
+import UsersForChat from '../screens/Main/Chat/Users';
+import MessagesOfUsers from '../screens/Main/Chat/Messages';
 
 const RootStack = createStackNavigator();
 
@@ -112,6 +115,27 @@ const navigation = ({}) => {
       <RootStack.Screen
         name="TermsCondition"
         component={TermsCondition}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <RootStack.Screen
+        name="ChangePassword"
+        component={ChangePassword}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <RootStack.Screen
+        name="UsersForChat"
+        component={UsersForChat}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <RootStack.Screen
+        name="MessagesOfUsers"
+        component={MessagesOfUsers}
         options={{
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}

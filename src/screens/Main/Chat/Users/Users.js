@@ -5,7 +5,7 @@ import {WP, HP, colors, size} from '../../../../utilities';
 import styles from '../../style';
 import style from './styles';
 
-const TermsCondition = ({navigation}) => {
+const Users = ({navigation}) => {
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
       <HeaderMain
@@ -13,19 +13,11 @@ const TermsCondition = ({navigation}) => {
         leftIcon={'chevron-back'}
         showSearch={false}
         showNotifications={false}
-        headerText={'Terms Condition'}
+        headerText={'Message'}
         navigation={navigation}
       />
-      <ScrollView>
-        <Text style={style.normalText}>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum. Stet clita kasd gubergren, no sea takimata{' '}
-        </Text>
-      </ScrollView>
     </View>
   );
 };
 
-export default TermsCondition;
+export default Users;

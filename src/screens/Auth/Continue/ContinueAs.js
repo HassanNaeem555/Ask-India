@@ -26,7 +26,7 @@ const ContinueAs = ({navigation}) => {
       />
       <View style={[styles.alignCenter, styles.alignSelfStretch]}>
         <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
-        <View style={[styles.alignCenter, styles.marginVerticle1Percent]}>
+        <View style={[styles.alignCenter, styles.marginVerticle3Percent]}>
           <LinearGradient
             colors={[colors.secondary, colors.primary]}
             start={{x: 0, y: 1}}

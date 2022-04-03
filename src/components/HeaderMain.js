@@ -27,7 +27,7 @@ const HeaderMain = ({
         onPress={() => {
           navigateLeftIcon && navigateLeftIcon();
         }}>
-        <Ionicons name={leftIcon} size={30} color={colors.black} />
+        <Ionicons name={leftIcon} size={size.h3} color={colors.black} />
       </TouchableOpacity>
       <Text style={style.headerHeading}>{headerText}</Text>
       <View style={[styles.directionRow, styles.justifySpaceBetween]}>
@@ -54,6 +54,7 @@ const HeaderMain = ({
             </View>
           </TouchableOpacity>
         )}
+        {!showSearch && !showNotifications && <Text>{'            '}</Text>}
       </View>
     </View>
   );
