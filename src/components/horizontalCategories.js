@@ -21,7 +21,7 @@ const HorizontalCategories = ({category, selectCategory, selectedCategory}) => {
                 <TouchableOpacity
                   activeOpacity={0.9}
                   onPress={() => {
-                    selectCategory(item?.id);
+                    selectCategory(item);
                   }}
                   style={[
                     style.activeCategoryButton,
@@ -38,7 +38,7 @@ const HorizontalCategories = ({category, selectCategory, selectedCategory}) => {
                 key={index}
                 activeOpacity={0.9}
                 onPress={() => {
-                  selectCategory(item?.id);
+                  selectCategory(item);
                 }}
                 style={[style.categoryButton, styles.margin1Percent]}>
                 <Text style={style.catgoryTitle}>{item?.title}</Text>

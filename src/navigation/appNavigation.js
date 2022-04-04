@@ -20,6 +20,8 @@ import PrivacyPolicy from '../screens/Main/CMS/PrivacyPolicy';
 import ChangePassword from '../screens/Main/ChangePassword';
 import UsersForChat from '../screens/Main/Chat/Users';
 import MessagesOfUsers from '../screens/Main/Chat/Messages';
+import SelectTopic from '../screens/Main/SelectTopic';
+import Quiz from '../screens/Main/Quiz';
 
 const RootStack = createStackNavigator();
 
@@ -136,6 +138,20 @@ const navigation = ({}) => {
       <RootStack.Screen
         name="MessagesOfUsers"
         component={MessagesOfUsers}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <RootStack.Screen
+        name="SelectTopic"
+        component={SelectTopic}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <RootStack.Screen
+        name="Quiz"
+        component={Quiz}
         options={{
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}

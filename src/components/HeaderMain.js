@@ -54,7 +54,7 @@ const HeaderMain = ({
             </View>
           </TouchableOpacity>
         )}
-        {!showSearch && !showNotifications && <Text>{'            '}</Text>}
+        {!showSearch && !showNotifications && <Text>{'           '}</Text>}
       </View>
     </View>
   );
@@ -64,7 +64,7 @@ export default HeaderMain;
 
 const style = StyleSheet.create({
   headerHeading: {
-    fontSize: size.xxlarge,
+    fontSize: size.large,
     fontWeight: '500',
   },
   marginRight: {

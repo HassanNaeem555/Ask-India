@@ -14,7 +14,7 @@ const Notification = ({navigation}) => {
         navigateLeftIcon={navigation.goBack}
         leftIcon={'chevron-back'}
         showSearch={false}
-        showNotifications={false}
+        showNotifications={true}
         headerText={'NOTIFICATIONS'}
         navigation={navigation}
       />

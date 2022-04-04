@@ -14,6 +14,8 @@ const CustomInput = ({
   rightIconShow,
   secureTextEntry,
   error_message,
+  rightIconColor,
+  rightIconSize,
   label,
 }) => {
   return (
@@ -36,8 +38,8 @@ const CustomInput = ({
         rightIconShow && {
           type: iconType,
           name: iconNameRight,
-          color: colors.primary,
-          size: size.xxlarge,
+          color: rightIconColor ? rightIconColor : colors.primary,
+          size: rightIconSize ? rightIconSize : size.xxlarge,
           onPress: () => {
             handlePress && handlePress();
           },

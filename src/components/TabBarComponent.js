@@ -1,17 +1,17 @@
 import * as React from 'react';
 import {View, Text, TouchableOpacity, ImageBackground} from 'react-native';
-import {appImages} from '../assets';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {colors, size} from '../utilities';
+import Image from './Img';
+import {appImages, appIcons} from '../assets';
+import {colors, size, WP, HP} from '../utilities';
 import styles from './style';
 
 export default function MyTabBar({state, descriptors, navigation}) {
   return (
     <View style={styles.activeTabRound}>
       <ImageBackground
-        // local={true}
         resizeMode={'stretch'}
         source={appImages.footer}
         style={styles.activeTabIcon}>
@@ -74,11 +74,11 @@ export default function MyTabBar({state, descriptors, navigation}) {
                     }}
                     name="my-library-books"
                     size={size.h6}
-                    color={isFocused ? colors.primary : colors.black}
+                    color={isFocused ? colors.primary : colors.gray}
                   />
                   <Text
                     style={{
-                      color: isFocused ? colors.primary : colors.black,
+                      color: isFocused ? colors.primary : colors.gray,
                       fontSize: size.tiny,
                       top: 3,
                     }}>
@@ -101,13 +101,13 @@ export default function MyTabBar({state, descriptors, navigation}) {
                       position: 'relative',
                       zIndex: 0,
                     }}
-                    name="hashtag"
-                    size={size.h6}
-                    color={isFocused ? colors.primary : colors.black}
+                    name="book"
+                    size={size.h5}
+                    color={isFocused ? colors.primary : colors.gray}
                   />
                   <Text
                     style={{
-                      color: isFocused ? colors.primary : colors.black,
+                      color: isFocused ? colors.primary : colors.gray,
                       fontSize: size.tiny,
                       top: 3,
                     }}>
@@ -132,12 +132,12 @@ export default function MyTabBar({state, descriptors, navigation}) {
                     }}
                     name="user"
                     size={size.h1}
-                    color={isFocused ? colors.primary : colors.black}
+                    color={isFocused ? colors.primary : colors.gray}
                   />
                   <Text
                     style={{
                       top: 3,
-                      color: isFocused ? colors.primary : colors.black,
+                      color: isFocused ? colors.primary : colors.gray,
                       fontSize: size.tiny,
                     }}>
                     {label}
@@ -154,18 +154,20 @@ export default function MyTabBar({state, descriptors, navigation}) {
                     top: '0%',
                     borderRadius: 0,
                   }}>
-                  <FontAwesome
+                  <Image
+                    local={true}
+                    resizeMode={'contain'}
                     style={{
-                      position: 'relative',
-                      zIndex: 0,
+                      width: WP('8%'),
+                      height: HP('4%'),
                     }}
-                    name="comment"
-                    size={size.h6}
-                    color={isFocused ? colors.primary : colors.black}
+                    src={
+                      isFocused ? appIcons?.selectedQA : appIcons?.unSelectedQA
+                    }
                   />
                   <Text
                     style={{
-                      color: isFocused ? colors.primary : colors.black,
+                      color: isFocused ? colors.primary : colors.gray,
                       fontSize: size.tiny,
                       top: 3,
                     }}>
@@ -189,12 +191,12 @@ export default function MyTabBar({state, descriptors, navigation}) {
                       zIndex: 0,
                     }}
                     name="compass"
-                    size={size.h6}
-                    color={isFocused ? colors.primary : colors.black}
+                    size={size.h3}
+                    color={isFocused ? colors.primary : colors.gray}
                   />
                   <Text
                     style={{
-                      color: isFocused ? colors.primary : colors.black,
+                      color: isFocused ? colors.primary : colors.gray,
                       fontSize: size.tiny,
                       top: 3,
                     }}>

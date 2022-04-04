@@ -29,14 +29,14 @@ const category = [
 ];
 const FeedStack = ({navigation}) => {
   const [selectedCategory, setSelectedCategory] = useState([]);
-  const selectCategory = id => {
+  const selectCategory = ({id, title}) => {
     const foundItem = selectedCategory.filter(e => e?.id === id);
     if (foundItem && foundItem.length > 0) {
       const foundItem = selectedCategory.filter(e => e?.id !== id);
-      setSelectedCategory(foundItem);
+      // setSelectedCategory(foundItem);
       console.log('inside if');
     } else {
-      const idSave = [{id}];
+      const idSave = [{id, title}];
       setSelectedCategory(idSave);
       console.log('inside else', idSave);
     }
@@ -45,7 +45,7 @@ const FeedStack = ({navigation}) => {
     navigation.toggleDrawer();
   };
   useEffect(() => {
-    setSelectedCategory([{id: category[0]?.id}]);
+    setSelectedCategory([{id: category[0]?.id, title: category[0]?.title}]);
     SplashScreen.hide();
   }, []);
   return (

@@ -139,20 +139,23 @@ const styles = StyleSheet.create({
   marginVerticle5Percent: {
     marginVertical: HP('5%'),
   },
+  marginHorizontalHalfPercent: {
+    marginHorizontal: HP('0.5%'),
+  },
   marginHorizontal1Percent: {
-    marginVertical: HP('1%'),
+    marginHorizontal: HP('1%'),
   },
   marginHorizontal2Percent: {
-    marginVertical: HP('2%'),
+    marginHorizontal: HP('2%'),
   },
   marginHorizontal3Percent: {
-    marginVertical: HP('3%'),
+    marginHorizontal: HP('3%'),
   },
   marginHorizontal4Percent: {
-    marginVertical: HP('4%'),
+    marginHorizontal: HP('4%'),
   },
   marginHorizontal5Percent: {
-    marginVertical: HP('5%'),
+    marginHorizontal: HP('5%'),
   },
   margin2Percent: {
     marginTop: HP('2%'),
@@ -165,6 +168,9 @@ const styles = StyleSheet.create({
   },
   margin5Percent: {
     marginTop: HP('5%'),
+  },
+  paddingHalfPercent: {
+    paddingVertical: HP('0.5%'),
   },
   padding1Percent: {
     paddingVertical: HP('1%'),

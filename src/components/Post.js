@@ -10,7 +10,7 @@ import {Card} from 'react-native-elements';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Image from './Img';
 import {appImages, appLogos} from '../assets';
 import {WP, HP, colors, size} from '../utilities';
@@ -141,9 +141,9 @@ const Post = ({showPostImage, showTag, navigation}) => {
         </View>
         <View style={[styles.directionRow]}>
           <TouchableOpacity activeOpacity={0.9}>
-            <FontAwesome
+            <EvilIcons
               name={'comment'}
-              size={25}
+              size={size.h1}
               color={colors.gray}
               style={{marginRight: WP('2%'), marginTop: HP('-0.5%')}}
             />

@@ -1,18 +1,16 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
+import React from 'react';
+import {View, Text, ScrollView} from 'react-native';
+import CustomInput from '../../../components/CustomInput';
 import HeaderMain from '../../../components/HeaderMain';
-import QACard from '../../../components/QACard';
+import TopicCard from '../../../components/TopicCard';
 import {WP, HP, colors, size} from '../../../utilities';
 import styles from '../style';
 import style from './styles';
 
 const QA = ({navigation}) => {
+  const handlePress = () => {
+    console.log('search');
+  };
   const drawerOpen = () => {
     navigation.toggleDrawer();
   };
@@ -26,28 +24,32 @@ const QA = ({navigation}) => {
         navigation={navigation}
         navigateLeftIcon={drawerOpen}
       />
-      <View style={{flex: 8.8}}>
-        <ScrollView>
-          <QACard />
-          <QACard />
-          <QACard />
-        </ScrollView>
-      </View>
-      <View style={{flex: 1.2}}>
-        <View
+      <ScrollView>
+        <CustomInput
+          placeholder={'Search'}
+          iconNameRight={'search'}
+          iconType={'Ionicons'}
+          rightIconShow={true}
+          rightIconSize={25}
+          rightIconColor={colors.black}
+          handlePress={handlePress}
+        />
+        <Text
           style={[
-            styles.directionRow,
-            styles.justifySpaceBetween,
-            styles.margin1Percent,
+            styles.paddingHalfPercent,
+            styles.paddingHorizontal4Percent,
+            style.heading,
           ]}>
-          <TouchableOpacity activeOpacity={0.9} style={style.buttonContainer}>
-            <Text style={style.buttonText}>Invite Your Friends</Text>
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.9} style={style.buttonContainer}>
-            <Text style={style.buttonText}>Create Topics</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+          Select Topic :
+        </Text>
+        <TopicCard name={'Lorem ipsum dolor sit ammet'} image={false} />
+        <TopicCard name={'Lorem ipsum dolor sit ammet'} image={false} />
+        <TopicCard name={'Lorem ipsum dolor sit ammet'} image={false} />
+        <TopicCard name={'Lorem ipsum dolor sit ammet'} image={false} />
+        <TopicCard name={'Lorem ipsum dolor sit ammet'} image={false} />
+        <TopicCard name={'Lorem ipsum dolor sit ammet'} image={false} />
+        <TopicCard name={'Lorem ipsum dolor sit ammet'} image={false} />
+      </ScrollView>
     </View>
   );
 };

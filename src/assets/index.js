@@ -9,6 +9,10 @@ export const appImages = {
   studentImage: require('../assets/image/student.png'),
   teacherImage: require('../assets/image/teacher.png'),
   userProfileBg: require('../assets/image/userProfileBg.png'),
+  counsellingImageFirst: require('../assets/image/counselling1.png'),
+  counsellingImageSecond: require('../assets/image/counselling2.png'),
+  counsellingImageThird: require('../assets/image/counselling3.png'),
+  counsellingImageFourth: require('../assets/image/counselling4.png'),
 };
 
 export const appIcons = {
@@ -23,4 +27,8 @@ export const appIcons = {
   like: require('../assets/image/like.png'),
   comment: require('../assets/image/comment.png'),
   share: require('../assets/image/share.png'),
+  topics: require('../assets/image/topics.png'),
+  QA: require('../assets/image/QA.png'),
+  selectedQA: require('../assets/image/selectedQa.png'),
+  unSelectedQA: require('../assets/image/unselectedQa.png'),
 };

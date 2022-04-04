@@ -5,7 +5,7 @@ const {width} = Dimensions.get('window');
 
 const style = StyleSheet.create({
   heading: {
-    fontSize: size.large,
+    fontSize: size.normal,
     fontWeight: '400',
   },
   subHeading: {

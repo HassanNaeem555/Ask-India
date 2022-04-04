@@ -1,20 +1,29 @@
 import {Dimensions, StyleSheet, Platform} from 'react-native';
-import {colors, HP, WP, size} from '../../../utilities';
+import {colors, HP, WP, size, family} from '../../../utilities';
+
+const {width} = Dimensions.get('window');
 
 const style = StyleSheet.create({
-  Logo: {
-    width: WP('70%'),
-    height: HP('20%'),
-    marginLeft: -25,
+  heading: {
+    fontSize: size.normal,
+    fontWeight: '400',
   },
   subHeading: {
-    fontSize: size.normal,
-    fontWeight: 'bold',
+    fontSize: size.medium,
+  },
+  normalText: {
+    fontSize: size.xsmall,
+    marginVertical: HP('0.5%'),
+    marginRight: WP('0.6%'),
+  },
+  image: {
+    width: WP('9%'),
+    height: HP('5.2%'),
   },
   customSelectionBox: {
     borderWidth: 1,
-    borderRadius: 10,
     backgroundColor: colors.white,
+    borderRadius: 10,
   },
   selectionBoxText: {
     fontSize: size.small,
@@ -30,10 +39,6 @@ const style = StyleSheet.create({
   },
   customSelectionCircleActive: {
     backgroundColor: colors.primary,
-  },
-  selectedTopic: {
-    fontSize: size.small,
-    color: colors.gray,
   },
 });
 

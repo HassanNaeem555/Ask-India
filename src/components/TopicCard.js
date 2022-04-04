@@ -1,62 +1,50 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ImageBackground,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Card} from 'react-native-elements';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import Image from './Img';
-import {appImages, appLogos} from '../assets';
+import {appIcons} from '../assets';
 import {WP, HP, colors, size} from '../utilities';
 import styles from '../screens/Main/style';
 
-const TopicCard = ({name}) => {
+const TopicCard = ({name, image}) => {
   return (
     <Card
-      containerStyle={{
-        paddingVertical: HP('0.4%'),
-        paddingHorizontal: WP('2%'),
-        marginVertical: HP('1%'),
-      }}>
-      <View style={styles.directionRow}>
-        <View style={{flex: 2}}>
+      containerStyle={[
+        styles.marginHorizontal1Percent,
+        styles.marginVerticle2Percent,
+        {
+          borderRadius: 15,
+          borderWidth: 0.5,
+        },
+      ]}>
+      <TouchableOpacity style={styles.directionRow} activeOpacity={0.9}>
+        <View style={{flex: 1.7}}>
           <Image
             local={true}
             resizeMode={'contain'}
-            style={style.likeImage}
-            src={appImages?.postImage}
+            style={style.image}
+            src={image ? appIcons?.topics : appIcons?.QA}
           />
         </View>
-        <View style={[styles.justifyCenter, {flex: 6}]}>
+        <View style={[styles.justifyCenter, {flex: 8.3}]}>
           <Text style={style.heading} numberOfLines={1}>
             {name}
           </Text>
         </View>
-        <View style={[styles.alignCenter, styles.justifyCenter, {flex: 2}]}>
-          <AntDesign
-            name={'caretright'}
-            size={size.large}
-            color={colors.primary}
-          />
-        </View>
-      </View>
+      </TouchableOpacity>
     </Card>
   );
 };
 export default TopicCard;
 
 const style = StyleSheet.create({
-  likeImage: {
-    marginLeft: WP('0.2%'),
-    width: WP('15%'),
-    height: HP('10%'),
+  image: {
+    width: WP('9%'),
+    height: HP('5.2%'),
   },
   heading: {
-    fontSize: size.normal,
+    fontSize: size.xsmall,
     fontWeight: '400',
-    letterSpacing: 1,
+    textTransform: 'capitalize',
   },
 });

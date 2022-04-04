@@ -13,7 +13,8 @@ const NotificationCard = ({which, what}) => {
         marginLeft: WP('1.2%'),
         marginRight: WP('1.2%'),
         borderColor: colors.primary,
-        borderWidth: 0.5,
+        paddingVertical: HP('1.7%'),
+        borderWidth: 1,
         borderRadius: 10,
         marginTop: HP('1.5%'),
       }}>

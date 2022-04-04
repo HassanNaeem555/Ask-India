@@ -5,32 +5,16 @@ const {width} = Dimensions.get('window');
 
 const style = StyleSheet.create({
   heading: {
-    color: colors.white,
-    fontSize: size.xxlarge,
-    textAlign: 'center',
+    fontSize: size.normal,
+    fontWeight: '400',
   },
   subHeading: {
-    color: colors.white,
-    fontSize: size.xxlarge,
-    textAlign: 'center',
-    marginTop: 10,
+    fontSize: size.medium,
   },
   normalText: {
     fontSize: size.xsmall,
     marginVertical: HP('0.5%'),
     marginRight: WP('0.6%'),
-  },
-  buttonContainer: {
-    backgroundColor: colors.primary,
-    alignItems: 'center',
-    borderRadius: 3,
-    paddingHorizontal: WP('4%'),
-    paddingVertical: HP('1%'),
-  },
-  buttonText: {
-    fontSize: size.tiny,
-    fontWeight: '500',
-    color: colors.white,
   },
 });
 

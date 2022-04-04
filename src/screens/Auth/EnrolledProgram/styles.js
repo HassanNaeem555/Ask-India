@@ -14,6 +14,7 @@ const style = StyleSheet.create({
   customSelectionBox: {
     borderWidth: 1,
     borderRadius: 10,
+    backgroundColor: colors.white,
   },
   selectionBoxText: {
     fontSize: size.small,

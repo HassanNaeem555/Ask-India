@@ -25,7 +25,7 @@ export const colors = {
   lightGray: '#eeeeee',
   lightGray: '#eeeeee',
   focusIcon: '#973E4E',
-  gray: '#acb0bc',
+  gray: '#ABAFB2',
   darkGray: '#767373',
 
   // Text Colors
