@@ -214,6 +214,9 @@ const styles = StyleSheet.create({
   textCenter: {
     textAlign: 'center',
   },
+  colorPrimary: {
+    color: colors.primary,
+  },
   colorBlack: {
     color: colors.black,
   },

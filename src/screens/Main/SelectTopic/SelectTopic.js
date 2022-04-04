@@ -49,12 +49,12 @@ const data = [
 
 const SelectTopic = ({navigation}) => {
   const [selectedProgram, setSelectedProgram] = useState([]);
-  const handlePress = id => {
+  const handlePress = ({id, title}) => {
     const foundItem = selectedProgram.filter(e => e?.id === id);
     if (foundItem && foundItem.length > 0) {
       const foundItem = selectedProgram.filter(e => e?.id !== id);
     } else {
-      const idSave = [{id}];
+      const idSave = [{id, title}];
       setSelectedProgram(idSave);
     }
   };
@@ -62,7 +62,10 @@ const SelectTopic = ({navigation}) => {
     console.log('search');
   };
   const handleNavigate = () => {
-    navigation.navigate('Quiz');
+    navigation.navigate('Quiz', {
+      id: selectedProgram[0]?.id,
+      title: selectedProgram[0]?.title,
+    });
   };
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
@@ -112,7 +115,7 @@ const SelectTopic = ({navigation}) => {
                   : {borderColor: colors.lightGray},
               ]}
               onPress={() => {
-                handlePress(item?.id);
+                handlePress(item);
               }}>
               <View style={{flex: 1.7}}>
                 <Image

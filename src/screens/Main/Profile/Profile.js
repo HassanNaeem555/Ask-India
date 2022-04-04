@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {Card} from 'react-native-elements';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Button from '../../../components/Button';
 import HeaderMain from '../../../components/HeaderMain';
 import Image from '../../../components/Img';
 import Post from '../../../components/Post';
@@ -26,6 +26,9 @@ const Profile = ({navigation}) => {
   const drawerOpen = () => {
     navigation.toggleDrawer();
   };
+  const handleNavigate = () => {
+    // navigation.navigate('');
+  };
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
       <HeaderMain
@@ -37,62 +40,71 @@ const Profile = ({navigation}) => {
         navigateLeftIcon={drawerOpen}
       />
       <ScrollView>
-        <Card containerStyle={{marginHorizontal: 0, overflow: 'hidden'}}>
-          <View style={[styles.directionRow]}>
-            <View style={{flex: 2.4}}>
-              <Image
-                local={true}
-                resizeMode={'contain'}
-                style={style.postImage}
-                src={appImages?.postImage}
-              />
-            </View>
-            <View style={{flex: 7.6}}>
-              <View
-                style={[
-                  styles.directionRow,
-                  styles.justifySpaceAround,
-                  styles.margin1Percent,
-                ]}>
-                <TouchableOpacity
-                  activeOpacity={0.9}
-                  style={[styles.alignCenter]}>
-                  <Text style={[style.normalText, styles.fontBold]}>1,201</Text>
-                  <Text style={[style.normalText, styles.fontBold]}>Post</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate('Followers');
-                  }}
-                  activeOpacity={0.9}
-                  style={[styles.alignCenter]}>
-                  <Text style={[style.normalText, styles.fontBold]}>1,201</Text>
-                  <Text style={[style.normalText, styles.fontBold]}>
-                    Followers
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate('Following');
-                  }}
-                  activeOpacity={0.9}
-                  style={[styles.alignCenter]}>
-                  <Text style={[style.normalText, styles.fontBold]}>1,201</Text>
-                  <Text style={[style.normalText, styles.fontBold]}>
-                    Following
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+        <Card
+          containerStyle={{
+            marginHorizontal: 0,
+            overflow: 'hidden',
+            borderRadius: 15,
+            borderWidth: 0,
+          }}>
+          <View style={[styles.justifyCenter, styles.alignCenter]}>
+            <Image
+              local={true}
+              resizeMode={'contain'}
+              style={style.postImage}
+              src={appImages?.postImage}
+            />
+            <Text
+              numberOfLines={1}
+              style={[style.heading, styles.fontBold, styles.margin1Percent]}>
+              John Smith
+            </Text>
           </View>
-          <Text
-            numberOfLines={1}
-            style={[style.heading, styles.fontBold, styles.margin1Percent]}>
-            John Smith
-          </Text>
           <Text numberOfLines={2} style={style.subHeading}>
             Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum{' '}
           </Text>
+          <View
+            style={[
+              styles.directionRow,
+              styles.justifySpaceBetween,
+              styles.margin1Percent,
+            ]}>
+            <TouchableOpacity activeOpacity={0.9} style={[styles.alignCenter]}>
+              <Text style={[style.normalText, styles.fontBold]}>1,201</Text>
+              <Text style={[style.normalText, styles.fontBold]}>Post</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Followers');
+              }}
+              activeOpacity={0.9}
+              style={[styles.alignCenter]}>
+              <Text style={[style.normalText, styles.fontBold]}>1,201</Text>
+              <Text style={[style.normalText, styles.fontBold]}>Followers</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Following');
+              }}
+              activeOpacity={0.9}
+              style={[styles.alignCenter]}>
+              <Text style={[style.normalText, styles.fontBold]}>1,201</Text>
+              <Text style={[style.normalText, styles.fontBold]}>Following</Text>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={[
+              styles.directionRow,
+              styles.justifyCenter,
+              styles.alignCenter,
+              styles.marginVerticle2Percent,
+            ]}>
+            <Button
+              buttonText={'NEXT'}
+              handlePress={handleNavigate}
+              width={WP('90%')}
+            />
+          </View>
         </Card>
         <View
           style={[

@@ -31,4 +31,6 @@ export const appIcons = {
   QA: require('../assets/image/QA.png'),
   selectedQA: require('../assets/image/selectedQa.png'),
   unSelectedQA: require('../assets/image/unselectedQa.png'),
+  iconUnCheckQuestion: require('../assets/image/Icon-uncheck-question.png'),
+  iconCheckQuestion: require('../assets/image/Icon-check-question.png'),
 };
