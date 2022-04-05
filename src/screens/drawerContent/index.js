@@ -177,16 +177,16 @@ export default function DrawerContent({navigation}) {
 
 const style = StyleSheet.create({
   container: {
-    flex: 6,
+    flex: 6.5,
     backgroundColor: colors.primary,
   },
   header: {
-    flex: 4,
+    flex: 3.5,
     backgroundColor: colors.white,
   },
   profileImage: {
     width: WP('26%'),
-    height: HP('15%'),
+    height: HP('13%'),
     borderWidth: 2,
     borderColor: colors.primary,
     borderRadius: 50,
@@ -205,7 +205,7 @@ const style = StyleSheet.create({
     paddingHorizontal: 15,
   },
   itemText: {
-    fontSize: size.normal,
+    fontSize: size.large,
     color: colors.white,
     width: WP('60%'),
   },

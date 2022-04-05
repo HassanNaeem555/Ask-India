@@ -223,6 +223,9 @@ const styles = StyleSheet.create({
   colorWhite: {
     color: colors.white,
   },
+  colorGray: {
+    color: colors.gray,
+  },
   fontBold: {
     fontWeight: 'bold',
   },
@@ -251,6 +254,32 @@ const styles = StyleSheet.create({
   },
   positionAbsolute: {
     position: 'absolute',
+  },
+  tabBarHeader: {height: 50},
+  indicatorStyle: {
+    backgroundColor: colors.primary,
+    height: 2,
+  },
+  labelStyle: {
+    color: colors.fontColor,
+    textTransform: 'capitalize',
+    fontSize: 14,
+  },
+  tabBarstyle: {
+    backgroundColor: colors.white,
+    height: 50,
+    marginTop: HP('0.5%'),
+  },
+  contentcontainerStyle: {
+    height: 30,
+  },
+  indicatorContainerStyle: {marginBottom: 2},
+  tabStyles: {
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.gray,
   },
 });
 

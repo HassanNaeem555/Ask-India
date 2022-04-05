@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import HeaderMain from '../../../../components/HeaderMain';
+import MessageUserCard from '../../../../components/MessageUserCard';
 import {WP, HP, colors, size} from '../../../../utilities';
 import styles from '../../style';
 import style from './styles';
@@ -16,6 +17,15 @@ const Users = ({navigation}) => {
         headerText={'Message'}
         navigation={navigation}
       />
+      <ScrollView>
+        <MessageUserCard navigation={navigation} />
+        <MessageUserCard navigation={navigation} />
+        <MessageUserCard navigation={navigation} />
+        <MessageUserCard navigation={navigation} />
+        <MessageUserCard navigation={navigation} />
+        <MessageUserCard navigation={navigation} />
+        <MessageUserCard navigation={navigation} />
+      </ScrollView>
     </View>
   );
 };

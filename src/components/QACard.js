@@ -12,54 +12,44 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Image from './Img';
-import {appImages, appLogos} from '../assets';
+import {appImages, appIcons} from '../assets';
 import {WP, HP, colors, size} from '../utilities';
 import styles from '../screens/Main/style';
 
-const QACard = () => {
+const QACard = ({name, image, navigation}) => {
   const handlePress = () => {
     console.log('running');
   };
   return (
-    <Card containerStyle={{marginHorizontal: 0, marginVertical: HP('0.8%')}}>
-      <View style={styles.directionRow}>
-        <View style={{flex: 2}}>
+    <Card
+      containerStyle={[
+        styles.marginHorizontal1Percent,
+        styles.marginVerticle2Percent,
+        {
+          borderRadius: 15,
+          borderWidth: 0.5,
+        },
+      ]}>
+      <TouchableOpacity
+        style={styles.directionRow}
+        activeOpacity={0.9}
+        onPress={() => {
+          navigation.navigate('QADetail');
+        }}>
+        <View style={{flex: 1.7}}>
           <Image
             local={true}
             resizeMode={'contain'}
-            style={style.postImage}
-            src={appImages?.postImage}
+            style={style.image}
+            src={image ? appIcons?.topics : appIcons?.QA}
           />
         </View>
-        <View style={{flex: 8}}>
-          <Text style={style.heading} numberOfLines={2}>
-            Q & A with President of New York Times
+        <View style={[styles.justifyCenter, {flex: 8.3}]}>
+          <Text style={style.heading} numberOfLines={1}>
+            {name}
           </Text>
-          <Text
-            style={[style.description, styles.margin1Percent]}
-            numberOfLines={2}>
-            A Q & A with Amber Guild, President of T Brand
-          </Text>
-          <View style={[styles.directionRow, styles.margin2Percent]}>
-            <TouchableOpacity
-              style={[style.buttonContainer]}
-              onPress={() => {
-                handlePress();
-              }}
-              activeOpacity={0.9}>
-              <Text style={style.buttonText}>Preview</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[style.buttonContainer]}
-              onPress={() => {
-                handlePress();
-              }}
-              activeOpacity={0.9}>
-              <Text style={style.buttonText}>Join</Text>
-            </TouchableOpacity>
-          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </Card>
   );
 };
@@ -67,29 +57,13 @@ const QACard = () => {
 export default QACard;
 
 const style = StyleSheet.create({
-  postImage: {
-    width: WP('16%'),
-    height: HP('9%'),
+  image: {
+    width: WP('9%'),
+    height: HP('5.2%'),
   },
   heading: {
-    fontSize: size.normal,
-    fontWeight: '700',
-  },
-  description: {
-    fontSize: size.xxsmall,
-    fontWeight: '400',
-  },
-  buttonContainer: {
-    backgroundColor: colors.primary,
-    alignItems: 'center',
-    borderRadius: 3,
-    paddingHorizontal: WP('10%'),
-    paddingVertical: HP('1.3%'),
-    marginRight: WP('1%'),
-  },
-  buttonText: {
-    fontSize: size.xxsmall,
-    fontWeight: 'bold',
-    color: colors.white,
+    fontSize: size.medium,
+    fontWeight: '500',
+    textTransform: 'capitalize',
   },
 });

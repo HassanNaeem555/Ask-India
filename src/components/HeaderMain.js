@@ -77,7 +77,7 @@ const style = StyleSheet.create({
     left: -5,
     borderRadius: 50,
     width: WP('4.3%'),
-    height: HP('2.8%'),
+    height: HP('2.1%'),
     alignItems: 'center',
   },
   notifyText: {

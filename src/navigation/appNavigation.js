@@ -22,6 +22,9 @@ import UsersForChat from '../screens/Main/Chat/Users';
 import MessagesOfUsers from '../screens/Main/Chat/Messages';
 import SelectTopic from '../screens/Main/SelectTopic';
 import Quiz from '../screens/Main/Quiz';
+import StudyAbroad from '../screens/Main/StudyAbroad';
+import TopicDetail from '../screens/Main/Topic/TopicDetail';
+import QADetail from '../screens/Main/QA/QaDetail';
 
 const RootStack = createStackNavigator();
 
@@ -152,6 +155,27 @@ const navigation = ({}) => {
       <RootStack.Screen
         name="Quiz"
         component={Quiz}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <RootStack.Screen
+        name="StudyAbroad"
+        component={StudyAbroad}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <RootStack.Screen
+        name="TopicDetail"
+        component={TopicDetail}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <RootStack.Screen
+        name="QADetail"
+        component={QADetail}
         options={{
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}

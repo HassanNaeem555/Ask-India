@@ -100,7 +100,7 @@ const Discover = ({navigation}) => {
             styles.directionRow,
             styles.justifySpaceBetween,
             styles.paddingHorizontal4Percent,
-            styles.marginVerticle1HalfPercent,
+            styles.marginVerticleHalfPercent,
           ]}>
           {category.map((item, index) => {
             return (
@@ -111,7 +111,7 @@ const Discover = ({navigation}) => {
                     start={{x: 1, y: 1}}
                     end={{x: 1, y: 0}}
                     style={[
-                      styles.margin1Percent,
+                      styles.marginVerticleHalfPercent,
                       {
                         borderRadius: 25,
                         width: WP('28%'),
@@ -140,7 +140,7 @@ const Discover = ({navigation}) => {
                     activeOpacity={0.9}
                     key={index}
                     style={[
-                      styles.margin1Percent,
+                      styles.marginVerticleHalfPercent,
                       styles.justifyCenter,
                       styles.alignCenter,
                       style.categoryButton,
@@ -173,7 +173,7 @@ const Discover = ({navigation}) => {
           <TouchableOpacity
             activeOpacity={0.9}
             style={[styles.directionRow, styles.justifySpaceBetween]}>
-            <Text style={[style.filterText, , {marginRight: WP('1%')}]}>
+            <Text style={[style.normalText, , {marginRight: WP('1%')}]}>
               Latest
             </Text>
             <Entypo

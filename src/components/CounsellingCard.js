@@ -48,7 +48,11 @@ const CounsellingCard = ({
           />
         </TouchableOpacity>
         <View
-          style={[style.postContentDivision, styles.paddingHorizontal4Percent]}>
+          style={[
+            style.postContentDivision,
+            styles.paddingHorizontal4Percent,
+            styles.margin1Percent,
+          ]}>
           <TouchableOpacity
             activeOpacity={0.9}
             onPress={() => {
@@ -82,12 +86,12 @@ const style = StyleSheet.create({
     borderRadius: 7,
   },
   postHeading: {
-    fontSize: size.xsmall,
+    fontSize: size.normal,
     color: colors.mediumGray,
     fontWeight: 'bold',
   },
   postDate: {
-    fontSize: size.tiny,
+    fontSize: size.xxsmall,
     color: colors.gray,
   },
   postDescription: {

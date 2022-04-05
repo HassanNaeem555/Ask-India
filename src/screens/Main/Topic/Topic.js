@@ -42,13 +42,29 @@ const Topic = ({navigation}) => {
           ]}>
           Topics I'm Following :
         </Text>
-        <TopicCard name={'Technology'} image={true} />
-        <TopicCard name={'Start Ups'} image={true} />
-        <TopicCard name={'Current Affairs'} image={true} />
-        <TopicCard name={'Education Related News'} image={true} />
-        <TopicCard name={'Crypto Currency'} image={true} />
-        <TopicCard name={'Online Market'} image={true} />
-        <TopicCard name={'Start Ups'} image={true} />
+        <TopicCard name={'Technology'} image={true} navigation={navigation} />
+        <TopicCard name={'Start Ups'} image={true} navigation={navigation} />
+        <TopicCard
+          name={'Current Affairs'}
+          image={true}
+          navigation={navigation}
+        />
+        <TopicCard
+          name={'Education Related News'}
+          image={true}
+          navigation={navigation}
+        />
+        <TopicCard
+          name={'Crypto Currency'}
+          image={true}
+          navigation={navigation}
+        />
+        <TopicCard
+          name={'Online Market'}
+          image={true}
+          navigation={navigation}
+        />
+        <TopicCard name={'Start Ups'} image={true} navigation={navigation} />
       </ScrollView>
     </View>
   );

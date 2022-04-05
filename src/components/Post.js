@@ -22,7 +22,12 @@ const Post = ({showPostImage, showTag, navigation}) => {
       style={styles.positionRelative}
       containerStyle={[
         styles.margin2Percent,
-        {overflow: 'hidden', marginHorizontal: 0, borderRadius: 25},
+        {
+          overflow: 'hidden',
+          marginHorizontal: 0,
+          borderRadius: 25,
+          borderWidth: 0,
+        },
       ]}>
       <View
         style={[
@@ -59,7 +64,11 @@ const Post = ({showPostImage, showTag, navigation}) => {
           <Text style={style.postDate}>12-Jan-2022</Text>
         </View>
         <View style={[styles.alignCenter, style.postIconDivision]}>
-          <Entypo name={'info-with-circle'} size={20} color={colors.gray} />
+          <Entypo
+            name={'info-with-circle'}
+            size={size.h6}
+            color={colors.gray}
+          />
         </View>
       </View>
       {showPostImage ? (
@@ -95,7 +104,7 @@ const Post = ({showPostImage, showTag, navigation}) => {
         style={[
           styles.directionRow,
           styles.justifySpaceBetween,
-          styles.marginVerticle2Percent,
+          styles.marginVerticle1HalfPercent,
         ]}>
         <TouchableOpacity
           activeOpacity={0.9}
@@ -116,7 +125,7 @@ const Post = ({showPostImage, showTag, navigation}) => {
           <Text style={style.innerSelectionText}>5,622 Comments</Text>
         </TouchableOpacity>
       </View>
-      <View style={[styles.margin1Percent, style.seperator]} />
+      <View style={[styles.marginHalfPercent, style.seperator]} />
       <View
         style={[
           styles.directionRow,
@@ -190,7 +199,7 @@ const style = StyleSheet.create({
   postImage: {
     marginLeft: WP('1.5%'),
     width: WP('12%'),
-    height: HP('7%'),
+    height: HP('6%'),
     borderWidth: 2,
     borderColor: colors.primary,
     borderRadius: 50,
@@ -201,18 +210,18 @@ const style = StyleSheet.create({
     marginVertical: HP('1.5%'),
   },
   postHeading: {
-    fontSize: size.normal,
+    fontSize: size.medium,
     color: colors.mediumGray,
     fontWeight: 'bold',
   },
   postDate: {
-    fontSize: size.xxsmall,
+    fontSize: size.xsmall,
     color: colors.gray,
   },
   postDescription: {
-    fontSize: size.tiny,
+    fontSize: size.xsmall,
     color: colors.mediumGray,
-    lineHeight: 15,
+    lineHeight: 20,
   },
   innerSelectionText: {
     fontSize: size.xxsmall,

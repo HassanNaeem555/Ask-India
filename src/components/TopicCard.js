@@ -6,7 +6,7 @@ import {appIcons} from '../assets';
 import {WP, HP, colors, size} from '../utilities';
 import styles from '../screens/Main/style';
 
-const TopicCard = ({name, image}) => {
+const TopicCard = ({name, image, navigation}) => {
   return (
     <Card
       containerStyle={[
@@ -17,7 +17,12 @@ const TopicCard = ({name, image}) => {
           borderWidth: 0.5,
         },
       ]}>
-      <TouchableOpacity style={styles.directionRow} activeOpacity={0.9}>
+      <TouchableOpacity
+        style={styles.directionRow}
+        activeOpacity={0.9}
+        onPress={() => {
+          navigation.navigate('TopicDetail');
+        }}>
         <View style={{flex: 1.7}}>
           <Image
             local={true}
@@ -43,8 +48,8 @@ const style = StyleSheet.create({
     height: HP('5.2%'),
   },
   heading: {
-    fontSize: size.xsmall,
-    fontWeight: '400',
+    fontSize: size.medium,
+    fontWeight: '500',
     textTransform: 'capitalize',
   },
 });

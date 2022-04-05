@@ -26,13 +26,13 @@ const style = StyleSheet.create({
     borderRadius: 10,
   },
   selectionBoxText: {
-    fontSize: size.small,
-    fontWeight: '400',
+    fontSize: size.medium,
+    fontWeight: '500',
   },
   customSelectionCircle: {
     backgroundColor: colors.white,
     width: WP('5%'),
-    height: HP('2.9%'),
+    height: HP('2.5%'),
     borderRadius: 50,
     borderWidth: 1,
     borderColor: colors.gray,

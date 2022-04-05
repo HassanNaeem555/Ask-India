@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import CustomInput from '../../../components/CustomInput';
 import HeaderMain from '../../../components/HeaderMain';
-import TopicCard from '../../../components/TopicCard';
+import QACard from '../../../components/QACard';
 import {WP, HP, colors, size} from '../../../utilities';
 import styles from '../style';
 import style from './styles';
@@ -42,13 +42,41 @@ const QA = ({navigation}) => {
           ]}>
           Select Topic :
         </Text>
-        <TopicCard name={'Lorem ipsum dolor sit ammet'} image={false} />
-        <TopicCard name={'Lorem ipsum dolor sit ammet'} image={false} />
-        <TopicCard name={'Lorem ipsum dolor sit ammet'} image={false} />
-        <TopicCard name={'Lorem ipsum dolor sit ammet'} image={false} />
-        <TopicCard name={'Lorem ipsum dolor sit ammet'} image={false} />
-        <TopicCard name={'Lorem ipsum dolor sit ammet'} image={false} />
-        <TopicCard name={'Lorem ipsum dolor sit ammet'} image={false} />
+        <QACard
+          name={'Lorem ipsum dolor sit ammet'}
+          image={false}
+          navigation={navigation}
+        />
+        <QACard
+          name={'Lorem ipsum dolor sit ammet'}
+          image={false}
+          navigation={navigation}
+        />
+        <QACard
+          name={'Lorem ipsum dolor sit ammet'}
+          image={false}
+          navigation={navigation}
+        />
+        <QACard
+          name={'Lorem ipsum dolor sit ammet'}
+          image={false}
+          navigation={navigation}
+        />
+        <QACard
+          name={'Lorem ipsum dolor sit ammet'}
+          image={false}
+          navigation={navigation}
+        />
+        <QACard
+          name={'Lorem ipsum dolor sit ammet'}
+          image={false}
+          navigation={navigation}
+        />
+        <QACard
+          name={'Lorem ipsum dolor sit ammet'}
+          image={false}
+          navigation={navigation}
+        />
       </ScrollView>
     </View>
   );

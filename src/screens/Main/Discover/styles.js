@@ -15,7 +15,6 @@ const style = StyleSheet.create({
   },
   normalText: {
     fontSize: size.normal,
-    marginVertical: HP('0.5%'),
     marginRight: WP('0.6%'),
   },
   categoryButton: {

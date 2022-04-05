@@ -5,50 +5,41 @@ const {width} = Dimensions.get('window');
 
 const style = StyleSheet.create({
   heading: {
-    fontSize: size.xxlarge,
+    fontSize: size.h6,
+  },
+  email: {
+    fontSize: size.medium,
   },
   subHeading: {
     fontSize: size.small,
-    marginTop: HP('0.1%'),
+    textAlign: 'center',
   },
   normalText: {
-    fontSize: size.xsmall,
+    fontSize: size.h5,
+  },
+  smallText: {
+    fontSize: size.normal,
+  },
+  borderRight: {
+    borderRightWidth: 1,
+    borderRightColor: colors.gray,
   },
   categoryButton: {
     backgroundColor: colors.white,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-      },
-      android: {
-        elevation: 5,
-      },
-    }),
-    paddingVertical: HP('1%'),
-    paddingHorizontal: WP('3.5%'),
-    borderWidth: 1.2,
+    borderWidth: 1.5,
     borderColor: colors.lightGray,
-    marginRight: WP('1.8%'),
-  },
-  activeCategoryButton: {
-    backgroundColor: colors.primary,
   },
   catgoryTitle: {
     fontSize: size.tiny,
+    color: colors.gray,
   },
   activeCatgoryTitle: {
     color: colors.white,
   },
-  postImage: {
-    marginLeft: WP('1.5%'),
-    width: WP('18%'),
-    height: HP('11%'),
+  profileImage: {
+    width: WP('39%'),
+    height: HP('20%'),
+    borderRadius: 50,
   },
 });
 

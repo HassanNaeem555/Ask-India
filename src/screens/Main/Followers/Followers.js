@@ -1,29 +1,42 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import HeaderMain from '../../../components/HeaderMain';
-import FollowCard from '../../../components/FollowCard';
+import LikeCard from '../../../components/LikeCard';
+import CustomInput from '../../../components/CustomInput';
 import {WP, HP, colors, size} from '../../../utilities';
 import styles from '../style';
 import style from './styles';
 
 const Followers = ({navigation}) => {
+  const handlePress = () => {
+    console.log('press');
+  };
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
       <HeaderMain
-        navigateLeftIcon={navigation.goBack}
-        leftIcon={'ios-caret-back-outline'}
-        showSearch={true}
+        navigateLeftIcon={navigation.pop}
+        leftIcon={'chevron-back'}
+        showSearch={false}
         showNotifications={false}
-        headerText={'Followers'}
+        headerText={'FOLLOWERS'}
         navigation={navigation}
       />
       <ScrollView>
-        <FollowCard showFollowButton={true} />
-        <FollowCard showFollowButton={false} />
-        <FollowCard showFollowButton={true} />
-        <FollowCard showFollowButton={false} />
-        <FollowCard showFollowButton={true} />
+        <CustomInput
+          placeholder={'Search'}
+          iconNameRight={'search'}
+          iconType={'Ionicons'}
+          rightIconShow={true}
+          rightIconSize={25}
+          rightIconColor={colors.black}
+          handlePress={handlePress}
+        />
+        <LikeCard followed={true} navigation={navigation} />
+        <LikeCard followed={true} navigation={navigation} />
+        <LikeCard followed={false} navigation={navigation} />
+        <LikeCard followed={true} navigation={navigation} />
+        <LikeCard followed={true} navigation={navigation} />
+        <LikeCard followed={false} navigation={navigation} />
       </ScrollView>
     </View>
   );

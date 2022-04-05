@@ -21,43 +21,45 @@ const SelectAuth = ({navigation}) => {
       <View style={styles.flex8}>
         <View style={[styles.alignCenter, styles.alignSelfStretch]}>
           <Logo logo={appLogos.logo} marginVertical={HP('4%')} />
-          <SocialButton
-            backgroundColor={colors.primary}
-            gradientColor={colors.secondary}
-            iconName={'phone'}
-            iconText={'Signin with Phone'}
-            navigate={navigate}
-            screen_name={'MobileNumber'}
-          />
-          <SocialButton
-            backgroundColor={colors.primary}
-            gradientColor={colors.secondary}
-            iconName={'mail'}
-            iconText={'Signin with Email'}
-            navigate={navigate}
-            screen_name={'Login'}
-          />
-          <SocialButton
-            backgroundColor={'#4A4949'}
-            gradientColor={'#1E1E1E'}
-            iconName={'apple1'}
-            iconText={'Signin with Apple'}
-            navigate={navigate}
-          />
-          <SocialButton
-            backgroundColor={colors.facebookColor}
-            gradientColor={'#1778F1'}
-            iconName={'facebook-square'}
-            iconText={'Signin with Facebook'}
-            navigate={navigate}
-          />
-          <SocialButton
-            backgroundColor={colors.googleColor}
-            gradientColor={'#EF4235'}
-            iconName={'google'}
-            iconText={'Signin with Google'}
-            navigate={navigate}
-          />
+          <View style={[styles.marginVerticle2Percent]}>
+            <SocialButton
+              backgroundColor={colors.primary}
+              gradientColor={colors.secondary}
+              iconName={'phone'}
+              iconText={'Signin with Phone'}
+              navigate={navigate}
+              screen_name={'MobileNumber'}
+            />
+            <SocialButton
+              backgroundColor={colors.primary}
+              gradientColor={colors.secondary}
+              iconName={'mail'}
+              iconText={'Signin with Email'}
+              navigate={navigate}
+              screen_name={'Login'}
+            />
+            <SocialButton
+              backgroundColor={'#4A4949'}
+              gradientColor={'#1E1E1E'}
+              iconName={'apple1'}
+              iconText={'Signin with Apple'}
+              navigate={navigate}
+            />
+            <SocialButton
+              backgroundColor={colors.facebookColor}
+              gradientColor={'#1778F1'}
+              iconName={'facebook-square'}
+              iconText={'Signin with Facebook'}
+              navigate={navigate}
+            />
+            <SocialButton
+              backgroundColor={colors.googleColor}
+              gradientColor={'#EF4235'}
+              iconName={'google'}
+              iconText={'Signin with Google'}
+              navigate={navigate}
+            />
+          </View>
         </View>
       </View>
       <View style={[styles.justifyCenter, styles.alignCenter, styles.flex2]}>
