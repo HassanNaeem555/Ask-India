@@ -9,76 +9,63 @@ const style = StyleSheet.create({
     fontSize: size.xxlarge,
     textAlign: 'center',
   },
-  subHeading: {
-    color: colors.white,
-    fontSize: size.xxlarge,
-    textAlign: 'center',
-    marginTop: 10,
+  postHeading: {
+    fontSize: size.medium,
+    color: colors.mediumGray,
+    fontWeight: 'bold',
   },
-  categoryButton: {
-    backgroundColor: colors.white,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-      },
-      android: {
-        elevation: 5,
-      },
-    }),
-    paddingVertical: HP('1%'),
-    paddingHorizontal: WP('8%'),
-    borderWidth: 1.2,
-    borderColor: colors.lightGray,
-    marginRight: WP('1.8%'),
+  userImage: {
+    marginLeft: WP('1.5%'),
+    width: WP('12%'),
+    height: HP('6%'),
+    borderWidth: 2,
+    borderColor: colors.primary,
+    borderRadius: 50,
   },
-  activeCategoryButton: {
-    backgroundColor: colors.primary,
+  sendMessage: {
+    width: WP('8%'),
+    height: HP('5%'),
   },
-  catgoryTitle: {
+  sendCamera: {
+    width: WP('7%'),
+    height: HP('5%'),
+  },
+  otherUserName: {
+    fontSize: size.large,
+    fontWeight: 'bold',
+  },
+  otherUserMessage: {
+    color: '#7B7B7B',
     fontSize: size.small,
+    fontWeight: '400',
   },
-  activeCatgoryTitle: {
+  ourUserMessage: {
     color: colors.white,
+    fontSize: size.small,
+    fontWeight: '400',
   },
-  filterSelection: {
-    backgroundColor: colors.white,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-      },
-      android: {
-        elevation: 5,
-      },
-    }),
+  blockOfMessage: {
+    backgroundColor: '#00A1EF',
+    borderRadius: 15,
+    borderBottomRightRadius: 20,
+  },
+  chatuser: {
     borderWidth: 1,
     borderColor: colors.lightGray,
-    paddingVertical: HP('0.8%'),
-    paddingHorizontal: WP('0.9%'),
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
-  filterText: {
-    fontSize: size.xsmall,
-  },
-  normalText: {
-    fontSize: size.xsmall,
-    marginVertical: HP('0.5%'),
-    marginRight: WP('0.6%'),
-  },
-  chevoronBg: {
-    backgroundColor: colors.primary,
-    paddingVertical: HP('0.3%'),
-    paddingHorizontal: WP('0.9%'),
+  seperator: {
+    borderWidth: 0.5,
+    borderColor: colors.gray,
   },
 });
 

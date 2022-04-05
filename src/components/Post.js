@@ -72,7 +72,7 @@ const Post = ({showPostImage, showTag, navigation}) => {
         </View>
       </View>
       {showPostImage ? (
-        <View style={[styles.mainContainer]}>
+        <View style={{flex: 1}}>
           <Text style={[style.postDescription, styles.margin1Percent]}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
