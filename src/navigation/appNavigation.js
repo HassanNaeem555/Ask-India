@@ -25,6 +25,7 @@ import Quiz from '../screens/Main/Quiz';
 import StudyAbroad from '../screens/Main/StudyAbroad';
 import TopicDetail from '../screens/Main/Topic/TopicDetail';
 import QADetail from '../screens/Main/QA/QaDetail';
+import CreatePost from '../screens/Main/CreatePost';
 
 const RootStack = createStackNavigator();
 
@@ -176,6 +177,13 @@ const navigation = ({}) => {
       <RootStack.Screen
         name="QADetail"
         component={QADetail}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      />
+      <RootStack.Screen
+        name="CreatePost"
+        component={CreatePost}
         options={{
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}

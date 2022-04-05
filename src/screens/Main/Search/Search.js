@@ -103,13 +103,13 @@ const Search = ({navigation}) => {
           </>
         ) : selectedCategory[0]?.title == 'Topics' ? (
           <>
-            <TopicCard name={'technology'} />
-            <TopicCard name={'neet'} />
-            <TopicCard name={'current affairs'} />
-            <TopicCard name={'jee main'} />
-            <TopicCard name={'travel'} />
-            <TopicCard name={'c a foundation'} />
-            <TopicCard name={'c s foundation'} />
+            <TopicCard name={'technology'} navigation={navigation} />
+            <TopicCard name={'neet'} navigation={navigation} />
+            <TopicCard name={'current affairs'} navigation={navigation} />
+            <TopicCard name={'jee main'} navigation={navigation} />
+            <TopicCard name={'travel'} navigation={navigation} />
+            <TopicCard name={'c a foundation'} navigation={navigation} />
+            <TopicCard name={'c s foundation'} navigation={navigation} />
           </>
         ) : selectedCategory[0]?.title == 'Post' ? (
           <>
