@@ -68,13 +68,15 @@ const OtherProfile = ({navigation}) => {
       />
       <ScrollView>
         <Card
-          containerStyle={{
-            marginHorizontal: 0,
-            overflow: 'hidden',
-            borderRadius: 15,
-            borderWidth: 0,
-            marginVertical: 0,
-          }}>
+          containerStyle={[
+            styles.marginHorizontal1Percent,
+            {
+              overflow: 'hidden',
+              borderRadius: 15,
+              borderWidth: 0,
+              marginVertical: 0,
+            },
+          ]}>
           <View style={[styles.justifyCenter, styles.alignCenter]}>
             <ImageBackground
               source={appImages?.profileImageBorder}
@@ -215,7 +217,12 @@ const OtherProfile = ({navigation}) => {
             />
           </View>
         </Card>
-        <ScrollView horizontal={true}>
+        <ScrollView
+          horizontal={true}
+          style={[
+            styles.margin2Percent,
+            {marginLeft: WP('2%'), marginRight: WP('3%')},
+          ]}>
           {category.map((item, index) => {
             return (
               <>
@@ -225,7 +232,8 @@ const OtherProfile = ({navigation}) => {
                     start={{x: 1, y: 1}}
                     end={{x: 1, y: 0}}
                     style={[
-                      styles.marginVerticleHalfPercent,
+                      styles.justifyCenter,
+                      styles.alignCenter,
                       {
                         borderRadius: 25,
                         width: WP('28%'),
@@ -235,11 +243,7 @@ const OtherProfile = ({navigation}) => {
                     key={index}>
                     <TouchableOpacity
                       activeOpacity={0.9}
-                      style={[
-                        styles.justifyCenter,
-                        styles.alignCenter,
-                        {padding: 10},
-                      ]}
+                      style={[styles.justifyCenter, styles.alignCenter]}
                       onPress={() => {
                         selectTab(item);
                       }}>
@@ -254,7 +258,6 @@ const OtherProfile = ({navigation}) => {
                     activeOpacity={0.9}
                     key={index}
                     style={[
-                      styles.marginVerticleHalfPercent,
                       styles.justifyCenter,
                       styles.alignCenter,
                       style.categoryButton,

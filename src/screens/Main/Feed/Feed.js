@@ -82,7 +82,7 @@ const FeedStack = ({navigation}) => {
           horizontal={true}
           style={[
             styles.margin2Percent,
-            {marginLeft: WP('4%'), marginRight: WP('4%')},
+            {marginLeft: WP('2%'), marginRight: WP('3%')},
           ]}>
           <HorizontalCategories
             category={category}
@@ -95,8 +95,7 @@ const FeedStack = ({navigation}) => {
             styles.directionRow,
             styles.justifySpaceBetween,
             styles.margin2Percent,
-            styles.paddingHorizontal2Percent,
-            {marginRight: WP('4%')},
+            styles.paddingHorizontal4Percent,
           ]}>
           <Text style={style.normalText}>Sort By: </Text>
           <TouchableOpacity

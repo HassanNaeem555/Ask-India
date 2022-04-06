@@ -16,7 +16,7 @@ const style = StyleSheet.create({
   },
   userImage: {
     marginLeft: WP('1.5%'),
-    width: WP('12%'),
+    width: WP('10%'),
     height: HP('6%'),
     borderWidth: 2,
     borderColor: colors.primary,

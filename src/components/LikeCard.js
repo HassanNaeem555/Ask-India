@@ -14,7 +14,12 @@ const LikeCard = ({followed, navigation}) => {
       style={styles.positionRelative}
       containerStyle={[
         styles.paddingHorizontal1Percent,
-        {overflow: 'hidden', borderRadius: 10, borderWidth: 0},
+        styles.marginHorizontal1Percent,
+        {
+          overflow: 'hidden',
+          borderRadius: 10,
+          borderWidth: 0,
+        },
       ]}>
       <View style={[styles.directionRow, styles.paddingHorizontal2Percent]}>
         <TouchableOpacity
@@ -89,17 +94,16 @@ export default LikeCard;
 
 const style = StyleSheet.create({
   likeImageDivision: {
-    flex: 1.6,
+    flex: 1.3,
   },
   likeContentDivision: {
     flex: 6,
   },
   likeIconDivision: {
-    flex: 2.4,
+    flex: 2.7,
   },
   likeImage: {
-    marginLeft: WP('1.5%'),
-    width: WP('12%'),
+    width: WP('10.5%'),
     height: HP('6%'),
     borderRadius: 50,
     borderWidth: 2,
@@ -107,8 +111,8 @@ const style = StyleSheet.create({
   },
   likeIcon: {
     position: 'absolute',
-    bottom: HP('-0.%'),
-    right: WP('-2.9%'),
+    bottom: HP('-0.4%'),
+    right: WP('-2.2%'),
   },
   likeHeading: {
     fontSize: size.large,

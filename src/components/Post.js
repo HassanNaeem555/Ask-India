@@ -22,9 +22,9 @@ const Post = ({showPostImage, showTag, navigation}) => {
       style={styles.positionRelative}
       containerStyle={[
         styles.margin2Percent,
+        styles.marginHorizontal1Percent,
         {
           overflow: 'hidden',
-          marginHorizontal: 0,
           borderRadius: 25,
           borderWidth: 0,
         },
@@ -198,7 +198,7 @@ const style = StyleSheet.create({
   },
   postImage: {
     marginLeft: WP('1.5%'),
-    width: WP('12%'),
+    width: WP('10%'),
     height: HP('6%'),
     borderWidth: 2,
     borderColor: colors.primary,

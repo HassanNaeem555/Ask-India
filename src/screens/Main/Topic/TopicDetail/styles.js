@@ -18,7 +18,7 @@ const style = StyleSheet.create({
   },
   postImage: {
     marginLeft: WP('1.5%'),
-    width: WP('12%'),
+    width: WP('10%'),
     height: HP('6%'),
     borderWidth: 2,
     borderColor: colors.primary,
@@ -50,6 +50,14 @@ const style = StyleSheet.create({
   postDate: {
     fontSize: size.xxsmall,
     color: '#ABAFB2',
+  },
+  textUnderBtn: {
+    fontSize: size.xxsmall,
+    color: colors.white,
+  },
+  followButton: {
+    paddingHorizontal: WP('3%'),
+    paddingVertical: HP('0.7%'),
   },
 });
 

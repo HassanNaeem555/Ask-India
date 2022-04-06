@@ -185,8 +185,8 @@ const style = StyleSheet.create({
     backgroundColor: colors.white,
   },
   profileImage: {
-    width: WP('26%'),
-    height: HP('13%'),
+    width: WP('24%'),
+    height: HP('14%'),
     borderWidth: 2,
     borderColor: colors.primary,
     borderRadius: 50,

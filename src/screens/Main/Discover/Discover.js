@@ -167,7 +167,7 @@ const Discover = ({navigation}) => {
             styles.justifySpaceBetween,
             styles.margin2Percent,
             styles.paddingHorizontal2Percent,
-            {marginRight: WP('4%')},
+            {marginLeft: WP('2%'), marginRight: WP('3%')},
           ]}>
           <Text style={style.normalText}>Sort By: </Text>
           <TouchableOpacity

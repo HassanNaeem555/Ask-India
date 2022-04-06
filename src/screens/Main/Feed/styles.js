@@ -75,7 +75,7 @@ const style = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: HP('1.8%'),
     paddingHorizontal: WP('5%'),
-    marginHorizontal: WP('4.5%'),
+    marginHorizontal: WP('2.5%'),
     marginVertical: WP('1.7%'),
   },
 });

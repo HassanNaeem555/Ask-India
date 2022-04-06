@@ -7,6 +7,7 @@ import {
   TextInput,
 } from 'react-native';
 import {Card} from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
 import HeaderMain from '../../../../components/HeaderMain';
 import Post from '../../../../components/Post';
 import Image from '../../../../components/Img';
@@ -48,7 +49,7 @@ const TopicDetail = ({navigation}) => {
           containerStyle={[
             styles.margin1Percent,
             {
-              marginHorizontal: 0,
+              marginHorizontal: WP('1.5%'),
               borderRadius: 10,
               borderWidth: 0,
             },
@@ -82,14 +83,21 @@ const TopicDetail = ({navigation}) => {
               </Text>
             </View>
             <View style={[styles.alignCenter, style.postIconDivision]}>
-              <Text style={style.postDate} numberOfLines={1}>
-                Post as:{' '}
-                <Text
-                  style={[style.postDate, styles.colorPrimary]}
-                  numberOfLines={1}>
-                  Post
-                </Text>
-              </Text>
+              <LinearGradient
+                colors={[colors.primary, colors.secondary]}
+                start={{x: 1, y: 1}}
+                end={{x: 1, y: 0}}
+                style={[
+                  styles.margin1Percent,
+                  style.followButton,
+                  styles.justifyCenter,
+                  styles.alignCenter,
+                  {borderRadius: 10},
+                ]}>
+                <TouchableOpacity activeOpacity={0.9}>
+                  <Text style={style.textUnderBtn}>POST</Text>
+                </TouchableOpacity>
+              </LinearGradient>
             </View>
           </View>
           <TextInput placeholder={"What's in your mind"} multiline={true} />

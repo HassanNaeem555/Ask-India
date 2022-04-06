@@ -76,12 +76,10 @@ const style = StyleSheet.create({
     top: -4,
     left: -5,
     borderRadius: 50,
-    width: WP('4.3%'),
-    height: HP('2.1%'),
+    width: WP('4.2%'),
     alignItems: 'center',
   },
   notifyText: {
-    marginTop: HP('0.2%'),
     fontSize: size.tiny,
     color: colors.white,
   },
