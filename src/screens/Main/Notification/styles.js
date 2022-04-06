@@ -13,7 +13,7 @@ const style = StyleSheet.create({
     color: '#1E1E1E',
     fontSize: size.normal,
     marginVertical: HP('1.5%'),
-    fontWeight: 'bold',
+    fontWeight: '500',
   },
 });
 

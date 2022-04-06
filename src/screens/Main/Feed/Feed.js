@@ -97,7 +97,7 @@ const FeedStack = ({navigation}) => {
             styles.margin2Percent,
             styles.paddingHorizontal4Percent,
           ]}>
-          <Text style={style.normalText}>Sort By: </Text>
+          <Text style={style.normalText}>Sort By </Text>
           <TouchableOpacity
             activeOpacity={0.9}
             style={[styles.directionRow, styles.justifySpaceBetween]}>

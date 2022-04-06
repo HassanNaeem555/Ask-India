@@ -12,7 +12,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Image from './Img';
-import {appImages, appLogos} from '../assets';
+import {appImages, appLogos, appIcons} from '../assets';
 import {WP, HP, colors, size} from '../utilities';
 import styles from '../screens/Main/style';
 
@@ -37,7 +37,11 @@ const Post = ({showPostImage, showTag, navigation}) => {
         ]}>
         <TouchableOpacity
           activeOpacity={0.9}
-          style={[style.postImageDivision, styles.alignCenter]}
+          style={[
+            style.postImageDivision,
+            styles.alignCenter,
+            styles.positionRelative,
+          ]}
           onPress={() => {
             navigation.navigate('OtherProfile');
           }}>
@@ -47,13 +51,15 @@ const Post = ({showPostImage, showTag, navigation}) => {
             style={style.postImage}
             src={appImages?.postImage}
           />
+          <Image
+            local={true}
+            resizeMode={'contain'}
+            style={style.online}
+            src={appIcons?.online}
+          />
         </TouchableOpacity>
         <View
-          style={[
-            style.postContentDivision,
-            styles.paddingHorizontal4Percent,
-            styles.marginHalfPercent,
-          ]}>
+          style={[style.postContentDivision, styles.paddingHorizontal4Percent]}>
           <TouchableOpacity
             activeOpacity={0.9}
             onPress={() => {
@@ -204,6 +210,13 @@ const style = StyleSheet.create({
     borderColor: colors.primary,
     borderRadius: 50,
   },
+  online: {
+    width: WP('4%'),
+    height: HP('4%'),
+    position: 'absolute',
+    bottom: -5,
+    right: 2,
+  },
   postBanner: {
     width: WP('89%'),
     height: HP('30%'),
@@ -215,7 +228,7 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
   },
   postDate: {
-    fontSize: size.xsmall,
+    fontSize: size.xxsmall,
     color: colors.gray,
   },
   postDescription: {

@@ -6,6 +6,7 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
+import Toast from 'react-native-simple-toast';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
 import HeaderMain from '../../../components/HeaderMain';
@@ -136,7 +137,7 @@ const OTP = ({navigation, route}) => {
             Didn't recieve code ?{' '}
             <Text
               style={[styles.footerTextAuth, styles.colorPrimary]}
-              onPress={() => navigation.navigate(screen_name)}>
+              onPress={() => Toast.show('OTP Resend')}>
               Resend
             </Text>
           </Text>

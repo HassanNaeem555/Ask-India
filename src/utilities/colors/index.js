@@ -27,6 +27,7 @@ export const colors = {
   focusIcon: '#973E4E',
   gray: '#ABAFB2',
   darkGray: '#767373',
+  hardDarkGray: '#7B7B7B',
 
   // Text Colors
   txt1: '#242424',

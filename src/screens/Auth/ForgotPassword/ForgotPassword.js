@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
+import * as EmailValidator from 'email-validator';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {appLogos} from '../../../assets';
+import Toast from 'react-native-simple-toast';
 import HeaderMain from '../../../components/HeaderMain';
 import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
@@ -17,6 +19,14 @@ const ForgotPassword = ({navigation}) => {
     setEmail(val);
   };
   const handlePress = () => {
+    if (!email) {
+      Toast.show('Please enter Email', Toast.LONG);
+      return;
+    }
+    if (!EmailValidator.validate(email)) {
+      Toast.show('Email not valid', Toast.LONG);
+      return;
+    }
     navigation.navigate('OTP', {from: 'forget'});
   };
   return (

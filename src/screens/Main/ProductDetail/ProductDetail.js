@@ -32,7 +32,14 @@ const ProductDetail = ({navigation, route}) => {
           />
         </View>
         <View style={[styles.paddingHorizontal4Percent, {flex: 6}]}>
-          <Text style={[style.heading, styles.fontBold]}>Details</Text>
+          <Text
+            style={[
+              style.heading,
+              styles.margin1Percent,
+              styles.marginHorizontal1Percent,
+            ]}>
+            Details
+          </Text>
           <Card
             containerStyle={{
               borderWidth: 0,
@@ -52,7 +59,7 @@ const ProductDetail = ({navigation, route}) => {
                 </View>
               </View>
               <View style={{flex: 6}}>
-                <Text style={[style.normalText, styles.colorGray]}>
+                <Text style={[style.normalText, styles.colorHardDarkGray]}>
                   Counselling
                 </Text>
               </View>
@@ -70,7 +77,7 @@ const ProductDetail = ({navigation, route}) => {
                 </View>
               </View>
               <View style={{flex: 6}}>
-                <Text style={[style.normalText, styles.colorGray]}>
+                <Text style={[style.normalText, styles.colorHardDarkGray]}>
                   Dr.Marcus Ohm
                 </Text>
               </View>

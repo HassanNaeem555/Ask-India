@@ -2,11 +2,11 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Card} from 'react-native-elements';
 import Image from './Img';
-import {appImages} from '../assets';
+import {appImages, appIcons} from '../assets';
 import {WP, HP, colors, size} from '../utilities';
 import styles from '../screens/Main/style';
 
-const MessageUserCard = ({navigation}) => {
+const PeoplesCard = ({navigation, what, text}) => {
   return (
     <Card
       containerStyle={[
@@ -62,27 +62,36 @@ const MessageUserCard = ({navigation}) => {
               Mark Smith
             </Text>
           </TouchableOpacity>
-          <Text style={style.postDate} numberOfLines={2}>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-            Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-            sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-            et dolore magna aliquyam erat, sed
-          </Text>
+          {text && (
+            <Text style={style.postDate} numberOfLines={1}>
+              {what}
+            </Text>
+          )}
         </View>
         <View style={[styles.alignCenter, style.postIconDivision]}>
-          <Text style={style.postDate} numberOfLines={1}>
-            04:45 PM
-          </Text>
+          <TouchableOpacity activeOpacity={0.9}>
+            <Image
+              local={true}
+              resizeMode={'contain'}
+              style={style.what}
+              src={
+                what == ''
+                  ? appIcons?.addFriend
+                  : what == 'Friend'
+                  ? appIcons?.message
+                  : what == 'Request Pending'
+                  ? appIcons?.requestPending
+                  : null
+              }
+            />
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     </Card>
   );
 };
 
-export default MessageUserCard;
+export default PeoplesCard;
 
 const style = StyleSheet.create({
   postImageDivision: {
@@ -102,17 +111,9 @@ const style = StyleSheet.create({
     borderColor: colors.primary,
     borderRadius: 50,
   },
-  which: {
-    width: WP('5%'),
+  what: {
+    width: WP('8%'),
     height: HP('5%'),
-    position: 'absolute',
-    bottom: -8,
-    right: -5,
-  },
-  postBanner: {
-    width: WP('89%'),
-    height: HP('30%'),
-    marginVertical: HP('1.5%'),
   },
   postHeading: {
     fontSize: size.medium,
@@ -122,30 +123,6 @@ const style = StyleSheet.create({
   postDate: {
     fontSize: size.xxsmall,
     color: '#ABAFB2',
-  },
-  postDescription: {
-    fontSize: size.tiny,
-    color: colors.mediumGray,
-    lineHeight: 15,
-  },
-  innerSelectionText: {
-    fontSize: size.xxsmall,
-    fontWeight: '500',
-    color: colors.black,
-  },
-  tags: {
-    backgroundColor: colors.primary,
-    position: 'absolute',
-    top: HP('1.7%'),
-    right: WP('10%'),
-    paddingHorizontal: WP('4.5%'),
-    paddingVertical: HP('0.6%'),
-    zIndex: 3,
-  },
-  tagText: {
-    fontSize: size.xsmall,
-    fontWeight: '400',
-    color: colors.white,
   },
   seperator: {
     borderBottomColor: colors.gray,

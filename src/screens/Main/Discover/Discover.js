@@ -4,6 +4,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import LinearGradient from 'react-native-linear-gradient';
 import HeaderMain from '../../../components/HeaderMain';
 import Post from '../../../components/Post';
+import Button from '../../../components/Button';
 import CustomInput from '../../../components/CustomInput';
 import CounsellingCard from '../../../components/CounsellingCard';
 import {appImages} from '../../../assets';
@@ -71,6 +72,9 @@ const Discover = ({navigation}) => {
   };
   const handlePress = () => {
     console.log('handlePress');
+  };
+  const navigateQuiz = () => {
+    navigation.navigate('SelectTopic');
   };
   useEffect(() => {
     setSelectedCategory([{id: category[0]?.id, title: category[0]?.title}]);
@@ -226,6 +230,20 @@ const Discover = ({navigation}) => {
           </>
         ) : null}
       </ScrollView>
+      {selectedCategory[0]?.title === 'COUNSELLING' && (
+        <View
+          style={[
+            styles.directionRow,
+            styles.alignCenter,
+            styles.justifyCenter,
+          ]}>
+          <Button
+            buttonText={'TAKE QUIZ'}
+            handlePress={navigateQuiz}
+            width={WP('90%')}
+          />
+        </View>
+      )}
     </View>
   );
 };

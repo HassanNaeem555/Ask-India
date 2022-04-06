@@ -49,12 +49,12 @@ const HeaderMain = ({
               size={size.h4}
               color={colors.black}
             />
-            <View style={style.notify}>
-              <Text style={style.notifyText}>1</Text>
-            </View>
+            {/* <View style={style.notify}>
+              <Text style={style.notifyText}>12</Text>
+            </View> */}
           </TouchableOpacity>
         )}
-        {!showSearch && !showNotifications && <Text>{'           '}</Text>}
+        {!showSearch && !showNotifications && <Text>{'        '}</Text>}
       </View>
     </View>
   );

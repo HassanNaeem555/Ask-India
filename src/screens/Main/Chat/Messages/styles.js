@@ -28,8 +28,13 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
   },
   otherUserMessage: {
-    color: '#7B7B7B',
+    color: colors.hardDarkGray,
     fontSize: size.small,
+    fontWeight: '400',
+  },
+  otherUserMessageDate: {
+    color: colors.hardDarkGray,
+    fontSize: size.xsmall,
     fontWeight: '400',
   },
   ourUserMessage: {

@@ -67,7 +67,7 @@ export default function MyTabBar({state, descriptors, navigation}) {
                     top: '0%',
                     borderRadius: 0,
                   }}>
-                  <MaterialIcons
+                  {/* <MaterialIcons
                     style={{
                       position: 'relative',
                       zIndex: 0,
@@ -75,6 +75,19 @@ export default function MyTabBar({state, descriptors, navigation}) {
                     name="my-library-books"
                     size={size.h6}
                     color={isFocused ? colors.primary : colors.gray}
+                  /> */}
+                  <Image
+                    local={true}
+                    resizeMode={'contain'}
+                    style={{
+                      width: WP('7%'),
+                      height: HP('4%'),
+                    }}
+                    src={
+                      isFocused
+                        ? appIcons?.selectedFeed
+                        : appIcons?.unSelectedFeed
+                    }
                   />
                   <Text
                     style={{
@@ -96,7 +109,7 @@ export default function MyTabBar({state, descriptors, navigation}) {
                     top: '0%',
                     borderRadius: 0,
                   }}>
-                  <FontAwesome
+                  {/* <FontAwesome
                     style={{
                       position: 'relative',
                       zIndex: 0,
@@ -104,6 +117,19 @@ export default function MyTabBar({state, descriptors, navigation}) {
                     name="book"
                     size={size.h5}
                     color={isFocused ? colors.primary : colors.gray}
+                  /> */}
+                  <Image
+                    local={true}
+                    resizeMode={'contain'}
+                    style={{
+                      width: WP('7%'),
+                      height: HP('4%'),
+                    }}
+                    src={
+                      isFocused
+                        ? appIcons?.selectedTopic
+                        : appIcons?.unSelectedTopic
+                    }
                   />
                   <Text
                     style={{

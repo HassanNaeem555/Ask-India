@@ -15,14 +15,15 @@ const CounsellingCard = ({
 }) => {
   return (
     <Card
-      containerStyle={{
-        marginLeft: WP('1.2%'),
-        marginRight: WP('1.2%'),
-        paddingVertical: HP('1.7%'),
-        borderWidth: 0,
-        borderRadius: 10,
-        marginTop: HP('1.5%'),
-      }}
+      containerStyle={[
+        styles.marginHorizontal2Percent,
+        {
+          paddingVertical: HP('1.7%'),
+          borderWidth: 0,
+          borderRadius: 10,
+          marginTop: HP('1.5%'),
+        },
+      ]}
       key={index}>
       <TouchableOpacity
         activeOpacity={0.9}

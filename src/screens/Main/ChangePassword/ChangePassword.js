@@ -2,9 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {appLogos} from '../../../assets';
-import {WP, HP} from '../../../utilities';
+import {colors, WP, HP} from '../../../utilities';
 import HeaderMain from '../../../components/HeaderMain';
-import FooterAuth from '../../../components/footerAuth';
 import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
@@ -66,6 +65,7 @@ const ChangePassword = ({navigation}) => {
               leftIconShow={true}
               iconNameRight={showPassword ? 'eye-with-line' : 'eye'}
               rightIconShow={true}
+              rightIconColor={colors.gray}
               handlePress={handleShowPassword}
               secureTextEntry={showPassword}
               error_message={errorMsgPassword}
@@ -78,6 +78,7 @@ const ChangePassword = ({navigation}) => {
               leftIconShow={true}
               iconNameRight={showPassword ? 'eye-with-line' : 'eye'}
               rightIconShow={true}
+              rightIconColor={colors.gray}
               handlePress={handleShowPassword}
               secureTextEntry={showPassword}
               error_message={errorMsgPassword}
@@ -90,6 +91,7 @@ const ChangePassword = ({navigation}) => {
               leftIconShow={true}
               iconNameRight={showPassword ? 'eye-with-line' : 'eye'}
               rightIconShow={true}
+              rightIconColor={colors.gray}
               handlePress={handleShowConfirmPassword}
               secureTextEntry={showConfirmPassword}
               error_message={errorMsgPassword}

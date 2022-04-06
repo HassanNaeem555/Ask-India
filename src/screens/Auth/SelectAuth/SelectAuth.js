@@ -1,17 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {View, ScrollView, Text} from 'react-native';
+import {View, ScrollView, Text, Platform} from 'react-native';
 import {colors, HP} from '../../../utilities';
 import SplashScreen from 'react-native-splash-screen';
-import {CheckBox} from 'react-native-elements';
 import {appLogos} from '../../../assets';
 import FooterAuth from '../../../components/footerAuth';
 import Logo from '../../../components/logo';
 import SocialButton from '../../../components/socialButton';
 import styles from '../style';
 import style from './styles';
-// redux stuff
+
 const SelectAuth = ({navigation}) => {
-  const [termsCondition, setTermsCondition] = useState(false);
   const {navigate} = navigation;
   useEffect(() => {
     SplashScreen.hide();
@@ -20,44 +18,54 @@ const SelectAuth = ({navigation}) => {
     <View style={styles.mainContainer}>
       <View style={styles.flex8}>
         <View style={[styles.alignCenter, styles.alignSelfStretch]}>
-          <Logo logo={appLogos.logo} marginVertical={HP('4%')} />
+          <Text style={[style.heading, {marginVertical: HP('5%')}]}>
+            PRE LOGIN
+          </Text>
+          <Logo logo={appLogos.logo} />
           <View style={[styles.marginVerticle2Percent]}>
             <SocialButton
               backgroundColor={colors.primary}
               gradientColor={colors.secondary}
-              iconName={'phone'}
-              iconText={'Signin with Phone'}
-              navigate={navigate}
-              screen_name={'MobileNumber'}
-            />
-            <SocialButton
-              backgroundColor={colors.primary}
-              gradientColor={colors.secondary}
               iconName={'mail'}
-              iconText={'Signin with Email'}
+              iconText={'LOGIN WITH EMAIL'}
               navigate={navigate}
               screen_name={'Login'}
+              iconType={true}
             />
             <SocialButton
               backgroundColor={'#4A4949'}
               gradientColor={'#1E1E1E'}
-              iconName={'apple1'}
-              iconText={'Signin with Apple'}
+              iconName={'phone'}
+              iconText={'LOGIN WITH PHONE'}
               navigate={navigate}
+              screen_name={'MobileNumber'}
+              iconType={false}
             />
+            {Platform.OS == 'ios' && (
+              <SocialButton
+                backgroundColor={'#4A4949'}
+                gradientColor={'#1E1E1E'}
+                iconName={'apple1'}
+                iconText={'Signin with Apple'}
+                iconType={true}
+                // navigate={navigate}
+              />
+            )}
             <SocialButton
               backgroundColor={colors.facebookColor}
               gradientColor={'#1778F1'}
               iconName={'facebook-square'}
-              iconText={'Signin with Facebook'}
-              navigate={navigate}
+              iconText={'LOGIN WITH FACEBOOK'}
+              iconType={true}
+              // navigate={navigate}
             />
             <SocialButton
               backgroundColor={colors.googleColor}
               gradientColor={'#EF4235'}
               iconName={'google'}
-              iconText={'Signin with Google'}
-              navigate={navigate}
+              iconText={'LOGIN WITH GOOGLE'}
+              iconType={true}
+              // navigate={navigate}
             />
           </View>
         </View>

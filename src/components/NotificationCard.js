@@ -9,16 +9,18 @@ import styles from '../screens/Main/style';
 const NotificationCard = ({which, what}) => {
   return (
     <Card
-      containerStyle={{
-        marginLeft: WP('1.2%'),
-        marginRight: WP('1.2%'),
-        borderColor: colors.primary,
-        paddingVertical: HP('1.7%'),
-        borderWidth: 0.5,
-        borderRadius: 10,
-        marginTop: HP('1.5%'),
-      }}>
-      <View style={[styles.directionRow, styles.justifyCenter]}>
+      containerStyle={[
+        {
+          marginHorizontal: 0,
+          paddingVertical: HP('1.7%'),
+          borderWidth: 1,
+          borderRadius: 10,
+          marginTop: HP('1.5%'),
+        },
+      ]}>
+      <TouchableOpacity
+        activeOpacity={0.9}
+        style={[styles.directionRow, styles.justifyCenter]}>
         <TouchableOpacity
           activeOpacity={0.9}
           style={[
@@ -51,12 +53,7 @@ const NotificationCard = ({which, what}) => {
           />
         </TouchableOpacity>
         <View
-          style={[
-            style.postContentDivision,
-            styles.paddingHorizontal4Percent,
-            styles.marginHalfPercent,
-            {marginLeft: WP('0.5%')},
-          ]}>
+          style={[style.postContentDivision, styles.paddingHorizontal4Percent]}>
           <TouchableOpacity
             activeOpacity={0.9}
             onPress={() => {
@@ -75,7 +72,7 @@ const NotificationCard = ({which, what}) => {
             12-Jan-2022
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     </Card>
   );
 };
@@ -87,10 +84,10 @@ const style = StyleSheet.create({
     flex: 1,
   },
   postContentDivision: {
-    flex: 6,
+    flex: 5.5,
   },
   postIconDivision: {
-    flex: 2,
+    flex: 2.5,
   },
   postImage: {
     marginLeft: WP('1.5%'),
@@ -113,12 +110,13 @@ const style = StyleSheet.create({
     marginVertical: HP('1.5%'),
   },
   postHeading: {
-    fontSize: size.medium,
+    fontSize: size.normal,
     color: colors.mediumGray,
-    fontWeight: 'bold',
+    letterSpacing: 1,
+    fontWeight: '500',
   },
   postDate: {
-    fontSize: size.xxsmall,
+    fontSize: size.tiny,
     color: '#ABAFB2',
   },
   postDescription: {

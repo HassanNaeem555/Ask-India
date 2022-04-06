@@ -76,7 +76,7 @@ const Messages = ({navigation, route}) => {
               amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
               invidunt ut labore et dolore magna aliquyam erat, sed
             </Text>
-            <Text style={[style.otherUserMessage, styles.margin1Percent]}>
+            <Text style={[style.otherUserMessageDate, styles.margin2Percent]}>
               04:45 PM
             </Text>
           </View>
@@ -98,7 +98,7 @@ const Messages = ({navigation, route}) => {
               nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
               erat, sed diam voluptua.
             </Text>
-            <Text style={[style.ourUserMessage, styles.margin1Percent]}>
+            <Text style={[style.ourUserMessage, styles.margin2Percent]}>
               04:45 PM
             </Text>
           </View>

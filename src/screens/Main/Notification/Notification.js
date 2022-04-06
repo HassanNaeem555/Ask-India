@@ -18,7 +18,7 @@ const Notification = ({navigation}) => {
         headerText={'NOTIFICATIONS'}
         navigation={navigation}
       />
-      <ScrollView>
+      <ScrollView style={[styles.marginHorizontal2Percent]}>
         <Text style={style.when}>New</Text>
         <NotificationCard which={'like'} what={'Like your photo'} />
         <NotificationCard which={'comment'} what={'Comment on your Post'} />

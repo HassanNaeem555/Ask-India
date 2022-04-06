@@ -96,7 +96,7 @@ const CreateProfile = ({navigation}) => {
             <CustomInput
               placeholder={'Enter Your Name'}
               iconName={'user'}
-              iconType={'ant-design'}
+              iconType={'font-awesome'}
               leftIconShow={true}
               error_message={errorMsg}
               change={onChangeEmail}

@@ -205,7 +205,7 @@ const style = StyleSheet.create({
     paddingHorizontal: 15,
   },
   itemText: {
-    fontSize: size.large,
+    fontSize: size.medium,
     color: colors.white,
     width: WP('60%'),
   },

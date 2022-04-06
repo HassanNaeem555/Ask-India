@@ -60,7 +60,7 @@ const Profile = ({navigation}) => {
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
       <HeaderMain
         leftIcon={'ios-menu-sharp'}
-        showSearch={true}
+        showSearch={false}
         showNotifications={true}
         headerText={'PROFILE'}
         navigation={navigation}

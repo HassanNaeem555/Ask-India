@@ -8,7 +8,7 @@ import {appImages, appLogos} from '../assets';
 import {WP, HP, colors, size} from '../utilities';
 import styles from '../screens/Main/style';
 
-const LikeCard = ({followed, navigation}) => {
+const LikeCard = ({followed, navigation, like}) => {
   return (
     <Card
       style={styles.positionRelative}
@@ -38,12 +38,14 @@ const LikeCard = ({followed, navigation}) => {
             style={style.likeImage}
             src={appImages?.postImage}
           />
-          <AntDesign
-            name={'like1'}
-            size={25}
-            color={colors.primary}
-            style={style.likeIcon}
-          />
+          {like && (
+            <AntDesign
+              name={'like1'}
+              size={25}
+              color={colors.primary}
+              style={style.likeIcon}
+            />
+          )}
         </TouchableOpacity>
         <View
           style={[

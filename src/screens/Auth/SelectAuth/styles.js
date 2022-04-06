@@ -6,6 +6,10 @@ const style = StyleSheet.create({
     width: WP('100%'),
     height: HP('30%'),
   },
+  heading: {
+    fontSize: size.medium,
+    fontWeight: '500',
+  },
 });
 
 export default style;

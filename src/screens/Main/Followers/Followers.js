@@ -31,12 +31,12 @@ const Followers = ({navigation}) => {
           rightIconColor={colors.black}
           handlePress={handlePress}
         />
-        <LikeCard followed={true} navigation={navigation} />
-        <LikeCard followed={true} navigation={navigation} />
-        <LikeCard followed={false} navigation={navigation} />
-        <LikeCard followed={true} navigation={navigation} />
-        <LikeCard followed={true} navigation={navigation} />
-        <LikeCard followed={false} navigation={navigation} />
+        <LikeCard followed={true} navigation={navigation} like={false} />
+        <LikeCard followed={true} navigation={navigation} like={false} />
+        <LikeCard followed={false} navigation={navigation} like={false} />
+        <LikeCard followed={true} navigation={navigation} like={false} />
+        <LikeCard followed={true} navigation={navigation} like={false} />
+        <LikeCard followed={false} navigation={navigation} like={false} />
       </ScrollView>
     </View>
   );

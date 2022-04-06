@@ -243,6 +243,9 @@ const styles = StyleSheet.create({
   colorWhite: {
     color: colors.white,
   },
+  colorHardDarkGray: {
+    color: colors.hardDarkGray,
+  },
   bgWhite: {
     backgroundColor: colors.whiteMedium,
   },

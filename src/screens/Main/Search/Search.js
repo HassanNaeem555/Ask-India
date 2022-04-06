@@ -3,6 +3,7 @@ import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import HeaderMain from '../../../components/HeaderMain';
 import HorizontalCategories from '../../../components/horizontalCategories';
 import CustomInput from '../../../components/CustomInput';
+import PeoplesCard from '../../../components/PeoplesCard';
 import TopicCard from '../../../components/TopicCard';
 import Post from '../../../components/Post';
 import {WP, HP, colors, size} from '../../../utilities';
@@ -90,15 +91,18 @@ const Search = ({navigation}) => {
         </ScrollView>
         {selectedCategory[0]?.title == 'People' ? (
           <>
-            <Post
-              showPostImage={false}
-              showTag={true}
+            <PeoplesCard navigation={navigation} text={true} what={'Friend'} />
+            <PeoplesCard
               navigation={navigation}
+              text={true}
+              what={'Request Pending'}
             />
-            <Post
-              showPostImage={true}
-              showTag={false}
+            <PeoplesCard navigation={navigation} text={false} what={''} />
+            <PeoplesCard navigation={navigation} text={true} what={'Friend'} />
+            <PeoplesCard
               navigation={navigation}
+              text={true}
+              what={'Request Pending'}
             />
           </>
         ) : selectedCategory[0]?.title == 'Topics' ? (

@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+  ScrollView,
+} from 'react-native';
 import * as Progress from 'react-native-progress';
 import {Card} from 'react-native-elements';
 import ButtonNoBg from '../../../components/ButtonNoBg';

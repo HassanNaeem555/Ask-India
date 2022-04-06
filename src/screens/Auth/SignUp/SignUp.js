@@ -2,8 +2,10 @@ import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+import * as EmailValidator from 'email-validator';
+import Toast from 'react-native-simple-toast';
 import {appLogos} from '../../../assets';
-import {WP, HP} from '../../../utilities';
+import {WP, HP, colors} from '../../../utilities';
 import HeaderMain from '../../../components/HeaderMain';
 import FooterAuth from '../../../components/footerAuth';
 import Logo from '../../../components/logo';
@@ -11,7 +13,26 @@ import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
 import styles from '../style';
 import style from './styles';
-// redux stuff
+
+var passwordValidator = require('password-validator');
+var schema = new passwordValidator();
+schema
+  .is()
+  .min(8)
+  .is()
+  .max(100)
+  .has()
+  .uppercase()
+  .has()
+  .lowercase()
+  .has()
+  .digits()
+  .has()
+  .not()
+  .spaces()
+  .has()
+  .symbols();
+
 const SignUp = ({navigation}) => {
   const {navigate} = navigation;
   const [email, setEmail] = useState('');
@@ -37,6 +58,25 @@ const SignUp = ({navigation}) => {
     setConfirmPassword(val);
   };
   const handlePress = () => {
+    if (!email) {
+      Toast.show('Please enter Email', Toast.LONG);
+      return;
+    }
+    if (!EmailValidator.validate(email)) {
+      Toast.show('Email not valid', Toast.LONG);
+      return;
+    }
+    if (!password) {
+      Toast.show('Please enter Password', Toast.LONG);
+      return;
+    }
+    if (!schema.validate(password)) {
+      Toast.show(
+        'Password not valid (Use atleast one UpperCase Letter, one number and one special character)',
+        Toast.LONG,
+      );
+      return;
+    }
     // navigate('Pin');
   };
   const changeScreen = screen_name => {
@@ -74,8 +114,11 @@ const SignUp = ({navigation}) => {
             <CustomInput
               placeholder={'Enter Your Password'}
               iconName={showPassword ? 'lock' : 'lock-open'}
-              iconType={'simple-line-icons'}
+              iconType={'entypo'}
               leftIconShow={true}
+              iconNameRight={showPassword ? 'eye-with-line' : 'eye'}
+              rightIconShow={true}
+              rightIconColor={colors.gray}
               handlePress={handleShowPassword}
               secureTextEntry={showPassword}
               error_message={errorMsgPassword}
@@ -84,8 +127,11 @@ const SignUp = ({navigation}) => {
             <CustomInput
               placeholder={'Confirm Password'}
               iconName={showConfirmPassword ? 'lock' : 'lock-open'}
-              iconType={'simple-line-icons'}
+              iconType={'entypo'}
               leftIconShow={true}
+              iconNameRight={showConfirmPassword ? 'eye-with-line' : 'eye'}
+              rightIconShow={true}
+              rightIconColor={colors.gray}
               handlePress={handleShowConfirmPassword}
               secureTextEntry={showConfirmPassword}
               error_message={errorMsgPassword}

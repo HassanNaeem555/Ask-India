@@ -40,7 +40,6 @@ const PlaceLocation = ({navigation}) => {
         <View style={[styles.alignCenter, styles.alignSelfStretch]}>
           <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
           <CustomInput
-            label={'Enter Your City and State'}
             placeholder={'Enter State Name'}
             iconName={'map'}
             iconType={'fontisto'}
@@ -48,7 +47,6 @@ const PlaceLocation = ({navigation}) => {
             error_message={errorMsg}
             change={onChangeEmail}
           />
-          <View style={styles.margin4Percent} />
           <CustomInput
             placeholder={'Enter City Name'}
             iconName={'map'}

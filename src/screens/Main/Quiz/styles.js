@@ -5,12 +5,12 @@ const {width} = Dimensions.get('window');
 
 const style = StyleSheet.create({
   heading: {
-    fontSize: size.xtitle,
+    fontSize: size.h1,
     fontWeight: 'bold',
     color: '#484848',
   },
   subHeading: {
-    fontSize: size.h6,
+    fontSize: size.xxlarge,
     fontWeight: '700',
   },
   normalText: {
@@ -28,7 +28,7 @@ const style = StyleSheet.create({
   },
   quizResult: {
     width: WP('100%'),
-    height: HP('25%'),
+    height: HP('22%'),
   },
   customSelectionBox: {
     borderWidth: 1,
@@ -52,12 +52,12 @@ const style = StyleSheet.create({
     backgroundColor: colors.primary,
   },
   congratulations: {
-    fontSize: size.h1,
+    fontSize: size.h3,
     color: colors.red,
     fontWeight: 'bold',
   },
   details: {
-    fontSize: size.xxlarge,
+    fontSize: size.medium,
     color: colors.gray,
     fontWeight: '400',
     textAlign: 'center',

@@ -24,12 +24,12 @@ const Like = ({navigation}) => {
         navigation={navigation}
       />
       <ScrollView>
-        <LikeCard followed={true} navigation={navigation} />
-        <LikeCard followed={true} navigation={navigation} />
-        <LikeCard followed={false} navigation={navigation} />
-        <LikeCard followed={true} navigation={navigation} />
-        <LikeCard followed={true} navigation={navigation} />
-        <LikeCard followed={false} navigation={navigation} />
+        <LikeCard followed={true} navigation={navigation} like={true} />
+        <LikeCard followed={true} navigation={navigation} like={true} />
+        <LikeCard followed={false} navigation={navigation} like={true} />
+        <LikeCard followed={true} navigation={navigation} like={true} />
+        <LikeCard followed={true} navigation={navigation} like={true} />
+        <LikeCard followed={false} navigation={navigation} like={true} />
       </ScrollView>
     </View>
   );
