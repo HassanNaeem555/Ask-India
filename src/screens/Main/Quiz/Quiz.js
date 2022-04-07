@@ -75,7 +75,12 @@ const Quiz = ({navigation, route}) => {
         <QuizOver title={title} navigation={navigation} />
       ) : (
         <>
-          <View style={[styles.paddingHorizontal3Percent, {flex: 1.5}]}>
+          <View
+            style={[
+              styles.paddingHorizontal3Percent,
+              styles.marginVerticle1HalfPercent,
+              {flex: 1.5},
+            ]}>
             <Text style={[style.subHeading, styles.marginVerticleHalfPercent]}>
               Questions: 2 / 6
             </Text>
@@ -91,9 +96,9 @@ const Quiz = ({navigation, route}) => {
             </View>
             <Text
               style={[
-                style.heading,
+                style.subHeading,
                 styles.colorPrimary,
-                styles.marginVerticleHalfPercent,
+                styles.marginVerticle2Percent,
               ]}>
               Topic: <Text style={styles.colorBlack}>{title}</Text>
             </Text>
@@ -194,50 +199,55 @@ const QuizOver = ({title, navigation}) => {
   };
   return (
     <View style={[styles.paddingHorizontal3Percent, styles.mainContainer]}>
-      <View style={[styles.justifyCenter, styles.alignCenter]}>
+      <View style={[styles.justifyCenter, styles.alignCenter, {flex: 1.2}]}>
         <Text style={[style.subHeading, styles.colorPrimary]}>Topic</Text>
         <Text style={[style.heading, styles.marginVerticleHalfPercent]}>
           {title}
         </Text>
       </View>
-      <Card
-        containerStyle={{
-          borderRadius: 10,
-          marginHorizontal: 0,
-          borderWidth: 1,
-          borderColor: colors.primary,
+      <View
+        style={{
+          flex: 8.8,
         }}>
-        <View style={[styles.justifyCenter, styles.alignCenter]}>
-          <Image
-            local={true}
-            resizeMode={'contain'}
-            style={style.quizResult}
-            src={appImages?.congratulations}
-          />
-          <Text
-            style={[style.congratulations, styles.marginVerticleHalfPercent]}>
-            Congratulations
-          </Text>
-          <Text style={style.details}>
-            You have successfully finished the quiz
-          </Text>
-          <Text style={[style.heading, styles.margin1Percent]}>Score</Text>
-          <Text style={[style.heading, styles.marginVerticleHalfPercent]}>
-            90%
-          </Text>
-          <ButtonNoBg
-            buttonText={'CHECK RECOMMENDED'}
-            width={WP('78%')}
-            handlePress={goStudyAbroad}
-          />
-          <View style={styles.marginVerticleHalfPercent}></View>
-          <Button
-            buttonText={'COUNSELLING'}
-            handlePress={changeScreen}
-            width={WP('80%')}
-          />
-        </View>
-      </Card>
+        <Card
+          containerStyle={{
+            borderRadius: 10,
+            marginHorizontal: 0,
+            borderWidth: 1,
+            borderColor: colors.primary,
+          }}>
+          <View style={[styles.justifyCenter, styles.alignCenter]}>
+            <Image
+              local={true}
+              resizeMode={'contain'}
+              style={style.quizResult}
+              src={appImages?.congratulations}
+            />
+            <Text
+              style={[style.congratulations, styles.marginVerticleHalfPercent]}>
+              Congratulations
+            </Text>
+            <Text style={style.details}>
+              You have successfully finished the quiz
+            </Text>
+            <Text style={[style.heading, styles.margin1Percent]}>Score</Text>
+            <Text style={[style.heading, styles.marginVerticleHalfPercent]}>
+              90%
+            </Text>
+            <ButtonNoBg
+              buttonText={'CHECK RECOMMENDED'}
+              width={WP('78%')}
+              handlePress={goStudyAbroad}
+            />
+            <View style={styles.marginVerticleHalfPercent}></View>
+            <Button
+              buttonText={'COUNSELLING'}
+              handlePress={changeScreen}
+              width={WP('80%')}
+            />
+          </View>
+        </Card>
+      </View>
     </View>
   );
 };

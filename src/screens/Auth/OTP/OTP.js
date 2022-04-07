@@ -45,8 +45,14 @@ const OTP = ({navigation, route}) => {
     );
   };
   const onCompleteTimer = () => {
-    console.log('onCompleteTimer');
-    if (from && from == 'forget') {
+    console.log('onCompleteTimer', from);
+    if (from == 'forget') {
+      navigation.navigate('Login');
+    }
+    if (from == 'MobileNumber') {
+      navigation.navigate('Login');
+    }
+    if (from == 'Signup') {
       navigation.navigate('Login');
     } else {
       navigation.navigate('Continue');

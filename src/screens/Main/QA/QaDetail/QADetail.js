@@ -62,11 +62,23 @@ const QADetail = ({navigation}) => {
                 styles.alignCenter,
                 styles.positionRelative,
               ]}>
-              <Image
+              {/* <Image
                 local={true}
                 resizeMode={'contain'}
                 style={style.postImage}
                 src={appImages?.postImage}
+              /> */}
+              <Image
+                local={true}
+                resizeMode={'contain'}
+                style={[style.postImageBorder, styles.positionRelative]}
+                src={appImages?.postImageBorder}
+              />
+              <Image
+                local={true}
+                resizeMode={'contain'}
+                style={style.postImage}
+                src={appImages?.postImageRounded}
               />
             </View>
             <View

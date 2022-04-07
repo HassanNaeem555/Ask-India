@@ -39,8 +39,14 @@ const PeoplesCard = ({navigation, what, text}) => {
           <Image
             local={true}
             resizeMode={'contain'}
+            style={[style.postImageBorder, styles.positionRelative]}
+            src={appImages?.postImageBorder}
+          />
+          <Image
+            local={true}
+            resizeMode={'contain'}
             style={style.postImage}
-            src={appImages?.postImage}
+            src={appImages?.postImageRounded}
           />
         </TouchableOpacity>
         <View
@@ -103,17 +109,21 @@ const style = StyleSheet.create({
   postIconDivision: {
     flex: 2,
   },
+  postImageBorder: {
+    width: WP('11%'),
+    height: HP('6.1%'),
+    overflow: 'hidden',
+    zIndex: 10,
+  },
   postImage: {
-    marginLeft: WP('1.5%'),
-    width: WP('10%'),
+    width: WP('9%'),
     height: HP('6%'),
-    borderWidth: 2,
-    borderColor: colors.primary,
     borderRadius: 50,
+    position: 'absolute',
   },
   what: {
-    width: WP('8%'),
-    height: HP('5%'),
+    width: WP('7%'),
+    height: HP('4.5%'),
   },
   postHeading: {
     fontSize: size.medium,

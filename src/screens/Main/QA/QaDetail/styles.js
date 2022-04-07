@@ -16,13 +16,17 @@ const style = StyleSheet.create({
   postIconDivision: {
     flex: 2,
   },
+  postImageBorder: {
+    width: WP('11%'),
+    height: HP('6.1%'),
+    overflow: 'hidden',
+    zIndex: 10,
+  },
   postImage: {
-    marginLeft: WP('1.5%'),
-    width: WP('10%'),
+    width: WP('9%'),
     height: HP('6%'),
-    borderWidth: 2,
-    borderColor: colors.primary,
     borderRadius: 50,
+    position: 'absolute',
   },
   galleryImage: {
     width: WP('15%'),

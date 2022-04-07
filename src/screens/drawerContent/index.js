@@ -6,12 +6,10 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  ImageBackground,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import Img from '../../components/Img';
-import Entypo from 'react-native-vector-icons/Entypo';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {validateUserLogin} from '../../store/actions/authAction';
 import {colors, WP, HP, size} from '../../utilities';
 import {appImages, appIcons} from '../../assets';
@@ -33,7 +31,24 @@ export default function DrawerContent({navigation}) {
             styles.justifyCenter,
             styles.alignCenter,
           ]}>
-          <Image source={appImages.profileImage} style={style.profileImage} />
+          <ImageBackground
+            source={appImages?.profileImageBorder}
+            resizeMode={'contain'}
+            style={[
+              styles.alignCenter,
+              {
+                height: HP('20%'),
+                position: 'relative',
+                overflow: 'hidden',
+              },
+            ]}>
+            <Image
+              local={true}
+              resizeMode={'contain'}
+              style={style.profileImage}
+              src={appImages?.profileImageRound}
+            />
+          </ImageBackground>
           <Text style={[style.name, styles.margin1Percent]}>JOHN SMITH</Text>
           <Text style={style.email}>johnsmith@gmail.com</Text>
         </View>
@@ -185,11 +200,10 @@ const style = StyleSheet.create({
     backgroundColor: colors.white,
   },
   profileImage: {
-    width: WP('24%'),
-    height: HP('14%'),
-    borderWidth: 2,
-    borderColor: colors.primary,
+    width: WP('36%'),
+    height: HP('20%'),
     borderRadius: 50,
+    zIndex: 10,
   },
   name: {
     fontSize: size.medium,

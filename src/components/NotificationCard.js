@@ -31,11 +31,23 @@ const NotificationCard = ({which, what}) => {
           onPress={() => {
             navigation.navigate('OtherProfile');
           }}>
-          <Image
+          {/* <Image
             local={true}
             resizeMode={'contain'}
             style={style.postImage}
             src={appImages?.postImage}
+          /> */}
+          <Image
+            local={true}
+            resizeMode={'contain'}
+            style={[style.postImageBorder, styles.positionRelative]}
+            src={appImages?.postImageBorder}
+          />
+          <Image
+            local={true}
+            resizeMode={'contain'}
+            style={style.postImage}
+            src={appImages?.postImageRounded}
           />
           <Image
             local={true}
@@ -89,13 +101,17 @@ const style = StyleSheet.create({
   postIconDivision: {
     flex: 2.5,
   },
+  postImageBorder: {
+    width: WP('11%'),
+    height: HP('6.1%'),
+    overflow: 'hidden',
+    zIndex: 10,
+  },
   postImage: {
-    marginLeft: WP('1.5%'),
-    width: WP('10%'),
+    width: WP('9%'),
     height: HP('6%'),
-    borderWidth: 2,
-    borderColor: colors.primary,
     borderRadius: 50,
+    position: 'absolute',
   },
   which: {
     width: WP('5%'),

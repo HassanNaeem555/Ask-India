@@ -16,7 +16,7 @@ const CounsellingCard = ({
   return (
     <Card
       containerStyle={[
-        styles.marginHorizontal2Percent,
+        styles.marginHorizontal1Percent,
         {
           paddingVertical: HP('1.7%'),
           borderWidth: 0,

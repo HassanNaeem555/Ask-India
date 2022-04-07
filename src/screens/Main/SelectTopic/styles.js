@@ -20,6 +20,10 @@ const style = StyleSheet.create({
     width: WP('9%'),
     height: HP('5.2%'),
   },
+  selectedImage: {
+    width: WP('4.5%'),
+    height: HP('4.5%'),
+  },
   customSelectionBox: {
     borderWidth: 1,
     backgroundColor: colors.white,

@@ -77,7 +77,7 @@ const SignUp = ({navigation}) => {
       );
       return;
     }
-    navigate('OTP', {from: 'forget'});
+    navigate('OTP', {from: 'Signup'});
   };
   const changeScreen = screen_name => {
     navigate(screen_name);

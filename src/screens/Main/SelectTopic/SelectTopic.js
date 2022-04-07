@@ -4,7 +4,7 @@ import Button from '../../../components/Button';
 import CustomInput from '../../../components/CustomInput';
 import Image from '../../../components/Img';
 import HeaderMain from '../../../components/HeaderMain';
-import {appIcons} from '../../../assets';
+import {appIcons, appImages} from '../../../assets';
 import {WP, HP, colors, size} from '../../../utilities';
 import styles from '../style';
 import style from './styles';
@@ -107,6 +107,7 @@ const SelectTopic = ({navigation}) => {
                 styles.padding2Percent,
                 styles.paddingHorizontal4Percent,
                 style.customSelectionBox,
+                styles.marginHorizontal1Percent,
                 selectedProgram.length > 0 &&
                 selectedProgram.filter(e => e?.id === item?.id).length > 0
                   ? {
@@ -131,7 +132,7 @@ const SelectTopic = ({navigation}) => {
                 </Text>
               </View>
               <View style={[styles.justifyCenter, {flex: 1}]}>
-                <View
+                {/* <View
                   style={
                     selectedProgram.length > 0 &&
                     selectedProgram.filter(e => e?.id === item?.id).length > 0
@@ -140,7 +141,18 @@ const SelectTopic = ({navigation}) => {
                           style.customSelectionCircleActive,
                         ]
                       : style.customSelectionCircle
-                  }></View>
+                  }></View> */}
+                <Image
+                  local={true}
+                  resizeMode={'contain'}
+                  style={style.selectedImage}
+                  src={
+                    selectedProgram.length > 0 &&
+                    selectedProgram.filter(e => e?.id === item?.id).length > 0
+                      ? appImages?.selectedTopic
+                      : appImages?.unselectTopic
+                  }
+                />
               </View>
             </TouchableOpacity>
           );
