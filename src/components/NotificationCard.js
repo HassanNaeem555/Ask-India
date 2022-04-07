@@ -27,6 +27,7 @@ const NotificationCard = ({which, what}) => {
             style.postImageDivision,
             styles.alignCenter,
             styles.positionRelative,
+            {marginTop: -10},
           ]}
           onPress={() => {
             navigation.navigate('OtherProfile');

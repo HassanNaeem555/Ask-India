@@ -29,7 +29,7 @@ const PeoplesCard = ({navigation, what, text}) => {
         style={[styles.directionRow, styles.justifyCenter]}>
         <TouchableOpacity
           activeOpacity={0.9}
-          style={[style.postImageDivision, styles.alignCenter]}
+          style={[style.postImageDivision, styles.alignCenter, {marginTop: -5}]}
           onPress={() => {
             navigation.navigate('MessagesOfUsers', {
               id: 0,

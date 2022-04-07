@@ -56,8 +56,14 @@ const Comment = ({navigation}) => {
             <Image
               local={true}
               resizeMode={'contain'}
-              style={style.userImage}
-              src={appImages?.postImage}
+              style={[style.postImageBorder, styles.positionRelative]}
+              src={appImages?.postImageBorder}
+            />
+            <Image
+              local={true}
+              resizeMode={'contain'}
+              style={style.postImage}
+              src={appImages?.postImageRounded}
             />
           </View>
           <View
@@ -112,8 +118,14 @@ const Comment = ({navigation}) => {
             <Image
               local={true}
               resizeMode={'contain'}
-              style={style.userImage}
-              src={appImages?.postImage}
+              style={[style.postImageBorder, styles.positionRelative]}
+              src={appImages?.postImageBorder}
+            />
+            <Image
+              local={true}
+              resizeMode={'contain'}
+              style={style.postImage}
+              src={appImages?.postImageRounded}
             />
           </View>
           <View

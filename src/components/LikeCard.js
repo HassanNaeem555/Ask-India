@@ -32,11 +32,23 @@ const LikeCard = ({followed, navigation, like}) => {
           onPress={() => {
             navigation.navigate('OtherProfile');
           }}>
-          <Image
+          {/* <Image
             local={true}
             resizeMode={'contain'}
             style={style.likeImage}
             src={appImages?.postImage}
+          /> */}
+          <Image
+            local={true}
+            resizeMode={'contain'}
+            style={[style.postImageBorder, styles.positionRelative]}
+            src={appImages?.postImageBorder}
+          />
+          <Image
+            local={true}
+            resizeMode={'contain'}
+            style={style.postImage}
+            src={appImages?.postImageRounded}
           />
           {like && (
             <AntDesign
@@ -62,7 +74,12 @@ const LikeCard = ({followed, navigation, like}) => {
             Sam Wilson
           </Text>
         </View>
-        <View style={[style.likeIconDivision, styles.justifyCenter]}>
+        <View
+          style={[
+            style.likeIconDivision,
+            styles.justifyCenter,
+            styles.alignCenter,
+          ]}>
           {followed ? (
             <TouchableOpacity
               activeOpacity={0.9}
@@ -104,12 +121,17 @@ const style = StyleSheet.create({
   likeIconDivision: {
     flex: 2.7,
   },
-  likeImage: {
-    width: WP('10.5%'),
+  postImageBorder: {
+    width: WP('11%'),
+    height: HP('6.1%'),
+    overflow: 'hidden',
+    zIndex: 10,
+  },
+  postImage: {
+    width: WP('9%'),
     height: HP('6%'),
     borderRadius: 50,
-    borderWidth: 2,
-    borderColor: colors.primary,
+    position: 'absolute',
   },
   likeIcon: {
     position: 'absolute',
@@ -121,7 +143,7 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
   },
   followButton: {
-    paddingHorizontal: WP('2.5%'),
+    paddingHorizontal: WP('4%'),
     paddingVertical: HP('0.7%'),
   },
   btnFollowed: {

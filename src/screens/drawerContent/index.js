@@ -37,12 +37,13 @@ export default function DrawerContent({navigation}) {
             style={[
               styles.alignCenter,
               {
+                width: WP('100%'),
                 height: HP('20%'),
                 position: 'relative',
                 overflow: 'hidden',
               },
             ]}>
-            <Image
+            <Img
               local={true}
               resizeMode={'contain'}
               style={style.profileImage}

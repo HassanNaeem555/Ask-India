@@ -24,7 +24,7 @@ const style = StyleSheet.create({
     width: WP('3%'),
     height: HP('2%'),
     marginRight: WP('2%'),
-    marginTop: HP('0.5%'),
+    marginTop: HP('0.1%'),
   },
 });
 

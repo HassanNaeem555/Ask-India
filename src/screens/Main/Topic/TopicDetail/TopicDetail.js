@@ -60,6 +60,7 @@ const TopicDetail = ({navigation}) => {
                 style.postImageDivision,
                 styles.alignCenter,
                 styles.positionRelative,
+                {marginTop: -5},
               ]}>
               {/* <Image
                 local={true}

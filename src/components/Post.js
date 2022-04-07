@@ -41,6 +41,7 @@ const Post = ({showPostImage, showTag, navigation}) => {
             style.postImageDivision,
             styles.alignCenter,
             styles.positionRelative,
+            {marginTop: -5},
           ]}
           onPress={() => {
             navigation.navigate('OtherProfile');
@@ -210,7 +211,7 @@ const style = StyleSheet.create({
   },
   postImageBorder: {
     width: WP('11%'),
-    height: HP('6.1%'),
+    height: HP('6%'),
     overflow: 'hidden',
     zIndex: 10,
   },

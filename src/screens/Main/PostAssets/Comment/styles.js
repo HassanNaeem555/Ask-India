@@ -14,13 +14,17 @@ const style = StyleSheet.create({
     color: colors.mediumGray,
     fontWeight: 'bold',
   },
-  userImage: {
-    marginLeft: WP('1.5%'),
-    width: WP('10%'),
+  postImageBorder: {
+    width: WP('11%'),
+    height: HP('6.1%'),
+    overflow: 'hidden',
+    zIndex: 10,
+  },
+  postImage: {
+    width: WP('9%'),
     height: HP('6%'),
-    borderWidth: 2,
-    borderColor: colors.primary,
     borderRadius: 50,
+    position: 'absolute',
   },
   sendMessage: {
     width: WP('8%'),
