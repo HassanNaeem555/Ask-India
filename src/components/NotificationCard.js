@@ -6,7 +6,7 @@ import {appImages, appIcons} from '../assets';
 import {WP, HP, colors, size} from '../utilities';
 import styles from '../screens/Main/style';
 
-const NotificationCard = ({which, what}) => {
+const NotificationCard = ({navigation,which, what}) => {
   return (
     <Card
       containerStyle={[

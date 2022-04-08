@@ -50,3 +50,5 @@ export default App;
 // getResult = result(user_input);
 // if getResult:
 //     takeUserInput(result_of_random_number);
+
+// https://stackoverflow.com/questions/69408222/android-studio-generate-signed-apks-broke
