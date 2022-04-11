@@ -1,0 +1,9 @@
+export const register = 'user_create';
+export const login = 'user_login';
+export const forgotPassword = 'forgot_password';
+export const resendVerificationCode = 're_send_code';
+export const verificationCode = 'user_verification';
+export const updateProfile = 'complete_profile';
+export const updatePassword = 'update_password';
+export const cmsContent = 'content';
+export const logOut = 'logout';

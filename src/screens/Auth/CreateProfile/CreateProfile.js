@@ -2,14 +2,12 @@ import React, {useState} from 'react';
 import {View, Image, ImageBackground, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import * as ImagePicker from 'react-native-image-picker';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Toast from 'react-native-simple-toast';
 import HeaderMain from '../../../components/HeaderMain';
 import {appLogos, appImages, appIcons} from '../../../assets';
-import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
 import styles from '../style';
-import style from './styles';
 import {colors, HP, WP, size} from '../../../utilities';
 // redux stuff
 
@@ -17,6 +15,7 @@ const CreateProfile = ({navigation}) => {
   const [errorMsg, setErrorMsg] = useState('');
   const [profilePhotoUri, setprofilePhotoUri] = useState(appIcons?.camera);
   const [profilePhotoUris, setprofilePhotoUris] = useState('');
+  const [user_name, setUserName] = useState('');
   const [profilePhoto, setprofilePhoto] = useState([]);
   const launchImageLibrary = () => {
     let options = {
@@ -40,9 +39,15 @@ const CreateProfile = ({navigation}) => {
       }
     });
   };
-  const onChangeEmail = val => {};
+  const onChangeName = val => {
+    setUserName(val);
+  };
   const handlePress = () => {
-    navigation.navigate('PlaceLocation');
+    if (user_name == '') {
+      Toast.show('Please enter Fullname', Toast.LONG);
+      return;
+    }
+    navigation.navigate('PlaceLocation', {user_name, profilePhoto});
   };
   return (
     <View style={[styles.mainContainer, {padding: 16}]}>
@@ -99,7 +104,7 @@ const CreateProfile = ({navigation}) => {
               iconType={'font-awesome'}
               leftIconShow={true}
               error_message={errorMsg}
-              change={onChangeEmail}
+              change={onChangeName}
             />
           </View>
           <View style={[styles.alignCenter, styles.marginVerticle2Percent]}>

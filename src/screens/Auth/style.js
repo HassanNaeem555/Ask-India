@@ -257,6 +257,9 @@ const styles = StyleSheet.create({
   colorWhite: {
     color: colors.white,
   },
+  colorGray: {
+    color: colors.gray,
+  },
   font16: {
     fontSize: size.normal,
   },

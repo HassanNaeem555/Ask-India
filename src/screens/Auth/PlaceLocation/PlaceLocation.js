@@ -1,27 +1,92 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {View, Platform} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+import {useSelector, useDispatch} from 'react-redux';
+import Toast from 'react-native-simple-toast';
 import {appLogos} from '../../../assets';
 import HeaderMain from '../../../components/HeaderMain';
 import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
+import LoadingButton from '../../../components/LoadingButton';
+import {saveUserProfile} from '../../../store/actions/authAction';
+import {updateProfile} from '../../../utils/api';
+import {postApi} from '../../../utils/apiFunction';
 import {WP, HP} from '../../../utilities';
 import styles from '../style';
-import style from './styles';
 
-const PlaceLocation = ({navigation}) => {
-  const [email, setEmail] = useState('');
+const PlaceLocation = ({navigation, route}) => {
+  const dispatch = useDispatch();
+  const {user_name, profilePhoto} = route.params;
+  const [user_state, setUserState] = useState('');
+  const [user_city, setUserCity] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-  const onChangeEmail = val => {
-    setEmail(val);
+  const [loading, setLoading] = useState(false);
+  const {user_id} = useSelector(state => state.authReducer.temporaryUserId);
+  const bearer_token = useSelector(state => state.authReducer.bearer_token);
+  const onChangeState = val => {
+    setUserState(val);
   };
-  const handlePress = () => {
-    navigation.navigate('EnrolledProgram');
+  const onChangeCity = val => {
+    setUserCity(val);
+  };
+  const handlePress = async () => {
+    if (user_state == '') {
+      Toast.show('Please enter State Name', Toast.LONG);
+      return;
+    }
+    if (user_city == '') {
+      Toast.show('Please enter City Name', Toast.LONG);
+      return;
+    }
+    setLoading(!loading);
+    let send_user_data = new FormData();
+    send_user_data.append('user_name', user_name);
+    send_user_data.append('user_state', user_state);
+    send_user_data.append('user_city', user_city);
+    send_user_data.append('user_id', user_id);
+    send_user_data.append('user_image', {
+      uri:
+        Platform.OS === 'ios'
+          ? profilePhoto[0].uri.replace('file://', '')
+          : profilePhoto[0].uri,
+      type: profilePhoto[0].type,
+      name: `Profile${Date.now()}.${profilePhoto[0].type.slice(
+        profilePhoto[0].type.lastIndexOf('/') + 1,
+      )}`,
+    });
+    console.log('send_user_data', send_user_data);
+    const {data, status, message} = await postApi(
+      updateProfile,
+      send_user_data,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${bearer_token}`,
+        },
+      },
+    );
+    if (status == 1) {
+      dispatch(saveUserProfile(data));
+      Toast.show(message, Toast.LONG);
+      navigation.navigate('EnrolledProgram');
+    } else if (status == 0) {
+      Toast.show(message, Toast.LONG);
+    }
+    setLoading(false);
   };
   const goBack = () => {
     navigation.goBack();
   };
+  console.log('bearer_token', bearer_token);
+  console.log('bearer_token', {
+    uri:
+      Platform.OS === 'ios'
+        ? profilePhoto[0].uri.replace('file://', '')
+        : profilePhoto[0].uri,
+    type: profilePhoto[0].type,
+    name: profilePhoto[0].fileName,
+  });
   return (
     <View style={[styles.mainContainer, {padding: 16}]}>
       <KeyboardAwareScrollView
@@ -45,7 +110,7 @@ const PlaceLocation = ({navigation}) => {
             iconType={'fontisto'}
             leftIconShow={true}
             error_message={errorMsg}
-            change={onChangeEmail}
+            change={onChangeState}
           />
           <CustomInput
             placeholder={'Enter City Name'}
@@ -53,14 +118,18 @@ const PlaceLocation = ({navigation}) => {
             iconType={'fontisto'}
             leftIconShow={true}
             error_message={errorMsg}
-            change={onChangeEmail}
+            change={onChangeCity}
           />
           <View style={[styles.alignCenter, styles.marginVerticle1Percent]}>
-            <Button
-              buttonText={'CONTINUE'}
-              handlePress={handlePress}
-              width={WP('90%')}
-            />
+            {loading ? (
+              <LoadingButton width={WP('90%')} />
+            ) : (
+              <Button
+                buttonText={'CONTINUE'}
+                handlePress={handlePress}
+                width={WP('90%')}
+              />
+            )}
           </View>
         </View>
       </KeyboardAwareScrollView>

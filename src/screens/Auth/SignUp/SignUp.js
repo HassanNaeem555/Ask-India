@@ -4,6 +4,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import * as EmailValidator from 'email-validator';
 import Toast from 'react-native-simple-toast';
+import {useDispatch} from 'react-redux';
 import {appLogos} from '../../../assets';
 import {WP, HP, colors} from '../../../utilities';
 import HeaderMain from '../../../components/HeaderMain';
@@ -11,8 +12,11 @@ import FooterAuth from '../../../components/footerAuth';
 import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
+import LoadingButton from '../../../components/LoadingButton';
+import {postApi} from '../../../utils/apiFunction';
+import {saveTemporaryUserId} from '../../../store/actions/authAction';
+import {register} from '../../../utils/api';
 import styles from '../style';
-import style from './styles';
 
 var passwordValidator = require('password-validator');
 var schema = new passwordValidator();
@@ -35,6 +39,7 @@ schema
 
 const SignUp = ({navigation}) => {
   const {navigate} = navigation;
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -42,6 +47,7 @@ const SignUp = ({navigation}) => {
   const [errorMsgPassword, seterrorMsgPassword] = useState('');
   const [showPassword, setShowPassword] = useState(true);
   const [showConfirmPassword, setShowConfirmPassword] = useState(true);
+  const [loading, setLoading] = useState(false);
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -57,7 +63,7 @@ const SignUp = ({navigation}) => {
   const onChangeConfirmPassword = val => {
     setConfirmPassword(val);
   };
-  const handlePress = () => {
+  const handlePress = async () => {
     if (!email) {
       Toast.show('Please enter Email', Toast.LONG);
       return;
@@ -77,7 +83,21 @@ const SignUp = ({navigation}) => {
       );
       return;
     }
-    navigate('OTP', {from: 'Signup'});
+    if (password !== confirmPassword) {
+      Toast.show('Password & Confirm Password Need To Be Same', Toast.LONG);
+      return;
+    }
+    setLoading(!loading);
+    let user_data = {user_email: email, user_password: password};
+    const {data, status, message} = await postApi(register, user_data);
+    setLoading(false);
+    if (status == 1) {
+      Toast.show(message, Toast.LONG);
+      dispatch(saveTemporaryUserId(data));
+      navigate('OTP', {from: 'signup'});
+    } else if (status == 0) {
+      Toast.show(message, Toast.LONG);
+    }
   };
   const changeScreen = screen_name => {
     navigate(screen_name);
@@ -138,11 +158,15 @@ const SignUp = ({navigation}) => {
               change={onChangeConfirmPassword}
             />
             <View style={[styles.alignCenter, styles.marginVerticle2Percent]}>
-              <Button
-                buttonText={'SIGNUP'}
-                handlePress={handlePress}
-                width={WP('90%')}
-              />
+              {loading ? (
+                <LoadingButton width={WP('90%')} />
+              ) : (
+                <Button
+                  buttonText={'SIGNUP'}
+                  handlePress={handlePress}
+                  width={WP('90%')}
+                />
+              )}
             </View>
           </View>
         </View>

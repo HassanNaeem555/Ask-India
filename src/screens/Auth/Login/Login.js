@@ -1,16 +1,24 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Platform} from 'react-native';
 import {useDispatch} from 'react-redux';
 import * as EmailValidator from 'email-validator';
+import DeviceInfo from 'react-native-device-info';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import Toast from 'react-native-simple-toast';
-import {validateUserLogin} from '../../../store/actions/authAction';
+import {
+  validateUserLogin,
+  saveUserProfile,
+  saveBearerToken,
+} from '../../../store/actions/authAction';
 import FooterAuth from '../../../components/footerAuth';
 import {appLogos} from '../../../assets';
 import HeaderMain from '../../../components/HeaderMain';
 import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
+import LoadingButton from '../../../components/LoadingButton';
+import {postApi} from '../../../utils/apiFunction';
+import {login} from '../../../utils/api';
 import styles from '../style';
 import style from './styles';
 import {WP, HP, colors} from '../../../utilities';
@@ -36,12 +44,14 @@ schema
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
+  let deviceId = DeviceInfo.getDeviceId();
   const {navigate} = navigation;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [errorMsgPassword, seterrorMsgPassword] = useState('');
   const [showPassword, setShowPassword] = useState(true);
+  const [loading, setLoading] = useState(false);
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -51,7 +61,7 @@ const Login = ({navigation}) => {
   const onChangePassword = val => {
     setPassword(val);
   };
-  const handlePress = () => {
+  const handlePress = async () => {
     if (!email) {
       Toast.show('Please enter Email', Toast.LONG);
       return;
@@ -71,8 +81,26 @@ const Login = ({navigation}) => {
       );
       return;
     }
-    dispatch(validateUserLogin());
-    // navigate('Pin');
+    setLoading(!loading);
+    let user_data = {
+      user_email: email,
+      user_password: password,
+      user_device_type: Platform.OS,
+      user_device_token: deviceId,
+    };
+    const {status, message, bearer_token, data} = await postApi(
+      login,
+      user_data,
+    );
+    if (status == 1) {
+      dispatch(saveUserProfile(data));
+      dispatch(saveBearerToken(bearer_token));
+      dispatch(validateUserLogin());
+      Toast.show(message, Toast.LONG);
+    } else if (status == 0) {
+      Toast.show(message, Toast.LONG);
+    }
+    setLoading(false);
   };
   const changeScreen = screen_name => {
     navigate(screen_name);
@@ -123,11 +151,15 @@ const Login = ({navigation}) => {
               <Text style={style.loginText1}>FORGET PASSWORD ?</Text>
             </TouchableOpacity>
             <View style={[styles.alignCenter, styles.marginVerticle2Percent]}>
-              <Button
-                buttonText={'LOGIN'}
-                handlePress={handlePress}
-                width={WP('90%')}
-              />
+              {loading ? (
+                <LoadingButton width={WP('90%')} />
+              ) : (
+                <Button
+                  buttonText={'LOGIN'}
+                  handlePress={handlePress}
+                  width={WP('90%')}
+                />
+              )}
             </View>
           </View>
         </View>

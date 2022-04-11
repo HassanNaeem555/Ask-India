@@ -1,23 +1,24 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
-  useWindowDimensions,
   ImageBackground,
 } from 'react-native';
 import {Card} from 'react-native-elements';
+import {useSelector} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import Button from '../../../components/Button';
 import HeaderMain from '../../../components/HeaderMain';
 import Image from '../../../components/Img';
 import Post from '../../../components/Post';
-import Product from '../../../components/Product';
 import {appImages} from '../../../assets';
-import {WP, HP, colors, size} from '../../../utilities';
+import {image_url} from '../../../utils/url';
+import {WP, HP, colors} from '../../../utilities';
 import styles from '../style';
 import style from './styles';
+
 const category = [
   {
     title: 'POST',
@@ -38,6 +39,7 @@ const category = [
 ];
 const Profile = ({navigation}) => {
   const [selectedCategory, setSelectedCategory] = useState([]);
+  const user_profile_data = useSelector(state => state.authReducer.user);
   const selectTab = ({id, title}) => {
     const foundItem = selectedCategory.filter(e => e?.id === id);
     if (foundItem && foundItem.length > 0) {
@@ -94,13 +96,17 @@ const Profile = ({navigation}) => {
                 local={true}
                 resizeMode={'contain'}
                 style={style.profileImage}
-                src={appImages?.profileImageRound}
+                src={
+                  user_profile_data?.user_image !== null
+                    ? {uri: image_url + user_profile_data?.user_image}
+                    : appImages?.profileImageRound
+                }
               />
             </ImageBackground>
             <Text
               numberOfLines={1}
               style={[style.heading, styles.fontBold, styles.margin1Percent]}>
-              John Smith
+              {user_profile_data?.user_name}
             </Text>
             <Text
               numberOfLines={1}
@@ -110,7 +116,7 @@ const Profile = ({navigation}) => {
                 styles.colorGray,
                 styles.marginVerticleHalfPercent,
               ]}>
-              john@gmail.com
+              {user_profile_data?.user_email}
             </Text>
           </View>
           <Text

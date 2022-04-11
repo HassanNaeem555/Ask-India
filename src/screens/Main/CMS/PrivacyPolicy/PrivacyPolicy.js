@@ -1,11 +1,24 @@
-import React from 'react';
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, ScrollView} from 'react-native';
 import HeaderMain from '../../../../components/HeaderMain';
-import {WP, HP, colors, size} from '../../../../utilities';
+import {getApi} from '../../../../utils/apiFunction';
+import {cmsContent} from '../../../../utils/api';
 import styles from '../../style';
 import style from './styles';
 
 const PrivacyPolicy = ({navigation}) => {
+  const [privacyPolicy, setPrivacyPolicy] = useState(null);
+  const getCmsContent = async () => {
+    const {status, message, data} = await getApi(`${cmsContent}?type=pp`);
+    if (status == 1) {
+      setPrivacyPolicy(data);
+    } else {
+      Toast.show(message, Toast.LONG);
+    }
+  };
+  useEffect(() => {
+    getCmsContent();
+  }, []);
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
       <HeaderMain
@@ -17,12 +30,7 @@ const PrivacyPolicy = ({navigation}) => {
         navigation={navigation}
       />
       <ScrollView>
-        <Text style={style.normalText}>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum. Stet clita kasd gubergren, no sea takimata{' '}
-        </Text>
+        <Text style={style.normalText}>{privacyPolicy?.content_content}</Text>
       </ScrollView>
     </View>
   );

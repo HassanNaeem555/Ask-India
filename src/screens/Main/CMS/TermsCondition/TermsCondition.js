@@ -1,11 +1,25 @@
-import React from 'react';
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, ScrollView} from 'react-native';
+import Toast from 'react-native-simple-toast';
 import HeaderMain from '../../../../components/HeaderMain';
-import {WP, HP, colors, size} from '../../../../utilities';
+import {getApi} from '../../../../utils/apiFunction';
+import {cmsContent} from '../../../../utils/api';
 import styles from '../../style';
 import style from './styles';
 
 const TermsCondition = ({navigation}) => {
+  const [termsCondition, setTermsCondition] = useState(null);
+  const getCmsContent = async () => {
+    const {status, message, data} = await getApi(`${cmsContent}?type=tc`);
+    if (status == 1) {
+      setTermsCondition(data);
+    } else {
+      Toast.show(message, Toast.LONG);
+    }
+  };
+  useEffect(() => {
+    getCmsContent();
+  }, []);
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
       <HeaderMain
@@ -17,12 +31,7 @@ const TermsCondition = ({navigation}) => {
         navigation={navigation}
       />
       <ScrollView>
-        <Text style={style.normalText}>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum. Stet clita kasd gubergren, no sea takimata{' '}
-        </Text>
+        <Text style={style.normalText}>{termsCondition?.content_content}</Text>
       </ScrollView>
     </View>
   );

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import * as EmailValidator from 'email-validator';
+import {useDispatch} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {appLogos} from '../../../assets';
 import Toast from 'react-native-simple-toast';
@@ -8,17 +9,22 @@ import HeaderMain from '../../../components/HeaderMain';
 import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
+import LoadingButton from '../../../components/LoadingButton';
+import {forgotPassword} from '../../../utils/api';
+import {postApi} from '../../../utils/apiFunction';
+import {saveTemporaryUserId} from '../../../store/actions/authAction';
 import {WP, HP} from '../../../utilities';
 import styles from '../style';
-import style from './styles';
 
 const ForgotPassword = ({navigation}) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [loading, setLoading] = useState(false);
   const onChangeEmail = val => {
     setEmail(val);
   };
-  const handlePress = () => {
+  const handlePress = async () => {
     if (!email) {
       Toast.show('Please enter Email', Toast.LONG);
       return;
@@ -27,7 +33,19 @@ const ForgotPassword = ({navigation}) => {
       Toast.show('Email not valid', Toast.LONG);
       return;
     }
-    navigation.navigate('OTP', {from: 'forget'});
+    setLoading(!loading);
+    const {status, message, data} = await postApi(forgotPassword, {
+      user_email: email,
+    });
+    console.log('message', message, 'status', status);
+    if (status == 1) {
+      dispatch(saveTemporaryUserId(data));
+      navigation.navigate('OTP', {from: 'forgot'});
+      Toast.show(message, Toast.LONG);
+    } else if (status == 0) {
+      Toast.show(message, Toast.LONG);
+    }
+    setLoading(false);
   };
   return (
     <View style={[styles.mainContainer, {padding: 16}]}>
@@ -55,11 +73,15 @@ const ForgotPassword = ({navigation}) => {
             change={onChangeEmail}
           />
           <View style={[styles.alignCenter, styles.marginVerticle2Percent]}>
-            <Button
-              buttonText={'GET CODE'}
-              handlePress={handlePress}
-              width={WP('90%')}
-            />
+            {loading ? (
+              <LoadingButton width={WP('90%')} />
+            ) : (
+              <Button
+                buttonText={'GET CODE'}
+                handlePress={handlePress}
+                width={WP('90%')}
+              />
+            )}
           </View>
         </View>
       </KeyboardAwareScrollView>

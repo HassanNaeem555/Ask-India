@@ -16,11 +16,13 @@ const CustomInput = ({
   error_message,
   rightIconColor,
   rightIconSize,
+  defaultValue,
   label,
 }) => {
   return (
     <Input
       label={label && label}
+      defaultValue={defaultValue && defaultValue}
       labelStyle={{color: colors.black, marginVertical: HP('0.5%')}}
       placeholder={placeholder}
       leftIcon={

@@ -8,20 +8,36 @@ import {
   Image,
   ImageBackground,
 } from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import Toast from 'react-native-simple-toast';
 import Img from '../../components/Img';
 import {validateUserLogin} from '../../store/actions/authAction';
 import {colors, WP, HP, size} from '../../utilities';
 import {appImages, appIcons} from '../../assets';
+import {getApi} from '../../utils/apiFunction';
+import {image_url} from '../../utils/url';
+import {logOut} from '../../utils/api';
 import styles from '../Main/style';
 
 export default function DrawerContent({navigation}) {
   console.log('drawer Navigation');
   const dispatch = useDispatch();
-  const logOut = () => {
-    dispatch(validateUserLogin());
-    // navigate('Pin');
+  const bearer_token = useSelector(state => state.authReducer.bearer_token);
+  const user_profile_data = useSelector(state => state.authReducer.user);
+  const logOutUser = async () => {
+    const {status, message} = await getApi(`${logOut}?user_id=${user_id}`, {
+      headers: {
+        Authorization: `Bearer ${bearer_token}`,
+      },
+    });
+    if (status == 1) {
+      dispatch(validateUserLogin());
+      Toast.show(message, Toast.LONG);
+    } else if (status == 0) {
+      Toast.show(message, Toast.LONG);
+    }
   };
+  console.log('user_profile_data', user_profile_data);
   return (
     <View style={styles.mainContainer}>
       <View style={[style.header, styles.justifyCenter, styles.alignCenter]}>
@@ -47,11 +63,17 @@ export default function DrawerContent({navigation}) {
               local={true}
               resizeMode={'contain'}
               style={style.profileImage}
-              src={appImages?.profileImageRound}
+              src={
+                user_profile_data?.user_image !== null
+                  ? {uri: image_url + user_profile_data?.user_image}
+                  : appImages?.profileImageRound
+              }
             />
           </ImageBackground>
-          <Text style={[style.name, styles.margin1Percent]}>JOHN SMITH</Text>
-          <Text style={style.email}>johnsmith@gmail.com</Text>
+          <Text style={[style.name, styles.margin1Percent]}>
+            {user_profile_data?.user_name}
+          </Text>
+          <Text style={style.email}>{user_profile_data?.user_email}</Text>
         </View>
       </View>
       <View style={style.container}>
@@ -170,7 +192,7 @@ export default function DrawerContent({navigation}) {
             style={{
               ...style.itemContainer,
             }}
-            onPress={() => logOut()}>
+            onPress={() => logOutUser()}>
             <Img
               local={true}
               resizeMode={'contain'}
@@ -201,10 +223,9 @@ const style = StyleSheet.create({
     backgroundColor: colors.white,
   },
   profileImage: {
-    width: WP('36%'),
+    width: WP('30%'),
     height: HP('20%'),
     borderRadius: 50,
-    zIndex: 10,
   },
   name: {
     fontSize: size.medium,

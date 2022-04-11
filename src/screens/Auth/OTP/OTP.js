@@ -1,17 +1,25 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Platform} from 'react-native';
 import {
   CodeField,
   Cursor,
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
+import DeviceInfo from 'react-native-device-info';
 import Toast from 'react-native-simple-toast';
+import {useSelector, useDispatch} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
 import HeaderMain from '../../../components/HeaderMain';
 import {appLogos} from '../../../assets';
 import {colors, size, WP, HP} from '../../../utilities';
+import {
+  saveUserProfile,
+  saveBearerToken,
+} from '../../../store/actions/authAction';
+import {resendVerificationCode, verificationCode} from '../../../utils/api';
+import {getApi, postApi} from '../../../utils/apiFunction';
 import Logo from '../../../components/logo';
 import styles from '../style';
 import style from './styles';
@@ -20,8 +28,12 @@ const CELL_COUNT = 6;
 
 const OTP = ({navigation, route}) => {
   const {from} = route.params;
+  let dispatch = useDispatch();
+  let deviceId = DeviceInfo.getDeviceId();
+  const {user_id} = useSelector(state => state.authReducer.temporaryUserId);
   const [value, setValue] = useState('');
   const [enableMask, setEnableMask] = useState(true);
+  const [resendOtpActive, setResendOtpActive] = useState(false);
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
@@ -44,20 +56,67 @@ const OTP = ({navigation, route}) => {
       </Text>
     );
   };
-  const onCompleteTimer = () => {
-    console.log('onCompleteTimer', from);
-    if (from == 'forget') {
-      navigation.navigate('Login');
-    }
-    if (from == 'MobileNumber') {
-      navigation.navigate('Login');
-    }
-    if (from == 'Signup') {
-      navigation.navigate('Login');
-    } else {
-      navigation.navigate('Continue');
+  const resendOtp = async () => {
+    const {message, status} = await getApi(
+      `${resendVerificationCode}?user_id=${user_id}`,
+    );
+    if (status == 1) {
+      Toast.show(message, Toast.LONG);
+    } else if (status == 0) {
+      Toast.show(message, Toast.LONG);
     }
   };
+  const whereToNavigate = async () => {
+    let send_data = {
+      user_id,
+      user_verified_code: value,
+      user_device_type: Platform.OS,
+      user_device_token: deviceId,
+      type: from,
+    };
+    console.log('send_data', send_data);
+    if (from == 'signup') {
+      const {bearer_token, data, message, status} = await postApi(
+        verificationCode,
+        send_data,
+      );
+      // console.log('result', result);
+      if (status == 1) {
+        dispatch(saveUserProfile(data));
+        dispatch(saveBearerToken(bearer_token));
+        Toast.show(message, Toast.LONG);
+        navigation.navigate('CreateProfile');
+      } else if (status == 0) {
+        Toast.show(message, Toast.LONG);
+      }
+    } else if (from == 'forgot') {
+      console.log('inside forgot');
+      const {bearer_token, data, message, status} = await postApi(
+        verificationCode,
+        send_data,
+      );
+      // console.log('result', result);
+      if (status == 1) {
+        dispatch(saveUserProfile(data));
+        dispatch(saveBearerToken(bearer_token));
+        Toast.show(message, Toast.LONG);
+        navigation.navigate('Login');
+      } else if (status == 0) {
+        Toast.show(message, Toast.LONG);
+      }
+    }
+  };
+  const onCompleteTimer = () => {
+    setResendOtpActive(true);
+  };
+  console.log(
+    'On OTP from',
+    from,
+    'temporaryUserId',
+    user_id,
+    'Platform',
+    Platform,
+  );
   return (
     <View style={[styles.mainContainer, {padding: 16}]}>
       <KeyboardAwareScrollView
@@ -104,9 +163,7 @@ const OTP = ({navigation, route}) => {
                   keyboardType="number-pad"
                   textContentType="oneTimeCode"
                   renderCell={renderCell}
-                  onEndEditing={() => {
-                    navigation.navigate('Continue');
-                  }}
+                  onEndEditing={whereToNavigate}
                 />
               </View>
               <View
@@ -142,8 +199,12 @@ const OTP = ({navigation, route}) => {
           <Text style={styles.footerText}>
             Didn't recieve code ?{' '}
             <Text
-              style={[styles.footerTextAuth, styles.colorPrimary]}
-              onPress={() => Toast.show('OTP Resend')}>
+              style={
+                resendOtpActive
+                  ? [styles.footerTextAuth, styles.colorPrimary]
+                  : [styles.footerTextAuth, styles.colorGray]
+              }
+              onPress={resendOtp}>
               Resend
             </Text>
           </Text>
