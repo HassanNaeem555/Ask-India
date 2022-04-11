@@ -43,7 +43,7 @@ const CreateProfile = ({navigation}) => {
     setUserName(val);
   };
   const handlePress = () => {
-    if (user_name == '') {
+    if (user_name === '') {
       Toast.show('Please enter Fullname', Toast.LONG);
       return;
     }

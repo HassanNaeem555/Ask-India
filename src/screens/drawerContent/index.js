@@ -25,7 +25,7 @@ export default function DrawerContent({navigation}) {
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
   const user_profile_data = useSelector(state => state.authReducer.user);
   const logOutUser = async () => {
-    const {status, message} = await getApi(`${logOut}?user_id=${user_id}`, {
+    const {status, message} = await getApi(`${logOut}?user_id=${user_profile_data?.user_id}`, {
       headers: {
         Authorization: `Bearer ${bearer_token}`,
       },

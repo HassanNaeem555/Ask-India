@@ -262,7 +262,7 @@ const Profile = ({navigation}) => {
                 ) : (
                   <TouchableOpacity
                     activeOpacity={0.9}
-                    key={index}
+                    key={index + 1}
                     style={[
                       styles.justifyCenter,
                       styles.alignCenter,
