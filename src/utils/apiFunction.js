@@ -1,13 +1,15 @@
 import axios from './axios';
+import { base_url } from './url';
 
-export const postApi = async (url, data, headers, navigate_url, navigate) => {
+export const postApi = async (url, data, headers) => {
   try {
-    const response = await axios.post(url, data, headers);
+    let response;
+    if (headers) {
+      response = await axios.post(url, data, headers);
+    } else {
+      response = await axios.post(url, data);
+    }
     if (response.status === 200) {
-      if (navigate_url) {
-        navigate(navigate_url);
-        return;
-      }
       if (response.data) {
         return response?.data;
       }
@@ -42,3 +44,33 @@ export const putApi = async (url, data, headers) => {
     return error.response.data;
   }
 };
+
+export const postApiFetch = async (url, data, bearer_token) => {
+  try {
+    let response = await fetch(
+      base_url + url,
+      {
+        method: 'post',
+        body: data,
+        headers: {
+          'Content-Type': 'multipart/form-data; ',
+          Authorization: `Bearer ${bearer_token}`,
+        },
+      }
+    )
+    if (response.status === 200) {
+      const result = await response.json();
+      // if (result.data) {
+      //   return result?.data;
+      // }
+      return result;
+    }
+    return result;
+  } catch (error) {
+    if (error.response) {
+      return error.response;
+    } else {
+      return error;
+    }
+  }
+}

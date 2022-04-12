@@ -1,75 +1,34 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 // import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
-import {useSelector, useDispatch} from 'react-redux';
-import {Card} from 'react-native-elements';
+import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import { useSelector, useDispatch } from 'react-redux';
+import { Card } from 'react-native-elements';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Toast from 'react-native-simple-toast';
 import HeaderMain from '../../../components/HeaderMain';
 import Logo from '../../../components/logo';
-import {appLogos} from '../../../assets';
+import { appLogos } from '../../../assets';
 import Button from '../../../components/Button';
 import LoadingButton from '../../../components/LoadingButton';
-import {enrolledTopic, updateProfile} from '../../../utils/api';
-import {saveUserProfile} from '../../../store/actions/authAction';
-import {getApi, postApi} from '../../../utils/apiFunction';
-import {colors, WP, HP, size} from '../../../utilities';
+import { enrolledTopic, updateProfile } from '../../../utils/api';
+import { saveUserProfile } from '../../../store/actions/authAction';
+import { getApi, postApiFetch } from '../../../utils/apiFunction';
+import { colors, WP, HP, size } from '../../../utilities';
 import styles from '../style';
 import style from './styles';
 
-const data = [
-  {
-    title: '11th / 12th',
-    id: 0,
-  },
-  {
-    title: 'Bachelors of Arts / MA',
-    id: 1,
-  },
-  {
-    title: 'Bachelors of Commerce / Mcom',
-    id: 2,
-  },
-  {
-    title: 'Bachelors of Science / Bsc / BTech',
-    id: 3,
-  },
-  {
-    title: 'Bachelors of Agriculture / Master',
-    id: 4,
-  },
-  {
-    title: 'UPSC',
-    id: 5,
-  },
-  {
-    title: 'SSC',
-    id: 6,
-  },
-  {
-    title: 'Banking',
-    id: 7,
-  },
-  {
-    title: 'State PSC',
-    id: 8,
-  },
-  {
-    title: 'Others',
-    id: 9,
-  },
-];
-const TopicFollow = ({navigation, route}) => {
+const TopicFollow = ({ navigation, route }) => {
   const dispatch = useDispatch();
-  const {board_id, profilePhoto} = route.params;
+  const { board_id } = route.params;
   const [topicList, setTopicList] = useState([]);
   const [selectedProgram, setSelectedProgram] = useState([]);
   const [sendList, setSendList] = useState([]);
   const [loading, setLoading] = useState(false);
-  const {user_id} = useSelector(state => state.authReducer.temporaryUserId);
+  const { user_id } = useSelector(state => state.authReducer.temporaryUserId);
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
   const handlePress = item => {
-    const {grade_name, grade_id} = item;
+    const { grade_name, grade_id } = item;
     const foundItem = selectedProgram.filter(e => e?.grade_id === grade_id);
     const foundItemSend = sendList.filter(e => e === grade_id);
     if (foundItem && foundItem.length > 0) {
@@ -78,7 +37,7 @@ const TopicFollow = ({navigation, route}) => {
       setSendList(foundItemSend);
       console.log('inside if');
     } else {
-      const idSave = [{grade_id, grade_name}];
+      const idSave = [{ grade_id, grade_name }];
       const idSend = [grade_id];
       const newUpdatedArray = selectedProgram?.concat(idSave);
       const newUpdatedArraySend = sendList?.concat(idSend);
@@ -88,7 +47,7 @@ const TopicFollow = ({navigation, route}) => {
     }
   };
   const getTopicFollow = async () => {
-    const {data, message, status} = await getApi(
+    const { data, message, status } = await getApi(
       `${enrolledTopic}?board_id=${board_id}`,
       {
         headers: {
@@ -114,12 +73,12 @@ const TopicFollow = ({navigation, route}) => {
           styles.paddingHorizontal4Percent,
           style.customSelectionBox,
           selectedProgram.length > 0 &&
-          selectedProgram.filter(e => e?.grade_id === item?.item?.grade_id)
-            .length > 0
+            selectedProgram.filter(e => e?.grade_id === item?.item?.grade_id)
+              .length > 0
             ? {
-                borderColor: colors.primary,
-              }
-            : {borderColor: colors.lightGray},
+              borderColor: colors.primary,
+            }
+            : { borderColor: colors.lightGray },
         ]}
         onPress={() => {
           handlePress(item?.item);
@@ -128,8 +87,8 @@ const TopicFollow = ({navigation, route}) => {
         <View
           style={
             selectedProgram.length > 0 &&
-            selectedProgram.filter(e => e?.grade_id === item?.item.grade_id)
-              .length > 0
+              selectedProgram.filter(e => e?.grade_id === item?.item.grade_id)
+                .length > 0
               ? [style.customSelectionCircle, style.customSelectionCircleActive]
               : style.customSelectionCircle
           }></View>
@@ -142,41 +101,25 @@ const TopicFollow = ({navigation, route}) => {
       return;
     }
     setLoading(!loading);
-    // let send_user_data = new FormData();
-    // send_user_data.append('user_tags', sendList);
-    // send_user_data.append('user_id', user_id);
-    // send_user_data.append('user_image', {
-    //   uri: profilePhoto[0].uri.replace('file://', ''),
-    //   type: profilePhoto[0].type,
-    //   name: `Profile${Date.now()}.${profilePhoto[0].type.slice(
-    //     profilePhoto[0].type.lastIndexOf('/') + 1,
-    //   )}`,
-    // });
-    // console.log('send_user_data', send_user_data);
-    // const {data, status, message} = await postApi(
-    //   updateProfile,
-    //   send_user_data,
-    //   {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //       Authorization: `Bearer ${bearer_token}`,
-    //     },
-    //   },
-    // );
+    const params = new FormData();
+    params.append('user_id', user_id);
+    params.append('user_tags', JSON.stringify(sendList));
+    const { data, message, status } = await postApiFetch(updateProfile, params, bearer_token);
+    if (status == 1) {
+      console.log('data', data);
+      dispatch(saveUserProfile(data));
+      Toast.show(message, Toast.LONG);
+      navigation.navigate('Login');
+    } else if (status == 0) {
+      Toast.show(message, Toast.LONG);
+    }
     setLoading(false);
-    Toast.show('Updated Successfully', Toast.LONG);
-    navigation.navigate('Login');
-    // if (status == 1) {
-    //   dispatch(saveUserProfile(data));
-    // } else if (status == 0) {
-    //   Toast.show(message, Toast.LONG);
-    // }
   };
   useEffect(() => {
     getTopicFollow();
   }, []);
   return (
-    <View style={[styles.mainContainer, {padding: 16}]}>
+    <View style={[styles.mainContainer, { padding: 16 }]}>
       {/* <KeyboardAwareScrollView
         contentContainerStyle={{
           flexGrow: 1,
@@ -203,7 +146,7 @@ const TopicFollow = ({navigation, route}) => {
                 marginBottom: HP('2%'),
               },
             ]}>
-            <View style={[styles.directionRow, {flexWrap: 'wrap'}]}>
+            <View style={[styles.directionRow, { flexWrap: 'wrap' }]}>
               {selectedProgram.map((item, index) => {
                 return (
                   <TouchableOpacity
@@ -232,11 +175,38 @@ const TopicFollow = ({navigation, route}) => {
             </View>
           </Card>
         )}
-        <FlatList
-          data={topicList}
-          renderItem={renderItem}
-          keyExtractor={item => item.grade_id}
-        />
+        {
+          topicList.length > 0 ? (
+            <FlatList
+              data={topicList}
+              renderItem={renderItem}
+              keyExtractor={item => item.grade_id}
+            />
+          ) : (
+            <>
+              <SkeletonPlaceholder>
+                <SkeletonPlaceholder.Item flexDirection="row" alignItems="center" marginVertical={HP("0.8%")}>
+                  <SkeletonPlaceholder.Item width={WP('90%')} height={50} borderRadius={10} />
+                </SkeletonPlaceholder.Item>
+              </SkeletonPlaceholder>
+              <SkeletonPlaceholder>
+                <SkeletonPlaceholder.Item flexDirection="row" alignItems="center" marginVertical={HP("0.8%")}>
+                  <SkeletonPlaceholder.Item width={WP('90%')} height={50} borderRadius={10} />
+                </SkeletonPlaceholder.Item>
+              </SkeletonPlaceholder>
+              <SkeletonPlaceholder>
+                <SkeletonPlaceholder.Item flexDirection="row" alignItems="center" marginVertical={HP("0.8%")}>
+                  <SkeletonPlaceholder.Item width={WP('90%')} height={50} borderRadius={10} />
+                </SkeletonPlaceholder.Item>
+              </SkeletonPlaceholder>
+              <SkeletonPlaceholder>
+                <SkeletonPlaceholder.Item flexDirection="row" alignItems="center" marginVertical={HP("0.8%")}>
+                  <SkeletonPlaceholder.Item width={WP('90%')} height={50} borderRadius={10} />
+                </SkeletonPlaceholder.Item>
+              </SkeletonPlaceholder>
+            </>
+          )
+        }
         <View
           style={[
             styles.directionRow,
