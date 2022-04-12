@@ -23,7 +23,7 @@ const style = StyleSheet.create({
   customSelectionCircle: {
     backgroundColor: colors.white,
     width: WP('5%'),
-    height: HP('2.9%'),
+    height: HP('2.7%'),
     borderRadius: 50,
     borderWidth: 1,
     borderColor: colors.gray,

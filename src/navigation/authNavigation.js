@@ -10,6 +10,7 @@ import SelectAuth from '../screens/Auth/SelectAuth';
 import Login from '../screens/Auth/Login';
 import Signup from '../screens/Auth/SignUp';
 import ForgotPassword from '../screens/Auth/ForgotPassword';
+import ForgetPassword from '../screens/Auth/ForgetPassword';
 import Agreement from '../screens/Auth/Agreement';
 import MobileNumber from '../screens/Auth/MobileNumber';
 import OTP from '../screens/Auth/OTP';
@@ -63,6 +64,13 @@ const navigation = ({initialRoute}) => {
         }}
         name="ForgotPassword"
         component={ForgotPassword}
+      />
+      <RootStack.Screen
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+        name="ForgetPassword"
+        component={ForgetPassword}
       />
       <RootStack.Screen
         options={{

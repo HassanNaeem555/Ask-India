@@ -100,7 +100,7 @@ const OTP = ({navigation, route}) => {
         dispatch(saveUserProfile(data));
         dispatch(saveBearerToken(bearer_token));
         Toast.show(message, Toast.LONG);
-        navigation.navigate('Login');
+        navigation.navigate('ForgetPassword');
       } else if (status == 0) {
         Toast.show(message, Toast.LONG);
       }
@@ -174,7 +174,7 @@ const OTP = ({navigation, route}) => {
                 ]}>
                 <CountdownCircleTimer
                   isPlaying
-                  duration={120}
+                  duration={30}
                   colors={[colors.secondary, colors.primary]}
                   colorsTime={[6, 4]}
                   size={140}

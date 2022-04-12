@@ -6,4 +6,6 @@ export const verificationCode = 'user_verification';
 export const updateProfile = 'complete_profile';
 export const updatePassword = 'update_password';
 export const cmsContent = 'content';
+export const enrollProgram = 'board';
+export const enrolledTopic = 'grade';
 export const logOut = 'logout';

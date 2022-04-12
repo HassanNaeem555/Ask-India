@@ -32,3 +32,13 @@ export const getApi = async (url, headers) => {
     return error.response.data;
   }
 };
+export const putApi = async (url, data, headers) => {
+  try {
+    const response = await axios.put(url, data, headers);
+    if (response.status === 200) {
+      return response.data;
+    }
+  } catch (error) {
+    return error.response.data;
+  }
+};

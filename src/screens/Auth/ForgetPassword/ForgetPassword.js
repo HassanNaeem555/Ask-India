@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text} from 'react-native';
+import React, {useState} from 'react';
+import {View} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {useSelector} from 'react-redux';
 import Toast from 'react-native-simple-toast';
@@ -13,7 +13,6 @@ import LoadingButton from '../../../components/LoadingButton';
 import {updatePassword} from '../../../utils/api';
 import {putApi} from '../../../utils/apiFunction';
 import styles from '../style';
-import style from './styles';
 
 var passwordValidator = require('password-validator');
 var schema = new passwordValidator();
@@ -34,28 +33,20 @@ schema
   .has()
   .symbols();
 
-const ChangePassword = ({navigation}) => {
+const ForgetPassword = ({navigation}) => {
   const {user_id} = useSelector(state => state.authReducer.user);
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
-  const [previousPassword, setPreviousPassword] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMsgPassword, seterrorMsgPassword] = useState('');
-  const [showPreviousPassword, setShowPreviousPassword] = useState(true);
   const [showPassword, setShowPassword] = useState(true);
   const [showConfirmPassword, setShowConfirmPassword] = useState(true);
   const [loading, setLoading] = useState(false);
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const handleShowPreviousPassword = () => {
-    setShowPreviousPassword(!showPreviousPassword);
-  };
   const handleShowConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
-  };
-  const onChangePreviousPassword = val => {
-    setPreviousPassword(val);
   };
   const onChangePassword = val => {
     setPassword(val);
@@ -65,7 +56,7 @@ const ChangePassword = ({navigation}) => {
   };
   const handlePress = async () => {
     if (!password) {
-      Toast.show('Please enter Password', Toast.LONG);
+      Toast.show('Please Enter Password', Toast.LONG);
       return;
     }
     if (!schema.validate(password)) {
@@ -73,10 +64,6 @@ const ChangePassword = ({navigation}) => {
         'Password not valid (Use atleast one UpperCase Letter, one number and one special character)',
         Toast.LONG,
       );
-      return;
-    }
-    if (previousPassword == password) {
-      Toast.show('New And Previous Password Need To Be Different', Toast.LONG);
       return;
     }
     if (password !== confirmPassword) {
@@ -87,7 +74,6 @@ const ChangePassword = ({navigation}) => {
     console.log('bearer_token', bearer_token);
     let send_data = {
       user_id,
-      user_old_password: previousPassword,
       user_new_password: password,
     };
     const {message, status} = await putApi(updatePassword, send_data, {
@@ -98,7 +84,7 @@ const ChangePassword = ({navigation}) => {
     if (status == 1) {
       setLoading(false);
       Toast.show(message, Toast.LONG);
-      navigation.goBack();
+      navigation.navigate('Login');
     } else if (status == 0) {
       setLoading(false);
       Toast.show(message, Toast.LONG);
@@ -123,20 +109,7 @@ const ChangePassword = ({navigation}) => {
           <View style={[styles.alignCenter, styles.alignSelfStretch]}>
             <Logo logo={appLogos.logo} marginVertical={HP('3%')} />
             <CustomInput
-              placeholder={'Enter Existing Password'}
-              iconName={showPreviousPassword ? 'lock' : 'lock-open'}
-              iconType={'entypo'}
-              leftIconShow={true}
-              iconNameRight={showPreviousPassword ? 'eye-with-line' : 'eye'}
-              rightIconShow={true}
-              rightIconColor={colors.gray}
-              handlePress={handleShowPreviousPassword}
-              secureTextEntry={showPreviousPassword}
-              error_message={errorMsgPassword}
-              change={onChangePreviousPassword}
-            />
-            <CustomInput
-              placeholder={'Enter Your Password'}
+              placeholder={'Enter Your New Password'}
               iconName={showPassword ? 'lock' : 'lock-open'}
               iconType={'entypo'}
               leftIconShow={true}
@@ -178,5 +151,4 @@ const ChangePassword = ({navigation}) => {
     </View>
   );
 };
-
-export default ChangePassword;
+export default ForgetPassword;

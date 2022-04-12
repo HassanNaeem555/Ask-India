@@ -119,11 +119,11 @@ const Profile = ({navigation}) => {
               {user_profile_data?.user_email}
             </Text>
           </View>
-          <Text
+          {/* <Text
             numberOfLines={2}
             style={[style.subHeading, styles.marginVerticleHalfPercent]}>
             Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum{' '}
-          </Text>
+          </Text> */}
           <View
             style={[
               styles.directionRow,

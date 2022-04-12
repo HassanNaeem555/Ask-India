@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Image,
@@ -9,22 +9,23 @@ import {
 import HeaderMain from '../../../components/HeaderMain';
 import * as ImagePicker from 'react-native-image-picker';
 import Toast from 'react-native-simple-toast';
-import { useSelector, useDispatch } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
 import LoadingButton from '../../../components/LoadingButton';
-import { saveUserProfile } from '../../../store/actions/authAction';
-import { updateProfile } from '../../../utils/api';
-import { postApi } from '../../../utils/apiFunction';
-import { appImages, appIcons } from '../../../assets';
-import { image_url } from '../../../utils/url';
-import { WP, HP, colors, size } from '../../../utilities';
+import {saveUserProfile} from '../../../store/actions/authAction';
+import {updateProfile} from '../../../utils/api';
+import {postApi} from '../../../utils/apiFunction';
+import {appImages, appIcons} from '../../../assets';
+import {image_url} from '../../../utils/url';
+import {WP, HP, colors, size} from '../../../utilities';
 import styles from '../style';
 
-const EditProfile = ({ navigation }) => {
+const EditProfile = ({navigation}) => {
   const dispatch = useDispatch();
-  const { user_name, user_id, user_state, user_city, user_image } =
-    useSelector(state => state.authReducer.user);
+  const {user_name, user_id, user_state, user_city, user_image} = useSelector(
+    state => state.authReducer.user,
+  );
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
   const [userName, setUserName] = useState('');
   const [userState, setUserState] = useState('');
@@ -37,15 +38,15 @@ const EditProfile = ({ navigation }) => {
       uri: image_url + user_image,
     },
   );
-  const onChangeName = (val) => {
+  const onChangeName = val => {
     setUserName(val);
-  }
-  const onChangeCity = (val) => {
+  };
+  const onChangeCity = val => {
     setUserCity(val);
-  }
-  const onChangeState = (val) => {
+  };
+  const onChangeState = val => {
     setUserState(val);
-  }
+  };
   const launchImageLibrary = () => {
     let options = {
       storageOptions: {
@@ -61,7 +62,7 @@ const EditProfile = ({ navigation }) => {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        const source = { uri: response.assets[0].uri };
+        const source = {uri: response.assets[0].uri};
         console.log('itis Profile', response.assets[0].uri);
         console.log('itis Profile', response.assets);
         setprofilePhoto(response.assets);
@@ -73,18 +74,23 @@ const EditProfile = ({ navigation }) => {
     setLoading(!loading);
     let send_user_data = new FormData();
     send_user_data.append('user_name', userName == '' ? user_name : userName);
-    send_user_data.append('user_state', userState == '' ? user_state : userState);
+    send_user_data.append(
+      'user_state',
+      userState == '' ? user_state : userState,
+    );
     send_user_data.append('user_city', userCity == '' ? user_city : userCity);
     send_user_data.append('user_id', user_id);
-    send_user_data.append('user_image', {
-      uri: profilePhoto[0].uri.replace('file://', ''),
-      type: profilePhoto[0].type,
-      name: `Profile${Date.now()}.${profilePhoto[0].type.slice(
-        profilePhoto[0].type.lastIndexOf('/') + 1,
-      )}`,
-    });
+    if (profilePhoto.length > 0) {
+      send_user_data.append('user_image', {
+        uri: profilePhoto[0].uri.replace('file://', ''),
+        type: profilePhoto[0].type,
+        name: `Profile${Date.now()}.${profilePhoto[0].type.slice(
+          profilePhoto[0].type.lastIndexOf('/') + 1,
+        )}`,
+      });
+    }
     console.log('send_user_data', send_user_data);
-    const { data, status, message } = await postApi(
+    const {data, status, message} = await postApi(
       updateProfile,
       send_user_data,
       {
@@ -95,7 +101,7 @@ const EditProfile = ({ navigation }) => {
       },
     );
     if (status == 1) {
-      console.log('data update profile', data)
+      console.log('data update profile', data);
       dispatch(saveUserProfile(data));
       Toast.show(message, Toast.LONG);
       navigation.goBack();
@@ -118,7 +124,7 @@ const EditProfile = ({ navigation }) => {
         style={styles.mainContainer}
         contentContainerStyle={[
           styles.alignCenter,
-          { flexGrow: 1, padding: 10 },
+          {flexGrow: 1, padding: 10},
         ]}>
         <View style={styles.alignSelfStretch}>
           <View
@@ -136,7 +142,7 @@ const EditProfile = ({ navigation }) => {
                 height: HP('20%'),
               }}>
               <TouchableOpacity
-                style={[styles.alignCenter, { top: HP('4%') }]}
+                style={[styles.alignCenter, {top: HP('4%')}]}
                 activeOpacity={0.8}
                 onPress={launchImageLibrary}>
                 <Image
@@ -146,7 +152,7 @@ const EditProfile = ({ navigation }) => {
                     styles.w_15,
                     {
                       height: HP('12%'),
-                      borderRadius: 20
+                      borderRadius: 20,
                     },
                   ]}
                 />
@@ -154,35 +160,30 @@ const EditProfile = ({ navigation }) => {
             </ImageBackground>
           </View>
           <CustomInput
-            placeholder={'Full Name'}
-            defaultValue={user_name}
+            placeholder={user_name}
             leftIconShow={false}
             change={onChangeName}
           />
           <CustomInput
-            placeholder={'City Name'}
-            defaultValue={user_city}
+            placeholder={user_city}
             leftIconShow={false}
             change={onChangeCity}
           />
           <CustomInput
-            placeholder={'State Name'}
-            defaultValue={user_state}
+            placeholder={user_state}
             leftIconShow={false}
             change={onChangeState}
           />
           <View style={[styles.marginVerticle2Percent]}>
-            {
-              loading ? (
-                <LoadingButton width={WP('90%')} />
-              ) : (
-                <Button
-                  buttonText={'UPDATE'}
-                  handlePress={handlePress}
-                  width={WP('90%')}
-                />
-              )
-            }
+            {loading ? (
+              <LoadingButton width={WP('90%')} />
+            ) : (
+              <Button
+                buttonText={'UPDATE'}
+                handlePress={handlePress}
+                width={WP('90%')}
+              />
+            )}
           </View>
         </View>
       </ScrollView>

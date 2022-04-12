@@ -1,147 +1,124 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+import {useSelector} from 'react-redux';
+import Toast from 'react-native-simple-toast';
 import HeaderMain from '../../../components/HeaderMain';
 import Logo from '../../../components/logo';
 import {appLogos} from '../../../assets';
 import Button from '../../../components/Button';
 import {colors, WP, HP} from '../../../utilities';
+import {enrollProgram} from '../../../utils/api';
+import {getApi} from '../../../utils/apiFunction';
 import styles from '../style';
 import style from './styles';
 
-const data = [
-  {
-    title: '11th / 12th',
-    id: 0,
-  },
-  {
-    title: 'Bachelors of Arts / MA',
-    id: 1,
-  },
-  {
-    title: 'Bachelors of Commerce / Mcom',
-    id: 2,
-  },
-  {
-    title: 'Bachelors of Science / Bsc / BTech',
-    id: 3,
-  },
-  {
-    title: 'Bachelors of Agriculture / Master',
-    id: 4,
-  },
-  {
-    title: 'UPSC',
-    id: 5,
-  },
-  {
-    title: 'SSC',
-    id: 6,
-  },
-  {
-    title: 'Banking',
-    id: 7,
-  },
-  {
-    title: 'State PSC',
-    id: 8,
-  },
-  {
-    title: 'Others',
-    id: 9,
-  },
-];
-const EnrolledProgram = ({navigation}) => {
+const EnrolledProgram = ({navigation, route}) => {
+  const {profilePhoto} = route.params;
+  const [enrolledProgramList, setEnrolledProgramList] = useState([]);
   const [selectedProgram, setSelectedProgram] = useState([]);
-  const handlePress = id => {
-    const foundItem = selectedProgram.filter(e => e[0]?.id === id);
+  const bearer_token = useSelector(state => state.authReducer.bearer_token);
+  const handlePress = board_id => {
+    const foundItem = selectedProgram.filter(e => e?.board_id === board_id);
     if (foundItem && foundItem.length > 0) {
-      const foundItem = selectedProgram.filter(e => e[0]?.id !== id);
+      const foundItem = selectedProgram.filter(e => e?.board_id !== board_id);
       setSelectedProgram(foundItem);
       console.log('inside if');
     } else {
-      const idSave = [{id}];
-      const newUpdatedArray = [...selectedProgram, idSave];
+      const idSave = [{board_id}];
+      const newUpdatedArray = selectedProgram?.concat(idSave);
       setSelectedProgram(newUpdatedArray);
-      navigation.navigate('TopicFollow', {id});
+      navigation.navigate('TopicFollow', {board_id, profilePhoto});
       console.log('inside else', idSave);
     }
   };
-  const handleNavigate = () => {
-    navigation.navigate('Login');
+  const getEnrolled = async () => {
+    const {data, message, status} = await getApi(enrollProgram, {
+      headers: {
+        Authorization: `Bearer ${bearer_token}`,
+      },
+    });
+    if (status == 1) {
+      setEnrolledProgramList(data);
+    } else if (status == 0) {
+      Toast.show(message, Toast.LONG);
+    }
   };
-  const goBack = () => {
-    navigation.goBack();
+  const renderItem = item => {
+    return (
+      <TouchableOpacity
+        activeOpacity={0.9}
+        style={[
+          styles.directionRow,
+          styles.justifySpaceBetween,
+          styles.margin1Percent,
+          styles.padding2Percent,
+          styles.paddingHorizontal4Percent,
+          style.customSelectionBox,
+          selectedProgram.length > 0 &&
+          selectedProgram.filter(e => e?.board_id === item?.item?.board_id)
+            .length > 0
+            ? {
+                borderColor: colors.primary,
+              }
+            : {borderColor: colors.lightGray},
+        ]}
+        onPress={() => {
+          handlePress(item?.item?.board_id);
+        }}>
+        <Text style={[style.selectionBoxText, styles.colorBlack]}>
+          {item?.item?.board_name}
+        </Text>
+        <View
+          style={
+            selectedProgram.length > 0 &&
+            selectedProgram.filter(e => e?.board_id === item?.item?.board_id)
+              .length > 0
+              ? [style.customSelectionCircle, style.customSelectionCircleActive]
+              : style.customSelectionCircle
+          }></View>
+      </TouchableOpacity>
+    );
   };
-  console.log('selectedProgram', selectedProgram);
+  useEffect(() => {
+    getEnrolled();
+  }, []);
   return (
     <View style={[styles.mainContainer, {padding: 16}]}>
-      <KeyboardAwareScrollView
+      {/* <KeyboardAwareScrollView
         contentContainerStyle={{
           flexGrow: 1,
         }}
-        showsVerticalScrollIndicator={false}>
-        <HeaderMain
-          navigateLeftIcon={navigation.pop}
-          leftIcon={'chevron-back'}
-          showSearch={false}
-          showNotifications={false}
-          headerText={'SELECT ENROLLED'}
-          navigation={navigation}
+        showsVerticalScrollIndicator={false}> */}
+      <HeaderMain
+        navigateLeftIcon={navigation.pop}
+        leftIcon={'chevron-back'}
+        showSearch={false}
+        showNotifications={false}
+        headerText={'SELECT ENROLLED'}
+        navigation={navigation}
+      />
+      <View style={styles.alignSelfStretch}>
+        <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
+        <FlatList
+          data={enrolledProgramList}
+          renderItem={renderItem}
+          keyExtractor={item => item.board_id}
         />
-        <View style={styles.alignSelfStretch}>
-          <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
-          {data.map((item, index) => {
-            return (
-              <TouchableOpacity
-                key={index}
-                activeOpacity={0.9}
-                style={[
-                  styles.directionRow,
-                  styles.justifySpaceBetween,
-                  styles.margin1Percent,
-                  styles.padding2Percent,
-                  styles.paddingHorizontal4Percent,
-                  style.customSelectionBox,
-                  selectedProgram.length > 0 &&
-                  selectedProgram.filter(e => e[0]?.id === item?.id).length > 0
-                    ? {
-                        borderColor: colors.primary,
-                      }
-                    : {borderColor: colors.lightGray},
-                ]}
-                onPress={() => {
-                  handlePress(item?.id);
-                }}>
-                <Text style={style.selectionBoxText}>{item?.title}</Text>
-                <View
-                  style={
-                    selectedProgram.length > 0 &&
-                    selectedProgram.filter(e => e[0]?.id === item?.id).length >
-                      0
-                      ? [
-                          style.customSelectionCircle,
-                          style.customSelectionCircleActive,
-                        ]
-                      : style.customSelectionCircle
-                  }></View>
-              </TouchableOpacity>
-            );
-          })}
-          <View
-            style={[
-              styles.directionRow,
-              styles.alignCenter,
-              styles.marginVerticle2Percent,
-            ]}>
-            <Button
-              buttonText={'CONTINUE'}
-              handlePress={handleNavigate}
-              width={WP('90%')}
-            />
-          </View>
-        </View>
-      </KeyboardAwareScrollView>
+        {/* <View
+          style={[
+            styles.directionRow,
+            styles.alignCenter,
+            styles.marginVerticle2Percent,
+          ]}>
+          <Button
+            buttonText={'CONTINUE'}
+            handlePress={handleNavigate}
+            width={WP('90%')}
+          />
+        </View> */}
+      </View>
+      {/* </KeyboardAwareScrollView> */}
     </View>
   );
 };
