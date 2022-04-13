@@ -22,7 +22,7 @@ const MobileNumber = ({navigation}) => {
       return;
     }
     console.log('runnung');
-    navigation.navigate('OTP', {from: 'MobileNumber'});
+    navigation.navigate('Login');
   };
   return (
     <View style={[styles.mainContainer, {padding: 16}]}>

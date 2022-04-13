@@ -32,6 +32,7 @@ const OTP = ({navigation, route}) => {
   let deviceId = DeviceInfo.getDeviceId();
   const {user_id} = useSelector(state => state.authReducer.temporaryUserId);
   const [value, setValue] = useState('');
+  const [key, setKey] = useState(0);
   const [enableMask, setEnableMask] = useState(true);
   const [resendOtpActive, setResendOtpActive] = useState(false);
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
@@ -62,6 +63,9 @@ const OTP = ({navigation, route}) => {
     );
     if (status == 1) {
       Toast.show(message, Toast.LONG);
+      setKey(prevKey => prevKey + 1);
+      setValue('');
+      setResendOtpActive(false);
     } else if (status == 0) {
       Toast.show(message, Toast.LONG);
     }
@@ -174,6 +178,7 @@ const OTP = ({navigation, route}) => {
                 ]}>
                 <CountdownCircleTimer
                   isPlaying
+                  key={key}
                   duration={30}
                   colors={[colors.secondary, colors.primary]}
                   colorsTime={[6, 4]}

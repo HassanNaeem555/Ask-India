@@ -23,7 +23,7 @@ const SocialButton = ({
       style={[styles.margin1Percent, {borderRadius: 15}]}>
       <TouchableOpacity
         activeOpacity={0.9}
-        onPress={() => navigate(screen_name)}
+        onPress={() => navigate && navigate(screen_name)}
         style={[styles.directionRow, style.buttonContainer]}>
         <View style={{flex: 1}}></View>
         <View style={{flex: 1}}>
