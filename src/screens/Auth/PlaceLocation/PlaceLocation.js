@@ -62,7 +62,7 @@ const PlaceLocation = ({navigation, route}) => {
     if (status == 1) {
       console.log('data', data);
       dispatch(saveUserProfile(data));
-      Toast.show(message, Toast.LONG);
+      // Toast.show(message, Toast.LONG);
       navigation.navigate('EnrolledProgram');
     } else if (status == 0) {
       Toast.show(message, Toast.LONG);

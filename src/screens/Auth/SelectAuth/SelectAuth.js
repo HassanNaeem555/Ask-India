@@ -37,9 +37,9 @@ const SelectAuth = ({navigation}) => {
               gradientColor={'#1E1E1E'}
               iconName={'phone'}
               iconText={'LOGIN WITH PHONE'}
-              navigate={navigate}
-              screen_name={'MobileNumber'}
               iconType={false}
+              // navigate={navigate}
+              // screen_name={'MobileNumber'}
             />
             {Platform.OS == 'ios' && (
               <SocialButton
