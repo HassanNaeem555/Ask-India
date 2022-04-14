@@ -38,6 +38,7 @@ const ForgotPassword = ({navigation}) => {
       user_email: email,
     });
     console.log('message', message, 'status', status);
+    setLoading(false);
     if (status == 1) {
       dispatch(saveTemporaryUserId(data));
       navigation.navigate('OTP', {from: 'forgot'});
@@ -45,7 +46,6 @@ const ForgotPassword = ({navigation}) => {
     } else if (status == 0) {
       Toast.show(message, Toast.LONG);
     }
-    setLoading(false);
   };
   return (
     <View style={[styles.mainContainer, {padding: 16}]}>

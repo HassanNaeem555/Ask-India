@@ -59,6 +59,7 @@ const PlaceLocation = ({navigation, route}) => {
       params,
       bearer_token,
     );
+    setLoading(false);
     if (status == 1) {
       console.log('data', data);
       dispatch(saveUserProfile(data));
@@ -67,7 +68,6 @@ const PlaceLocation = ({navigation, route}) => {
     } else if (status == 0) {
       Toast.show(message, Toast.LONG);
     }
-    setLoading(false);
   };
   return (
     <View style={[styles.mainContainer, {padding: 16}]}>

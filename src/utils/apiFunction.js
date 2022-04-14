@@ -1,11 +1,15 @@
 import axios from './axios';
-import { base_url } from './url';
+import {base_url} from './url';
 
-export const postApi = async (url, data, headers) => {
+export const postApi = async (url, data, bearer_token) => {
   try {
     let response;
-    if (headers) {
-      response = await axios.post(url, data, headers);
+    if (bearer_token) {
+      response = await axios.post(url, data, {
+        headers: {
+          Authorization: `Bearer ${bearer_token}`,
+        },
+      });
     } else {
       response = await axios.post(url, data);
     }
@@ -24,9 +28,18 @@ export const postApi = async (url, data, headers) => {
   }
 };
 
-export const getApi = async (url, headers) => {
+export const getApi = async (url, bearer_token) => {
   try {
-    const response = await axios.get(url, headers);
+    let response;
+    if (bearer_token) {
+      response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${bearer_token}`,
+        },
+      });
+    } else {
+      response = await axios.get(url);
+    }
     if (response.status === 200) {
       return response.data;
     }
@@ -47,17 +60,14 @@ export const putApi = async (url, data, headers) => {
 
 export const postApiFetch = async (url, data, bearer_token) => {
   try {
-    let response = await fetch(
-      base_url + url,
-      {
-        method: 'post',
-        body: data,
-        headers: {
-          'Content-Type': 'multipart/form-data; ',
-          Authorization: `Bearer ${bearer_token}`,
-        },
-      }
-    )
+    let response = await fetch(base_url + url, {
+      method: 'post',
+      body: data,
+      headers: {
+        'Content-Type': 'multipart/form-data; ',
+        Authorization: `Bearer ${bearer_token}`,
+      },
+    });
     if (response.status === 200) {
       const result = await response.json();
       // if (result.data) {
@@ -73,4 +83,4 @@ export const postApiFetch = async (url, data, bearer_token) => {
       return error;
     }
   }
-}
+};

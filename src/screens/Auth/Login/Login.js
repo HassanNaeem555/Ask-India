@@ -92,6 +92,7 @@ const Login = ({navigation}) => {
       login,
       user_data,
     );
+    setLoading(false);
     if (status == 1) {
       dispatch(saveUserProfile(data));
       dispatch(saveBearerToken(bearer_token));
@@ -100,7 +101,6 @@ const Login = ({navigation}) => {
     } else if (status == 0) {
       Toast.show(message, Toast.LONG);
     }
-    setLoading(false);
   };
   const changeScreen = screen_name => {
     navigate(screen_name);

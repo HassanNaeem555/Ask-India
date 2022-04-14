@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
-import { useSelector } from 'react-redux';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import {useSelector} from 'react-redux';
 import Toast from 'react-native-simple-toast';
 import HeaderMain from '../../../components/HeaderMain';
 import Logo from '../../../components/logo';
-import { appLogos } from '../../../assets';
+import {appLogos} from '../../../assets';
 import Button from '../../../components/Button';
-import { colors, WP, HP } from '../../../utilities';
-import { enrollProgram } from '../../../utils/api';
-import { getApi } from '../../../utils/apiFunction';
+import {colors, WP, HP} from '../../../utilities';
+import {enrollProgram} from '../../../utils/api';
+import {getApi} from '../../../utils/apiFunction';
 import styles from '../style';
 import style from './styles';
 
-const EnrolledProgram = ({ navigation }) => {
+const EnrolledProgram = ({navigation}) => {
   const [enrolledProgramList, setEnrolledProgramList] = useState([]);
   const [selectedProgram, setSelectedProgram] = useState([]);
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
@@ -25,19 +25,15 @@ const EnrolledProgram = ({ navigation }) => {
       setSelectedProgram(foundItem);
       console.log('inside if');
     } else {
-      const idSave = [{ board_id }];
+      const idSave = [{board_id}];
       const newUpdatedArray = selectedProgram?.concat(idSave);
       setSelectedProgram(newUpdatedArray);
-      navigation.navigate('TopicFollow', { board_id });
+      navigation.navigate('TopicFollow', {board_id});
       console.log('inside else', idSave);
     }
   };
   const getEnrolled = async () => {
-    const { data, message, status } = await getApi(enrollProgram, {
-      headers: {
-        Authorization: `Bearer ${bearer_token}`,
-      },
-    });
+    const {data, message, status} = await getApi(enrollProgram, bearer_token);
     if (status == 1) {
       setEnrolledProgramList(data);
     } else if (status == 0) {
@@ -56,12 +52,12 @@ const EnrolledProgram = ({ navigation }) => {
           styles.paddingHorizontal4Percent,
           style.customSelectionBox,
           selectedProgram.length > 0 &&
-            selectedProgram.filter(e => e?.board_id === item?.item?.board_id)
-              .length > 0
+          selectedProgram.filter(e => e?.board_id === item?.item?.board_id)
+            .length > 0
             ? {
-              borderColor: colors.primary,
-            }
-            : { borderColor: colors.lightGray },
+                borderColor: colors.primary,
+              }
+            : {borderColor: colors.lightGray},
         ]}
         onPress={() => {
           handlePress(item?.item?.board_id);
@@ -72,8 +68,8 @@ const EnrolledProgram = ({ navigation }) => {
         <View
           style={
             selectedProgram.length > 0 &&
-              selectedProgram.filter(e => e?.board_id === item?.item?.board_id)
-                .length > 0
+            selectedProgram.filter(e => e?.board_id === item?.item?.board_id)
+              .length > 0
               ? [style.customSelectionCircle, style.customSelectionCircleActive]
               : style.customSelectionCircle
           }></View>
@@ -84,7 +80,7 @@ const EnrolledProgram = ({ navigation }) => {
     getEnrolled();
   }, []);
   return (
-    <View style={[styles.mainContainer, { padding: 16 }]}>
+    <View style={[styles.mainContainer, {padding: 16}]}>
       <HeaderMain
         navigateLeftIcon={navigation.pop}
         leftIcon={'chevron-back'}
@@ -95,38 +91,64 @@ const EnrolledProgram = ({ navigation }) => {
       />
       <View style={styles.alignSelfStretch}>
         <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
-        {
-          enrolledProgramList.length > 0 ? (
-            <FlatList
-              data={enrolledProgramList}
-              renderItem={renderItem}
-              keyExtractor={item => item.board_id}
-            />
-          ) : (
-            <>
-              <SkeletonPlaceholder>
-                <SkeletonPlaceholder.Item flexDirection="row" alignItems="center" marginVertical={HP("0.8%")}>
-                  <SkeletonPlaceholder.Item width={WP('90%')} height={50} borderRadius={10} />
-                </SkeletonPlaceholder.Item>
-              </SkeletonPlaceholder>
-              <SkeletonPlaceholder>
-                <SkeletonPlaceholder.Item flexDirection="row" alignItems="center" marginVertical={HP("0.8%")}>
-                  <SkeletonPlaceholder.Item width={WP('90%')} height={50} borderRadius={10} />
-                </SkeletonPlaceholder.Item>
-              </SkeletonPlaceholder>
-              <SkeletonPlaceholder>
-                <SkeletonPlaceholder.Item flexDirection="row" alignItems="center" marginVertical={HP("0.8%")}>
-                  <SkeletonPlaceholder.Item width={WP('90%')} height={50} borderRadius={10} />
-                </SkeletonPlaceholder.Item>
-              </SkeletonPlaceholder>
-              <SkeletonPlaceholder>
-                <SkeletonPlaceholder.Item flexDirection="row" alignItems="center" marginVertical={HP("0.8%")}>
-                  <SkeletonPlaceholder.Item width={WP('90%')} height={50} borderRadius={10} />
-                </SkeletonPlaceholder.Item>
-              </SkeletonPlaceholder>
-            </>
-          )
-        }
+        {enrolledProgramList.length > 0 ? (
+          <FlatList
+            data={enrolledProgramList}
+            renderItem={renderItem}
+            keyExtractor={item => item.board_id}
+          />
+        ) : (
+          <>
+            <SkeletonPlaceholder>
+              <SkeletonPlaceholder.Item
+                flexDirection="row"
+                alignItems="center"
+                marginVertical={HP('0.8%')}>
+                <SkeletonPlaceholder.Item
+                  width={WP('90%')}
+                  height={50}
+                  borderRadius={10}
+                />
+              </SkeletonPlaceholder.Item>
+            </SkeletonPlaceholder>
+            <SkeletonPlaceholder>
+              <SkeletonPlaceholder.Item
+                flexDirection="row"
+                alignItems="center"
+                marginVertical={HP('0.8%')}>
+                <SkeletonPlaceholder.Item
+                  width={WP('90%')}
+                  height={50}
+                  borderRadius={10}
+                />
+              </SkeletonPlaceholder.Item>
+            </SkeletonPlaceholder>
+            <SkeletonPlaceholder>
+              <SkeletonPlaceholder.Item
+                flexDirection="row"
+                alignItems="center"
+                marginVertical={HP('0.8%')}>
+                <SkeletonPlaceholder.Item
+                  width={WP('90%')}
+                  height={50}
+                  borderRadius={10}
+                />
+              </SkeletonPlaceholder.Item>
+            </SkeletonPlaceholder>
+            <SkeletonPlaceholder>
+              <SkeletonPlaceholder.Item
+                flexDirection="row"
+                alignItems="center"
+                marginVertical={HP('0.8%')}>
+                <SkeletonPlaceholder.Item
+                  width={WP('90%')}
+                  height={50}
+                  borderRadius={10}
+                />
+              </SkeletonPlaceholder.Item>
+            </SkeletonPlaceholder>
+          </>
+        )}
       </View>
     </View>
   );

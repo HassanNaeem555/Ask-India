@@ -81,12 +81,11 @@ const ForgetPassword = ({navigation}) => {
         Authorization: `Bearer ${bearer_token}`,
       },
     });
+    setLoading(false);
     if (status == 1) {
-      setLoading(false);
       Toast.show(message, Toast.LONG);
       navigation.navigate('Login');
     } else if (status == 0) {
-      setLoading(false);
       Toast.show(message, Toast.LONG);
     }
   };
