@@ -1,11 +1,21 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  ActivityIndicator,
+  FlatList,
+} from 'react-native';
+import Toast from 'react-native-simple-toast';
+import {useSelector} from 'react-redux';
 import HeaderMain from '../../../components/HeaderMain';
 import HorizontalCategories from '../../../components/horizontalCategories';
 import CustomInput from '../../../components/CustomInput';
 import PeoplesCard from '../../../components/PeoplesCard';
 import TopicCard from '../../../components/TopicCard';
 import Post from '../../../components/Post';
+import {searchUser} from '../../../utils/api';
+import {getApi} from '../../../utils/apiFunction';
 import {WP, HP, colors, size} from '../../../utilities';
 import styles from '../style';
 import style from './styles';
@@ -38,7 +48,15 @@ const category = [
 ];
 
 const Search = ({navigation}) => {
+  const {navigate} = navigation;
+  const [searchText, setSearchText] = useState('');
+  const [preFabText, setPreFabText] = useState(
+    'Currently No Data Available To Show',
+  );
   const [selectedCategory, setSelectedCategory] = useState([]);
+  const [searchUserData, setSearchUserData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const bearer_token = useSelector(state => state.authReducer.bearer_token);
   const selectCategory = ({id, title}) => {
     const foundItem = selectedCategory.filter(e => e?.id === id);
     if (foundItem && foundItem.length > 0) {
@@ -50,8 +68,50 @@ const Search = ({navigation}) => {
       setSelectedCategory(idSave);
     }
   };
-  const handlePress = () => {
-    console.log('Search By Name');
+  const handleSearch = val => {
+    setSearchText(val);
+  };
+  const handlePress = async () => {
+    if (searchText == '') {
+      Toast.show(
+        selectedCategory[0]?.title == 'People'
+          ? 'Please Type Name To Search'
+          : 'Please Type Anything To Search',
+      );
+      return;
+    }
+    setLoading(!loading);
+    if (selectedCategory[0]?.title == 'People') {
+      const {status, message, data} = await getApi(
+        `${searchUser}?search_key=${searchText}`,
+        bearer_token,
+      );
+      setLoading(false);
+      if (searchUserData.length > 0) {
+        setSearchUserData([]);
+      }
+      if (status == 1) {
+        if (data && data.length > 0) {
+          setSearchUserData(data);
+        }
+        setPreFabText(message);
+      } else if (status == 0) {
+        setPreFabText(message);
+      }
+    } else {
+      setLoading(false);
+    }
+  };
+  const renderItem = ({item}) => {
+    return (
+      <PeoplesCard
+        navigation={navigate}
+        user_name={item?.user_name}
+        user_image={item?.user_image}
+        user_id={item?.user_id}
+        is_following={item?.is_following}
+      />
+    );
   };
   useEffect(() => {
     setSelectedCategory([{id: category[0]?.id, title: category[0]?.title}]);
@@ -76,6 +136,7 @@ const Search = ({navigation}) => {
           rightIconSize={25}
           rightIconColor={colors.black}
           handlePress={handlePress}
+          change={handleSearch}
         />
         <ScrollView
           horizontal={true}
@@ -91,19 +152,33 @@ const Search = ({navigation}) => {
         </ScrollView>
         {selectedCategory[0]?.title == 'People' ? (
           <>
-            <PeoplesCard navigation={navigation} text={true} what={'Friend'} />
-            <PeoplesCard
-              navigation={navigation}
-              text={true}
-              what={'Request Pending'}
-            />
-            <PeoplesCard navigation={navigation} text={false} what={''} />
-            <PeoplesCard navigation={navigation} text={true} what={'Friend'} />
-            <PeoplesCard
-              navigation={navigation}
-              text={true}
-              what={'Request Pending'}
-            />
+            {searchUserData.length > 0 ? (
+              <FlatList
+                data={searchUserData}
+                renderItem={renderItem}
+                keyExtractor={item => item?.user_id}
+              />
+            ) : (
+              <View
+                style={[
+                  styles.justifyCenter,
+                  styles.alignCenter,
+                  {marginTop: HP('25%')},
+                ]}>
+                {loading ? (
+                  <ActivityIndicator
+                    size="large"
+                    color={colors.primary}
+                    style={{
+                      fontSize: size.small,
+                      fontWeight: 'bold',
+                    }}
+                  />
+                ) : (
+                  <Text style={style.normalText}>{preFabText}</Text>
+                )}
+              </View>
+            )}
           </>
         ) : selectedCategory[0]?.title == 'Topics' ? (
           <>

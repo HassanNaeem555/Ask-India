@@ -8,4 +8,5 @@ export const updatePassword = 'update_password';
 export const cmsContent = 'content';
 export const enrollProgram = 'board';
 export const enrolledTopic = 'grade';
+export const searchUser = 'social_media/user_search';
 export const logOut = 'logout';

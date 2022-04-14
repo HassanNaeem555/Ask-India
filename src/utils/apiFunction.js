@@ -44,7 +44,11 @@ export const getApi = async (url, bearer_token) => {
       return response.data;
     }
   } catch (error) {
-    return error.response.data;
+    if (error.response) {
+      return error.response;
+    } else {
+      return error;
+    }
   }
 };
 export const putApi = async (url, data, headers) => {

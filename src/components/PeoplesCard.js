@@ -2,11 +2,18 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Card} from 'react-native-elements';
 import Image from './Img';
+import {image_url} from '../utils/url';
 import {appImages, appIcons} from '../assets';
 import {WP, HP, colors, size} from '../utilities';
 import styles from '../screens/Main/style';
 
-const PeoplesCard = ({navigation, what, text}) => {
+const PeoplesCard = ({
+  navigation,
+  user_id,
+  user_name,
+  user_image,
+  is_following,
+}) => {
   return (
     <Card
       containerStyle={[
@@ -21,8 +28,8 @@ const PeoplesCard = ({navigation, what, text}) => {
       <TouchableOpacity
         activeOpacity={0.9}
         onPress={() => {
-          navigation.navigate('MessagesOfUsers', {
-            id: 0,
+          navigation('MessagesOfUsers', {
+            id: user_id,
             name: 'Walter Alexander',
           });
         }}
@@ -31,9 +38,8 @@ const PeoplesCard = ({navigation, what, text}) => {
           activeOpacity={0.9}
           style={[style.postImageDivision, styles.alignCenter, {marginTop: -5}]}
           onPress={() => {
-            navigation.navigate('MessagesOfUsers', {
-              id: 0,
-              name: 'Walter Alexander',
+            navigation('OtherProfile', {
+              id: user_id,
             });
           }}>
           <Image
@@ -43,10 +49,10 @@ const PeoplesCard = ({navigation, what, text}) => {
             src={appImages?.postImageBorder}
           />
           <Image
-            local={true}
+            local={false}
             resizeMode={'contain'}
             style={style.postImage}
-            src={appImages?.postImageRounded}
+            src={`${image_url}${user_image}`}
           />
         </TouchableOpacity>
         <View
@@ -59,35 +65,41 @@ const PeoplesCard = ({navigation, what, text}) => {
           <TouchableOpacity
             activeOpacity={0.9}
             onPress={() => {
-              navigation.navigate('MessagesOfUsers', {
-                id: 0,
-                name: 'Walter Alexander',
+              navigation('OtherProfile', {
+                id: user_id,
               });
             }}>
             <Text style={style.postHeading} numberOfLines={1}>
-              Mark Smith
+              {user_name}
             </Text>
           </TouchableOpacity>
-          {text && (
+          {/* {text && (
             <Text style={style.postDate} numberOfLines={1}>
               {what}
             </Text>
-          )}
+          )} */}
         </View>
         <View style={[styles.alignCenter, style.postIconDivision]}>
-          <TouchableOpacity activeOpacity={0.9}>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            onPress={() => {
+              navigation('MessagesOfUsers', {
+                id: user_id,
+                name: 'Walter Alexander',
+              });
+            }}>
             <Image
               local={true}
               resizeMode={'contain'}
               style={style.what}
               src={
-                what == ''
+                is_following == 0
                   ? appIcons?.addFriend
-                  : what == 'Friend'
+                  : is_following == 1
                   ? appIcons?.message
-                  : what == 'Request Pending'
-                  ? appIcons?.requestPending
-                  : null
+                  : // : what == 'Request Pending'
+                    // ? appIcons?.requestPending
+                    null
               }
             />
           </TouchableOpacity>
