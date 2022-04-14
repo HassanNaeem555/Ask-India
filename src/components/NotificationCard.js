@@ -6,7 +6,7 @@ import {appImages, appIcons} from '../assets';
 import {WP, HP, colors, size} from '../utilities';
 import styles from '../screens/Main/style';
 
-const NotificationCard = ({navigation,which, what}) => {
+const NotificationCard = ({navigation, which, what}) => {
   return (
     <Card
       containerStyle={[
@@ -30,7 +30,10 @@ const NotificationCard = ({navigation,which, what}) => {
             {marginTop: -10},
           ]}
           onPress={() => {
-            navigation.navigate('OtherProfile');
+            navigation.navigate('OtherProfile', {
+              id: 0,
+              is_following: 3,
+            });
           }}>
           {/* <Image
             local={true}
@@ -70,7 +73,10 @@ const NotificationCard = ({navigation,which, what}) => {
           <TouchableOpacity
             activeOpacity={0.9}
             onPress={() => {
-              navigation.navigate('OtherProfile');
+              navigation.navigate('OtherProfile', {
+                id: 0,
+                is_following: 3,
+              });
             }}>
             <Text style={style.postHeading} numberOfLines={1}>
               Mark Smith

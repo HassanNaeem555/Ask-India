@@ -1,12 +1,17 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {TouchableOpacity, Text, StyleSheet, ScrollView} from 'react-native';
 import {WP, HP, colors, size} from '../utilities';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from '../screens/Main/style';
 
 const HorizontalCategories = ({category, selectCategory, selectedCategory}) => {
   return (
-    <>
+    <ScrollView
+      horizontal={true}
+      style={[
+        styles.marginVerticleHalfPercent,
+        {marginLeft: WP('2%'), marginRight: WP('2%')},
+      ]}>
       {category.map((item, index) => {
         return (
           <>
@@ -47,7 +52,7 @@ const HorizontalCategories = ({category, selectCategory, selectedCategory}) => {
           </>
         );
       })}
-    </>
+    </ScrollView>
   );
 };
 

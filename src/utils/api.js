@@ -9,4 +9,6 @@ export const cmsContent = 'content';
 export const enrollProgram = 'board';
 export const enrolledTopic = 'grade';
 export const searchUser = 'social_media/user_search';
+export const userFollowUnFollow = 'social_media/follow/create_follow';
+export const user_profile = 'user_profile';
 export const logOut = 'logout';

@@ -78,18 +78,11 @@ const FeedStack = ({navigation}) => {
           onPress={() => navigation.navigate('Search')}>
           <Text>Ask Something</Text>
         </TouchableOpacity>
-        <ScrollView
-          horizontal={true}
-          style={[
-            styles.margin2Percent,
-            {marginLeft: WP('2%'), marginRight: WP('3%')},
-          ]}>
-          <HorizontalCategories
-            category={category}
-            selectCategory={selectCategory}
-            selectedCategory={selectedCategory}
-          />
-        </ScrollView>
+        <HorizontalCategories
+          category={category}
+          selectCategory={selectCategory}
+          selectedCategory={selectedCategory}
+        />
         <View
           style={[
             styles.directionRow,

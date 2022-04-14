@@ -46,29 +46,16 @@ export default function DrawerContent({navigation}) {
             styles.justifyCenter,
             styles.alignCenter,
           ]}>
-          <ImageBackground
-            source={appImages?.profileImageBorder}
+          <Img
+            local={true}
             resizeMode={'contain'}
-            style={[
-              styles.alignCenter,
-              {
-                width: WP('100%'),
-                height: HP('20%'),
-                position: 'relative',
-                overflow: 'hidden',
-              },
-            ]}>
-            <Img
-              local={true}
-              resizeMode={'contain'}
-              style={style.profileImage}
-              src={
-                user_profile_data?.user_image !== null
-                  ? {uri: image_url + user_profile_data?.user_image}
-                  : appImages?.profileImageRound
-              }
-            />
-          </ImageBackground>
+            style={style.profileImage}
+            src={
+              user_profile_data?.user_image !== null
+                ? {uri: image_url + user_profile_data?.user_image}
+                : appImages?.profileImageRound
+            }
+          />
           <Text style={[style.name, styles.margin1Percent]}>
             {user_profile_data?.user_name}
           </Text>
@@ -222,9 +209,14 @@ const style = StyleSheet.create({
     backgroundColor: colors.white,
   },
   profileImage: {
-    width: WP('30%'),
-    height: HP('20%'),
-    borderRadius: 50,
+    // width: WP('30%'),
+    // height: HP('20%'),
+    // borderRadius: 50,
+    width: 150,
+    height: 150,
+    borderRadius: 1000,
+    borderWidth: 5,
+    borderColor: colors.primary,
   },
   name: {
     fontSize: size.medium,

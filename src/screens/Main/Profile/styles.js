@@ -37,9 +37,13 @@ const style = StyleSheet.create({
     color: colors.white,
   },
   profileImage: {
-    width: WP('30%'),
-    height: HP('20%'),
-    borderRadius: 50,
+    // width: WP('40%'),
+    // height: HP('20%'),
+    width: 150,
+    height: 150,
+    borderRadius: 1000,
+    borderWidth: 5,
+    borderColor: colors.primary,
   },
 });
 

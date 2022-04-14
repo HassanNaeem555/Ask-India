@@ -7,6 +7,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import {Card} from 'react-native-elements';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import {useSelector} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import Button from '../../../components/Button';
@@ -15,6 +16,8 @@ import Image from '../../../components/Img';
 import Post from '../../../components/Post';
 import {appImages} from '../../../assets';
 import {image_url} from '../../../utils/url';
+import {user_profile} from '../../../utils/api';
+import {getApi} from '../../../utils/apiFunction';
 import {WP, HP, colors} from '../../../utilities';
 import styles from '../style';
 import style from './styles';
@@ -39,7 +42,9 @@ const category = [
 ];
 const Profile = ({navigation}) => {
   const [selectedCategory, setSelectedCategory] = useState([]);
+  const [userProfile, setUserProfile] = useState(null);
   const user_profile_data = useSelector(state => state.authReducer.user);
+  const bearer_token = useSelector(state => state.authReducer.bearer_token);
   const selectTab = ({id, title}) => {
     const foundItem = selectedCategory.filter(e => e?.id === id);
     if (foundItem && foundItem.length > 0) {
@@ -47,6 +52,18 @@ const Profile = ({navigation}) => {
     } else {
       const idSave = [{id, title}];
       setSelectedCategory(idSave);
+    }
+  };
+  const getUserProfile = async () => {
+    const {data, message, status} = await getApi(
+      `${user_profile}?other_id=${user_profile_data?.user_id}`,
+      bearer_token,
+    );
+    if (status == 1) {
+      console.log('data', data);
+      setUserProfile(data);
+    } else if (status == 0) {
+      Toast.show(message, Toast.LONG);
     }
   };
   const drawerOpen = () => {
@@ -57,6 +74,7 @@ const Profile = ({navigation}) => {
   };
   useEffect(() => {
     setSelectedCategory([{id: category[0]?.id, title: category[0]?.title}]);
+    getUserProfile();
   }, []);
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
@@ -80,7 +98,7 @@ const Profile = ({navigation}) => {
             },
           ]}>
           <View style={[styles.justifyCenter, styles.alignCenter]}>
-            <ImageBackground
+            {/* <ImageBackground
               source={appImages?.profileImageBorder}
               resizeMode={'contain'}
               style={[
@@ -92,17 +110,17 @@ const Profile = ({navigation}) => {
                   overflow: 'hidden',
                 },
               ]}>
-              <Image
-                local={true}
-                resizeMode={'contain'}
-                style={style.profileImage}
-                src={
-                  user_profile_data?.user_image !== null
-                    ? {uri: image_url + user_profile_data?.user_image}
-                    : appImages?.profileImageRound
-                }
-              />
-            </ImageBackground>
+            </ImageBackground> */}
+            <Image
+              local={true}
+              resizeMode={'contain'}
+              style={[style.profileImage, styles.alignCenter]}
+              src={
+                user_profile_data?.user_image !== null
+                  ? {uri: image_url + user_profile_data?.user_image}
+                  : appImages?.profileImageRound
+              }
+            />
             <Text
               numberOfLines={1}
               style={[style.heading, styles.fontBold, styles.margin1Percent]}>
@@ -138,14 +156,29 @@ const Profile = ({navigation}) => {
                 styles.paddingHorizontal4Percent,
                 style.borderRight,
               ]}>
-              <Text
-                style={[
-                  style.normalText,
-                  styles.fontBold,
-                  styles.colorPrimary,
-                ]}>
-                1,201
-              </Text>
+              {userProfile?.total_post ? (
+                <Text
+                  style={[
+                    style.normalText,
+                    styles.fontBold,
+                    styles.colorPrimary,
+                  ]}>
+                  {userProfile?.total_post}
+                </Text>
+              ) : (
+                <SkeletonPlaceholder>
+                  <SkeletonPlaceholder.Item
+                    flexDirection="row"
+                    alignItems="center"
+                    marginVertical={HP('1.5%')}>
+                    <SkeletonPlaceholder.Item
+                      width={WP('10%')}
+                      height={30}
+                      borderRadius={10}
+                    />
+                  </SkeletonPlaceholder.Item>
+                </SkeletonPlaceholder>
+              )}
               <Text
                 style={[
                   style.smallText,
@@ -172,7 +205,7 @@ const Profile = ({navigation}) => {
                   styles.fontBold,
                   styles.colorPrimary,
                 ]}>
-                1,201
+                {userProfile?.total_follower}
               </Text>
               <Text
                 style={[
@@ -196,7 +229,7 @@ const Profile = ({navigation}) => {
                   styles.fontBold,
                   styles.colorPrimary,
                 ]}>
-                1,201
+                {userProfile?.total_following}
               </Text>
               <Text
                 style={[

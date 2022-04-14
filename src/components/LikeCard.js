@@ -30,7 +30,10 @@ const LikeCard = ({followed, navigation, like}) => {
             styles.positionRelative,
           ]}
           onPress={() => {
-            navigation.navigate('OtherProfile');
+            navigation.navigate('OtherProfile', {
+              id: 0,
+              is_following: 3,
+            });
           }}>
           {/* <Image
             local={true}
@@ -69,7 +72,10 @@ const LikeCard = ({followed, navigation, like}) => {
             style={style.likeHeading}
             numberOfLines={2}
             onPress={() => {
-              navigation.navigate('OtherProfile');
+              navigation.navigate('OtherProfile', {
+                id: 0,
+                is_following: 3,
+              });
             }}>
             Sam Wilson
           </Text>

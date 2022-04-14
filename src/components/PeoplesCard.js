@@ -8,11 +8,13 @@ import {WP, HP, colors, size} from '../utilities';
 import styles from '../screens/Main/style';
 
 const PeoplesCard = ({
+  index,
   navigation,
   user_id,
   user_name,
   user_image,
   is_following,
+  createFollowUnFollow,
 }) => {
   return (
     <Card
@@ -28,9 +30,9 @@ const PeoplesCard = ({
       <TouchableOpacity
         activeOpacity={0.9}
         onPress={() => {
-          navigation('MessagesOfUsers', {
+          navigation('OtherProfile', {
             id: user_id,
-            name: 'Walter Alexander',
+            is_following,
           });
         }}
         style={[styles.directionRow, styles.justifyCenter]}>
@@ -40,6 +42,7 @@ const PeoplesCard = ({
           onPress={() => {
             navigation('OtherProfile', {
               id: user_id,
+              is_following,
             });
           }}>
           <Image
@@ -67,6 +70,7 @@ const PeoplesCard = ({
             onPress={() => {
               navigation('OtherProfile', {
                 id: user_id,
+                is_following,
               });
             }}>
             <Text style={style.postHeading} numberOfLines={1}>
@@ -83,10 +87,16 @@ const PeoplesCard = ({
           <TouchableOpacity
             activeOpacity={0.9}
             onPress={() => {
-              navigation('MessagesOfUsers', {
-                id: user_id,
-                name: 'Walter Alexander',
-              });
+              createFollowUnFollow &&
+                createFollowUnFollow(
+                  {
+                    user_id,
+                    user_name,
+                    user_image,
+                    is_following,
+                  },
+                  index,
+                );
             }}>
             <Image
               local={true}
@@ -96,10 +106,10 @@ const PeoplesCard = ({
                 is_following == 0
                   ? appIcons?.addFriend
                   : is_following == 1
-                  ? appIcons?.message
-                  : // : what == 'Request Pending'
-                    // ? appIcons?.requestPending
-                    null
+                  ? appIcons?.requestPending
+                  : null
+                // : what == 'Request Pending'
+                // ? appIcons?.requestPending
               }
             />
           </TouchableOpacity>
@@ -130,7 +140,7 @@ const style = StyleSheet.create({
   postImage: {
     width: WP('9%'),
     height: HP('6%'),
-    borderRadius: 50,
+    borderRadius: 1000,
     position: 'absolute',
   },
   what: {

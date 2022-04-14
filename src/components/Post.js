@@ -44,7 +44,10 @@ const Post = ({showPostImage, showTag, navigation}) => {
             {marginTop: -5},
           ]}
           onPress={() => {
-            navigation.navigate('OtherProfile');
+            navigation.navigate('OtherProfile', {
+              id: 0,
+              is_following: 3,
+            });
           }}>
           <Image
             local={true}
@@ -70,7 +73,10 @@ const Post = ({showPostImage, showTag, navigation}) => {
           <TouchableOpacity
             activeOpacity={0.9}
             onPress={() => {
-              navigation.navigate('OtherProfile');
+              navigation.navigate('OtherProfile', {
+                id: 0,
+                is_following: 3,
+              });
             }}>
             <Text style={style.postHeading}>Mark Smith</Text>
           </TouchableOpacity>

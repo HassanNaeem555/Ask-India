@@ -1,22 +1,22 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  useWindowDimensions,
-  ImageBackground,
-} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import {useSelector} from 'react-redux';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import {Card} from 'react-native-elements';
+import Toast from 'react-native-simple-toast';
 import LinearGradient from 'react-native-linear-gradient';
 import Button from '../../../components/Button';
 import HeaderMain from '../../../components/HeaderMain';
 import Image from '../../../components/Img';
 import Post from '../../../components/Post';
+import {user_profile} from '../../../utils/api';
+import {image_url} from '../../../utils/url';
+import {getApi} from '../../../utils/apiFunction';
 import {appImages} from '../../../assets';
 import {WP, HP, colors, size} from '../../../utilities';
 import styles from '../style';
 import style from './styles';
+
 const category = [
   {
     title: 'POST',
@@ -36,8 +36,11 @@ const category = [
   },
 ];
 
-const OtherProfile = ({navigation}) => {
+const OtherProfile = ({navigation, route}) => {
+  const {id, is_following} = route.params;
   const [selectedCategory, setSelectedCategory] = useState([]);
+  const [userProfile, setUserProfile] = useState(null);
+  const bearer_token = useSelector(state => state.authReducer.bearer_token);
   const selectTab = ({id, title}) => {
     const foundItem = selectedCategory.filter(e => e?.id === id);
     if (foundItem && foundItem.length > 0) {
@@ -47,14 +50,26 @@ const OtherProfile = ({navigation}) => {
       setSelectedCategory(idSave);
     }
   };
-  const drawerOpen = () => {
-    navigation.toggleDrawer();
-  };
   const handleNavigate = () => {
     // navigation.navigate('EditProfile');
   };
+  const getUserProfile = async () => {
+    const {data, message, status} = await getApi(
+      `${user_profile}?other_id=${id}`,
+      bearer_token,
+    );
+    if (status == 1) {
+      console.log('data', data);
+      setUserProfile(data);
+    } else if (status == 0) {
+      Toast.show(message, Toast.LONG);
+    }
+  };
   useEffect(() => {
     setSelectedCategory([{id: category[0]?.id, title: category[0]?.title}]);
+    if (id !== 0) {
+      getUserProfile();
+    }
   }, []);
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
@@ -78,46 +93,45 @@ const OtherProfile = ({navigation}) => {
             },
           ]}>
           <View style={[styles.justifyCenter, styles.alignCenter]}>
-            <ImageBackground
-              source={appImages?.profileImageBorder}
+            <Image
+              local={true}
               resizeMode={'contain'}
-              style={[
-                styles.alignCenter,
-                {
-                  width: WP('100%'),
-                  height: HP('20%'),
-                  position: 'relative',
-                  overflow: 'hidden',
-                },
-              ]}>
-              <Image
-                local={true}
-                resizeMode={'contain'}
-                style={style.profileImage}
-                src={appImages?.profileImageRound}
-              />
-            </ImageBackground>
-            <Text
-              numberOfLines={1}
-              style={[style.heading, styles.fontBold, styles.margin1Percent]}>
-              John Smith
-            </Text>
-            <Text
-              numberOfLines={1}
-              style={[
-                style.email,
-                styles.fontBold,
-                styles.colorGray,
-                styles.marginVerticleHalfPercent,
-              ]}>
-              john@gmail.com
-            </Text>
+              style={style.profileImage}
+              src={{uri: image_url + userProfile?.user_image}}
+            />
+            {userProfile?.user_name ? (
+              <Text
+                numberOfLines={1}
+                style={[style.heading, styles.fontBold, styles.margin1Percent]}>
+                {userProfile?.user_name}
+              </Text>
+            ) : (
+              <SkeletonPlaceholder>
+                <SkeletonPlaceholder.Item
+                  flexDirection="row"
+                  alignItems="center"
+                  marginVertical={HP('1.5%')}>
+                  <SkeletonPlaceholder.Item
+                    width={WP('50%')}
+                    height={20}
+                    borderRadius={10}
+                  />
+                </SkeletonPlaceholder.Item>
+              </SkeletonPlaceholder>
+            )}
+            {userProfile?.user_email && (
+              <Text
+                numberOfLines={1}
+                style={[
+                  style.email,
+                  styles.fontBold,
+                  styles.colorGray,
+                  styles.marginVerticleHalfPercent,
+                ]}>
+                {userProfile?.user_email}
+              </Text>
+            )}
           </View>
-          <Text
-            numberOfLines={2}
-            style={[style.subHeading, styles.marginVerticleHalfPercent]}>
-            Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum{' '}
-          </Text>
           <View
             style={[
               styles.directionRow,
@@ -132,14 +146,29 @@ const OtherProfile = ({navigation}) => {
                 styles.paddingHorizontal4Percent,
                 style.borderRight,
               ]}>
-              <Text
-                style={[
-                  style.normalText,
-                  styles.fontBold,
-                  styles.colorPrimary,
-                ]}>
-                1,201
-              </Text>
+              {userProfile?.total_post ? (
+                <Text
+                  style={[
+                    style.normalText,
+                    styles.fontBold,
+                    styles.colorPrimary,
+                  ]}>
+                  {userProfile?.total_post}
+                </Text>
+              ) : (
+                <SkeletonPlaceholder>
+                  <SkeletonPlaceholder.Item
+                    flexDirection="row"
+                    alignItems="center"
+                    marginVertical={HP('1.5%')}>
+                    <SkeletonPlaceholder.Item
+                      width={WP('10%')}
+                      height={30}
+                      borderRadius={10}
+                    />
+                  </SkeletonPlaceholder.Item>
+                </SkeletonPlaceholder>
+              )}
               <Text
                 style={[
                   style.smallText,
@@ -152,7 +181,8 @@ const OtherProfile = ({navigation}) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Followers');
+                userProfile?.total_follower > 0 &&
+                  navigation.navigate('Followers');
               }}
               activeOpacity={0.9}
               style={[
@@ -160,14 +190,29 @@ const OtherProfile = ({navigation}) => {
                 styles.paddingHorizontal4Percent,
                 style.borderRight,
               ]}>
-              <Text
-                style={[
-                  style.normalText,
-                  styles.fontBold,
-                  styles.colorPrimary,
-                ]}>
-                1,201
-              </Text>
+              {userProfile?.total_follower ? (
+                <Text
+                  style={[
+                    style.normalText,
+                    styles.fontBold,
+                    styles.colorPrimary,
+                  ]}>
+                  {userProfile?.total_follower}
+                </Text>
+              ) : (
+                <SkeletonPlaceholder>
+                  <SkeletonPlaceholder.Item
+                    flexDirection="row"
+                    alignItems="center"
+                    marginVertical={HP('1.5%')}>
+                    <SkeletonPlaceholder.Item
+                      width={WP('10%')}
+                      height={30}
+                      borderRadius={10}
+                    />
+                  </SkeletonPlaceholder.Item>
+                </SkeletonPlaceholder>
+              )}
               <Text
                 style={[
                   style.smallText,
@@ -180,18 +225,34 @@ const OtherProfile = ({navigation}) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Following');
+                userProfile?.total_following > 0 &&
+                  navigation.navigate('Following');
               }}
               activeOpacity={0.9}
               style={[styles.alignCenter, styles.paddingHorizontal4Percent]}>
-              <Text
-                style={[
-                  style.normalText,
-                  styles.fontBold,
-                  styles.colorPrimary,
-                ]}>
-                1,201
-              </Text>
+              {userProfile?.total_following ? (
+                <Text
+                  style={[
+                    style.normalText,
+                    styles.fontBold,
+                    styles.colorPrimary,
+                  ]}>
+                  {userProfile?.total_following}
+                </Text>
+              ) : (
+                <SkeletonPlaceholder>
+                  <SkeletonPlaceholder.Item
+                    flexDirection="row"
+                    alignItems="center"
+                    marginVertical={HP('1.5%')}>
+                    <SkeletonPlaceholder.Item
+                      width={WP('10%')}
+                      height={30}
+                      borderRadius={10}
+                    />
+                  </SkeletonPlaceholder.Item>
+                </SkeletonPlaceholder>
+              )}
               <Text
                 style={[
                   style.smallText,
