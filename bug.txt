@@ -1,0 +1,2 @@
+styles.margin2Percent,
+            {marginLeft: WP('2%'), marginRight: WP('3%')},
