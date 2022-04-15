@@ -72,3 +72,7 @@ export default App;
 //     takeUserInput(result_of_random_number);
 
 // https://stackoverflow.com/questions/69408222/android-studio-generate-signed-apks-broke
+
+// https://console.firebase.google.com/project/ask-india-96e1a/authentication/providers
+// games.departnado@gmail.com
+// Abcd@1234
