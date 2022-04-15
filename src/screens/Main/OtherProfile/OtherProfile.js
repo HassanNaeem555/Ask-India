@@ -11,8 +11,8 @@ import Image from '../../../components/Img';
 import Post from '../../../components/Post';
 import {user_profile} from '../../../utils/api';
 import {image_url} from '../../../utils/url';
-import {getApi} from '../../../utils/apiFunction';
-import {appImages} from '../../../assets';
+import {getApi, postApi} from '../../../utils/apiFunction';
+import {userFollowUnFollow} from '../../../utils/api';
 import {WP, HP, colors, size} from '../../../utilities';
 import styles from '../style';
 import style from './styles';
@@ -37,7 +37,7 @@ const category = [
 ];
 
 const OtherProfile = ({navigation, route}) => {
-  const {id, is_following} = route.params;
+  const {id} = route.params;
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [userProfile, setUserProfile] = useState(null);
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
@@ -50,8 +50,35 @@ const OtherProfile = ({navigation, route}) => {
       setSelectedCategory(idSave);
     }
   };
-  const handleNavigate = () => {
-    // navigation.navigate('EditProfile');
+  const handleNavigate = async () => {
+    if (userProfile == null) return;
+    const {is_following} = userProfile;
+    const params = {
+      follower_id: id,
+      type: is_following == 0 ? 'follow' : 'unfollow',
+    };
+    const {status, message} = await postApi(
+      userFollowUnFollow,
+      params,
+      bearer_token,
+    );
+    if (status == 1) {
+      // 1. Make a shallow copy of the array
+      let temp_state = {...userProfile};
+
+      if (is_following == 0) {
+        temp_state.is_following = 1;
+        temp_state.total_follower = temp_state.total_follower + 1;
+        setUserProfile(temp_state);
+      } else {
+        temp_state.is_following = 0;
+        temp_state.total_follower = temp_state.total_follower - 1;
+        setUserProfile(temp_state);
+      }
+      Toast.show(message, Toast.LONG);
+    } else if (status == 0) {
+      Toast.show(message, Toast.LONG);
+    }
   };
   const getUserProfile = async () => {
     const {data, message, status} = await getApi(
@@ -95,15 +122,15 @@ const OtherProfile = ({navigation, route}) => {
           <View style={[styles.justifyCenter, styles.alignCenter]}>
             <Image
               local={true}
-              resizeMode={'contain'}
+              resizeMode={'cover'}
               style={style.profileImage}
               src={{uri: image_url + userProfile?.user_image}}
             />
-            {userProfile?.user_name ? (
+            {userProfile ? (
               <Text
                 numberOfLines={1}
                 style={[style.heading, styles.fontBold, styles.margin1Percent]}>
-                {userProfile?.user_name}
+                {userProfile?.user_name ? userProfile?.user_name : ''}
               </Text>
             ) : (
               <SkeletonPlaceholder>
@@ -146,7 +173,7 @@ const OtherProfile = ({navigation, route}) => {
                 styles.paddingHorizontal4Percent,
                 style.borderRight,
               ]}>
-              {userProfile?.total_post ? (
+              {userProfile ? (
                 <Text
                   style={[
                     style.normalText,
@@ -180,17 +207,17 @@ const OtherProfile = ({navigation, route}) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => {
-                userProfile?.total_follower > 0 &&
-                  navigation.navigate('Followers');
-              }}
+              // onPress={() => {
+              //   userProfile?.total_follower > 0 &&
+              //     navigation.navigate('Followers');
+              // }}
               activeOpacity={0.9}
               style={[
                 styles.alignCenter,
                 styles.paddingHorizontal4Percent,
                 style.borderRight,
               ]}>
-              {userProfile?.total_follower ? (
+              {userProfile ? (
                 <Text
                   style={[
                     style.normalText,
@@ -224,13 +251,13 @@ const OtherProfile = ({navigation, route}) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => {
-                userProfile?.total_following > 0 &&
-                  navigation.navigate('Following');
-              }}
+              // onPress={() => {
+              //   userProfile?.total_following > 0 &&
+              //     navigation.navigate('Following');
+              // }}
               activeOpacity={0.9}
               style={[styles.alignCenter, styles.paddingHorizontal4Percent]}>
-              {userProfile?.total_following ? (
+              {userProfile ? (
                 <Text
                   style={[
                     style.normalText,
@@ -272,7 +299,9 @@ const OtherProfile = ({navigation, route}) => {
               styles.marginVerticle2Percent,
             ]}>
             <Button
-              buttonText={'FOLLOW'}
+              buttonText={
+                userProfile?.is_following == 0 ? 'FOLLOW' : 'UNFOLLOW'
+              }
               handlePress={handleNavigate}
               width={WP('90%')}
             />

@@ -1,5 +1,6 @@
 export const register = 'user_create';
 export const login = 'user_login';
+export const user_social_login = '/user_social_login';
 export const forgotPassword = 'forgot_password';
 export const resendVerificationCode = 're_send_code';
 export const verificationCode = 'user_verification';
@@ -10,5 +11,6 @@ export const enrollProgram = 'board';
 export const enrolledTopic = 'grade';
 export const searchUser = 'social_media/user_search';
 export const userFollowUnFollow = 'social_media/follow/create_follow';
+export const listUserFollowUnFollow = 'social_media/follow/list_follow';
 export const user_profile = 'user_profile';
 export const logOut = 'logout';

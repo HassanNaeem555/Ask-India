@@ -1,4 +1,4 @@
-package com.askindia;
+package com.melow.askindia;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen;

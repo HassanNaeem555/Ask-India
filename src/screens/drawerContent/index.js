@@ -11,7 +11,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import Toast from 'react-native-simple-toast';
 import Img from '../../components/Img';
-import {validateUserLogin} from '../../store/actions/authAction';
+import {validateUserLogOut} from '../../store/actions/authAction';
 import {colors, WP, HP, size} from '../../utilities';
 import {appImages, appIcons} from '../../assets';
 import {getApi} from '../../utils/apiFunction';
@@ -24,13 +24,16 @@ export default function DrawerContent({navigation}) {
   const dispatch = useDispatch();
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
   const user_profile_data = useSelector(state => state.authReducer.user);
+  const social_user_profile_data = useSelector(
+    state => state.authReducer.user_social,
+  );
   const logOutUser = async () => {
     const {status, message} = await getApi(
       `${logOut}?user_id=${user_profile_data?.user_id}`,
       bearer_token,
     );
     if (status == 1) {
-      dispatch(validateUserLogin());
+      dispatch(validateUserLogOut());
       Toast.show(message, Toast.LONG);
     } else if (status == 0) {
       Toast.show(message, Toast.LONG);
@@ -48,18 +51,26 @@ export default function DrawerContent({navigation}) {
           ]}>
           <Img
             local={true}
-            resizeMode={'contain'}
+            resizeMode={'cover'}
             style={style.profileImage}
             src={
-              user_profile_data?.user_image !== null
+              social_user_profile_data !== null
+                ? {uri: social_user_profile_data?.photoURL}
+                : user_profile_data?.user_image !== null
                 ? {uri: image_url + user_profile_data?.user_image}
                 : appImages?.profileImageRound
             }
           />
           <Text style={[style.name, styles.margin1Percent]}>
-            {user_profile_data?.user_name}
+            {social_user_profile_data !== null
+              ? social_user_profile_data?.displayName
+              : user_profile_data?.user_name}
           </Text>
-          <Text style={style.email}>{user_profile_data?.user_email}</Text>
+          <Text style={style.email}>
+            {social_user_profile_data !== null
+              ? social_user_profile_data?.email
+              : user_profile_data?.user_email}
+          </Text>
         </View>
       </View>
       <View style={style.container}>
@@ -156,23 +167,25 @@ export default function DrawerContent({navigation}) {
                 Privacy Policy
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={style.itemContainer}
-              onPress={() => navigation.navigate('ChangePassword')}>
-              <Img
-                local={true}
-                resizeMode={'contain'}
-                style={{
-                  width: WP('5%'),
-                  height: HP('5%'),
-                }}
-                src={appIcons?.changePassword}
-              />
-              <Text style={[style.itemText, styles.margin1Percent]}>
-                {'\b \b \b'}
-                Change Password
-              </Text>
-            </TouchableOpacity>
+            {social_user_profile_data == null && (
+              <TouchableOpacity
+                style={style.itemContainer}
+                onPress={() => navigation.navigate('ChangePassword')}>
+                <Img
+                  local={true}
+                  resizeMode={'contain'}
+                  style={{
+                    width: WP('5%'),
+                    height: HP('5%'),
+                  }}
+                  src={appIcons?.changePassword}
+                />
+                <Text style={[style.itemText, styles.margin1Percent]}>
+                  {'\b \b \b'}
+                  Change Password
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
           <TouchableOpacity
             style={{
@@ -209,11 +222,8 @@ const style = StyleSheet.create({
     backgroundColor: colors.white,
   },
   profileImage: {
-    // width: WP('30%'),
-    // height: HP('20%'),
-    // borderRadius: 50,
-    width: 150,
-    height: 150,
+    width: WP('38%'),
+    height: HP('20%'),
     borderRadius: 1000,
     borderWidth: 5,
     borderColor: colors.primary,

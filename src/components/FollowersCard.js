@@ -5,10 +5,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Image from './Img';
 import {appImages, appLogos} from '../assets';
+import {image_url} from '../utils/url';
 import {WP, HP, colors, size} from '../utilities';
 import styles from '../screens/Main/style';
-
-const LikeCard = ({followed, navigation, like}) => {
+const FollowersCard = ({data, navigation}) => {
   return (
     <Card
       style={styles.positionRelative}
@@ -31,15 +31,15 @@ const LikeCard = ({followed, navigation, like}) => {
           ]}
           onPress={() => {
             navigation.navigate('OtherProfile', {
-              id: 0,
+              id: data?.user_id,
             });
           }}>
           {/* <Image
-            local={true}
-            resizeMode={'contain'}
-            style={style.likeImage}
-            src={appImages?.postImage}
-          /> */}
+          local={true}
+          resizeMode={'contain'}
+          style={style.likeImage}
+          src={appImages?.postImage}
+        /> */}
           <Image
             local={true}
             resizeMode={'contain'}
@@ -47,19 +47,11 @@ const LikeCard = ({followed, navigation, like}) => {
             src={appImages?.postImageBorder}
           />
           <Image
-            local={true}
-            resizeMode={'contain'}
+            local={false}
+            resizeMode={'cover'}
             style={style.postImage}
-            src={appImages?.postImageRounded}
+            src={data && image_url + data?.user_image}
           />
-          {like && (
-            <AntDesign
-              name={'like1'}
-              size={25}
-              color={colors.primary}
-              style={style.likeIcon}
-            />
-          )}
         </TouchableOpacity>
         <View
           style={[
@@ -69,13 +61,13 @@ const LikeCard = ({followed, navigation, like}) => {
           ]}>
           <Text
             style={style.likeHeading}
-            numberOfLines={2}
+            numberOfLines={1}
             onPress={() => {
               navigation.navigate('OtherProfile', {
-                id: 0,
+                id: data?.user_id,
               });
             }}>
-            Sam Wilson
+            {data?.user_name ? data?.user_name : ''}
           </Text>
         </View>
         <View
@@ -84,7 +76,7 @@ const LikeCard = ({followed, navigation, like}) => {
             styles.justifyCenter,
             styles.alignCenter,
           ]}>
-          {followed ? (
+          {/* {followed ? (
             <TouchableOpacity
               activeOpacity={0.9}
               style={[style.followButton, style.btnFollowed]}>
@@ -106,35 +98,35 @@ const LikeCard = ({followed, navigation, like}) => {
                 <Text style={style.textUnderBtn}>Follow</Text>
               </TouchableOpacity>
             </LinearGradient>
-          )}
+          )} */}
         </View>
       </View>
     </Card>
   );
 };
 
-export default LikeCard;
+export default FollowersCard;
 
 const style = StyleSheet.create({
   likeImageDivision: {
     flex: 1.3,
   },
   likeContentDivision: {
-    flex: 6,
+    flex: 5.7,
   },
   likeIconDivision: {
-    flex: 2.7,
+    flex: 3,
   },
   postImageBorder: {
-    width: WP('11%'),
-    height: HP('6.1%'),
+    width: WP('12%'),
+    height: HP('6%'),
     overflow: 'hidden',
     zIndex: 10,
   },
   postImage: {
-    width: WP('9%'),
-    height: HP('6%'),
-    borderRadius: 50,
+    width: WP('11%'),
+    height: HP('6.1%'),
+    borderRadius: 1000,
     position: 'absolute',
   },
   likeIcon: {

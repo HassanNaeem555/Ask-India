@@ -1,11 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  ImageBackground,
-} from 'react-native';
+import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import {Card} from 'react-native-elements';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import {useSelector} from 'react-redux';
@@ -44,6 +38,9 @@ const Profile = ({navigation}) => {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [userProfile, setUserProfile] = useState(null);
   const user_profile_data = useSelector(state => state.authReducer.user);
+  const social_user_profile_data = useSelector(
+    state => state.authReducer.user_social,
+  );
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
   const selectTab = ({id, title}) => {
     const foundItem = selectedCategory.filter(e => e?.id === id);
@@ -113,10 +110,12 @@ const Profile = ({navigation}) => {
             </ImageBackground> */}
             <Image
               local={true}
-              resizeMode={'contain'}
-              style={[style.profileImage, styles.alignCenter]}
+              resizeMode={'cover'}
+              style={[style.profileImage]}
               src={
-                user_profile_data?.user_image !== null
+                social_user_profile_data !== null
+                  ? {uri: social_user_profile_data?.photoURL}
+                  : user_profile_data?.user_image !== null
                   ? {uri: image_url + user_profile_data?.user_image}
                   : appImages?.profileImageRound
               }
@@ -124,7 +123,9 @@ const Profile = ({navigation}) => {
             <Text
               numberOfLines={1}
               style={[style.heading, styles.fontBold, styles.margin1Percent]}>
-              {user_profile_data?.user_name}
+              {social_user_profile_data !== null
+                ? social_user_profile_data?.displayName
+                : user_profile_data?.user_name}
             </Text>
             <Text
               numberOfLines={1}
@@ -134,7 +135,9 @@ const Profile = ({navigation}) => {
                 styles.colorGray,
                 styles.marginVerticleHalfPercent,
               ]}>
-              {user_profile_data?.user_email}
+              {social_user_profile_data !== null
+                ? social_user_profile_data?.email
+                : user_profile_data?.user_email}
             </Text>
           </View>
           {/* <Text
@@ -156,7 +159,7 @@ const Profile = ({navigation}) => {
                 styles.paddingHorizontal4Percent,
                 style.borderRight,
               ]}>
-              {userProfile?.total_post ? (
+              {userProfile ? (
                 <Text
                   style={[
                     style.normalText,
@@ -191,7 +194,8 @@ const Profile = ({navigation}) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Followers');
+                userProfile?.total_follower > 0 &&
+                  navigation.navigate('Followers');
               }}
               activeOpacity={0.9}
               style={[
@@ -199,14 +203,29 @@ const Profile = ({navigation}) => {
                 styles.paddingHorizontal4Percent,
                 style.borderRight,
               ]}>
-              <Text
-                style={[
-                  style.normalText,
-                  styles.fontBold,
-                  styles.colorPrimary,
-                ]}>
-                {userProfile?.total_follower}
-              </Text>
+              {userProfile ? (
+                <Text
+                  style={[
+                    style.normalText,
+                    styles.fontBold,
+                    styles.colorPrimary,
+                  ]}>
+                  {userProfile?.total_follower}
+                </Text>
+              ) : (
+                <SkeletonPlaceholder>
+                  <SkeletonPlaceholder.Item
+                    flexDirection="row"
+                    alignItems="center"
+                    marginVertical={HP('1.5%')}>
+                    <SkeletonPlaceholder.Item
+                      width={WP('10%')}
+                      height={30}
+                      borderRadius={10}
+                    />
+                  </SkeletonPlaceholder.Item>
+                </SkeletonPlaceholder>
+              )}
               <Text
                 style={[
                   style.smallText,
@@ -219,18 +238,34 @@ const Profile = ({navigation}) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Following');
+                userProfile?.total_following > 0 &&
+                  navigation.navigate('Following');
               }}
               activeOpacity={0.9}
               style={[styles.alignCenter, styles.paddingHorizontal4Percent]}>
-              <Text
-                style={[
-                  style.normalText,
-                  styles.fontBold,
-                  styles.colorPrimary,
-                ]}>
-                {userProfile?.total_following}
-              </Text>
+              {userProfile ? (
+                <Text
+                  style={[
+                    style.normalText,
+                    styles.fontBold,
+                    styles.colorPrimary,
+                  ]}>
+                  {userProfile?.total_following}
+                </Text>
+              ) : (
+                <SkeletonPlaceholder>
+                  <SkeletonPlaceholder.Item
+                    flexDirection="row"
+                    alignItems="center"
+                    marginVertical={HP('1.5%')}>
+                    <SkeletonPlaceholder.Item
+                      width={WP('10%')}
+                      height={30}
+                      borderRadius={10}
+                    />
+                  </SkeletonPlaceholder.Item>
+                </SkeletonPlaceholder>
+              )}
               <Text
                 style={[
                   style.smallText,
@@ -242,19 +277,21 @@ const Profile = ({navigation}) => {
               </Text>
             </TouchableOpacity>
           </View>
-          <View
-            style={[
-              styles.directionRow,
-              styles.justifyCenter,
-              styles.alignCenter,
-              styles.marginVerticle2Percent,
-            ]}>
-            <Button
-              buttonText={'EDIT PROFILE'}
-              handlePress={handleNavigate}
-              width={WP('90%')}
-            />
-          </View>
+          {social_user_profile_data == null && (
+            <View
+              style={[
+                styles.directionRow,
+                styles.justifyCenter,
+                styles.alignCenter,
+                styles.marginVerticle2Percent,
+              ]}>
+              <Button
+                buttonText={'EDIT PROFILE'}
+                handlePress={handleNavigate}
+                width={WP('90%')}
+              />
+            </View>
+          )}
         </Card>
         <ScrollView
           horizontal={true}

@@ -46,7 +46,6 @@ const Post = ({showPostImage, showTag, navigation}) => {
           onPress={() => {
             navigation.navigate('OtherProfile', {
               id: 0,
-              is_following: 3,
             });
           }}>
           <Image
@@ -75,7 +74,6 @@ const Post = ({showPostImage, showTag, navigation}) => {
             onPress={() => {
               navigation.navigate('OtherProfile', {
                 id: 0,
-                is_following: 3,
               });
             }}>
             <Text style={style.postHeading}>Mark Smith</Text>

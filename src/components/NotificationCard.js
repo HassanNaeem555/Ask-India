@@ -32,7 +32,6 @@ const NotificationCard = ({navigation, which, what}) => {
           onPress={() => {
             navigation.navigate('OtherProfile', {
               id: 0,
-              is_following: 3,
             });
           }}>
           {/* <Image
@@ -75,7 +74,6 @@ const NotificationCard = ({navigation, which, what}) => {
             onPress={() => {
               navigation.navigate('OtherProfile', {
                 id: 0,
-                is_following: 3,
               });
             }}>
             <Text style={style.postHeading} numberOfLines={1}>

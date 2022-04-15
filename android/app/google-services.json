@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "992464212335",
+    "project_id": "ask-india-96e1a",
+    "storage_bucket": "ask-india-96e1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992464212335:android:cddb9953c1dd378ec6989a",
+        "android_client_info": {
+          "package_name": "com.melow.askindia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "992464212335-q922auergclouqgfn1mc8q2tuae5s6ia.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.melow.askindia",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "992464212335-pj2914pgsigruaje3np58poal64pckme.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANvAjmsMoaU_icG_kR4NLG9hSyeDSDGRY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "992464212335-pj2914pgsigruaje3np58poal64pckme.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Ask India</string>
+    <string name="facebook_app_id">697142114809929</string>
+    <string name="facebook_client_token">899cdcbe487fb06dda1ae35945244169</string>
 </resources>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Image,
@@ -9,21 +9,21 @@ import {
 import HeaderMain from '../../../components/HeaderMain';
 import * as ImagePicker from 'react-native-image-picker';
 import Toast from 'react-native-simple-toast';
-import { useSelector, useDispatch } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
 import LoadingButton from '../../../components/LoadingButton';
-import { saveUserProfile } from '../../../store/actions/authAction';
-import { updateProfile } from '../../../utils/api';
-import { postApiFetch } from '../../../utils/apiFunction';
-import { appImages, appIcons } from '../../../assets';
-import { image_url } from '../../../utils/url';
-import { WP, HP, colors, size } from '../../../utilities';
+import {saveUserProfile} from '../../../store/actions/authAction';
+import {updateProfile} from '../../../utils/api';
+import {postApiFetch} from '../../../utils/apiFunction';
+import {appImages, appIcons} from '../../../assets';
+import {image_url} from '../../../utils/url';
+import {WP, HP, colors, size} from '../../../utilities';
 import styles from '../style';
 
-const EditProfile = ({ navigation }) => {
+const EditProfile = ({navigation}) => {
   const dispatch = useDispatch();
-  const { user_name, user_id, user_state, user_city, user_image } = useSelector(
+  const {user_name, user_id, user_state, user_city, user_image} = useSelector(
     state => state.authReducer.user,
   );
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
@@ -62,7 +62,7 @@ const EditProfile = ({ navigation }) => {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        const source = { uri: response.assets[0].uri };
+        const source = {uri: response.assets[0].uri};
         console.log('itis Profile', response.assets[0].uri);
         console.log('itis Profile', response.assets);
         setprofilePhoto(response.assets);
@@ -74,10 +74,7 @@ const EditProfile = ({ navigation }) => {
     setLoading(!loading);
     const params = new FormData();
     params.append('user_name', userName == '' ? user_name : userName);
-    params.append(
-      'user_state',
-      userState == '' ? user_state : userState,
-    );
+    params.append('user_state', userState == '' ? user_state : userState);
     params.append('user_city', userCity == '' ? user_city : userCity);
     params.append('user_id', user_id);
     if (profilePhoto.length > 0) {
@@ -90,7 +87,11 @@ const EditProfile = ({ navigation }) => {
       });
     }
     console.log('params', params);
-    const { data, message, status } = await postApiFetch(updateProfile, params, bearer_token);
+    const {data, message, status} = await postApiFetch(
+      updateProfile,
+      params,
+      bearer_token,
+    );
     if (status == 1) {
       console.log('data update profile', data);
       dispatch(saveUserProfile(data));
@@ -115,7 +116,7 @@ const EditProfile = ({ navigation }) => {
         style={styles.mainContainer}
         contentContainerStyle={[
           styles.alignCenter,
-          { flexGrow: 1, padding: 10 },
+          {flexGrow: 1, padding: 10},
         ]}>
         <View style={styles.alignSelfStretch}>
           <View
@@ -128,22 +129,29 @@ const EditProfile = ({ navigation }) => {
             <ImageBackground
               source={appImages.userProfileBg}
               resizeMode={'contain'}
-              style={{
-                width: WP('30%'),
-                height: HP('20%'),
-              }}>
+              style={[
+                styles.positionRelative,
+                {
+                  width: WP('30%'),
+                  height: HP('20%'),
+                },
+              ]}>
               <TouchableOpacity
-                style={[styles.alignCenter, { top: HP('4%') }]}
+                style={[
+                  styles.alignCenter,
+                  styles.positionAbsolute,
+                  {top: HP('3.4%'), left: WP('2.4%')},
+                ]}
                 activeOpacity={0.8}
                 onPress={launchImageLibrary}>
                 <Image
-                  resizeMode={'contain'}
+                  resizeMode={'cover'}
                   source={profilePhotoUris ? profilePhotoUris : profilePhotoUri}
                   style={[
-                    styles.w_15,
+                    styles.w_25,
                     {
-                      height: HP('12%'),
-                      borderRadius: 20,
+                      height: HP('13%'),
+                      borderRadius: 10000,
                     },
                   ]}
                 />

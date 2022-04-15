@@ -32,7 +32,6 @@ const PeoplesCard = ({
         onPress={() => {
           navigation('OtherProfile', {
             id: user_id,
-            is_following,
           });
         }}
         style={[styles.directionRow, styles.justifyCenter]}>
@@ -42,7 +41,6 @@ const PeoplesCard = ({
           onPress={() => {
             navigation('OtherProfile', {
               id: user_id,
-              is_following,
             });
           }}>
           <Image
@@ -53,7 +51,7 @@ const PeoplesCard = ({
           />
           <Image
             local={false}
-            resizeMode={'contain'}
+            resizeMode={'cover'}
             style={style.postImage}
             src={`${image_url}${user_image}`}
           />
@@ -70,7 +68,6 @@ const PeoplesCard = ({
             onPress={() => {
               navigation('OtherProfile', {
                 id: user_id,
-                is_following,
               });
             }}>
             <Text style={style.postHeading} numberOfLines={1}>
@@ -132,14 +129,14 @@ const style = StyleSheet.create({
     flex: 2,
   },
   postImageBorder: {
-    width: WP('11%'),
-    height: HP('6.1%'),
+    width: WP('12%'),
+    height: HP('6.3%'),
     overflow: 'hidden',
     zIndex: 10,
   },
   postImage: {
-    width: WP('9%'),
-    height: HP('6%'),
+    width: WP('11%'),
+    height: HP('6.1%'),
     borderRadius: 1000,
     position: 'absolute',
   },

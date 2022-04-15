@@ -1,4 +1,6 @@
 import axios from './axios';
+import messaging from '@react-native-firebase/messaging';
+import Toast from 'react-native-simple-toast';
 import {base_url} from './url';
 
 export const postApi = async (url, data, bearer_token) => {
@@ -86,5 +88,15 @@ export const postApiFetch = async (url, data, bearer_token) => {
     } else {
       return error;
     }
+  }
+};
+
+export const getDeviceToken = async () => {
+  try {
+    const fcmToken = await messaging().getToken();
+    return fcmToken;
+  } catch (e) {
+    Toast.show(e.message, Toast.LONG);
+    return 'null';
   }
 };
