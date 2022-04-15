@@ -41,13 +41,10 @@ const SelectAuth = ({navigation}) => {
             const fbCredential = Auth.FacebookAuthProvider.credential(
               fbAuth.accessToken,
             );
-
             const userAuth = await Auth().signInWithCredential(fbCredential);
-
-            const fbaccessToken = await userAuth.user.getIdToken();
-            console.log('userAuth', userAuth);
-            console.log('fbaccessToken', fbaccessToken);
-            // this.props.signinSocial(fbaccessToken, 'facebook');
+            const access_token = await userAuth.user.getIdToken();
+            const {additionalUserInfo, user} = userAuth;
+            socialLogin(access_token, 'facebook', user);
           } catch (error) {}
         }
       })
@@ -78,6 +75,7 @@ const SelectAuth = ({navigation}) => {
         Toast.show('Signing In', Toast.LONG);
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
       } else {
+        console.log('error.message', error.message);
         Toast.show(error.message, Toast.LONG);
       }
     }
