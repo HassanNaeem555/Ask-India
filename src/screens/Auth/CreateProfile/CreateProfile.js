@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, Image, ImageBackground, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import * as ImagePicker from 'react-native-image-picker';
+import ImageCropPicker from 'react-native-image-crop-picker';
 import Toast from 'react-native-simple-toast';
 import HeaderMain from '../../../components/HeaderMain';
 import {appLogos, appImages, appIcons} from '../../../assets';
@@ -17,27 +18,36 @@ const CreateProfile = ({navigation}) => {
   const [profilePhotoUris, setprofilePhotoUris] = useState('');
   const [user_name, setUserName] = useState('');
   const [profilePhoto, setprofilePhoto] = useState([]);
-  const launchImageLibrary = () => {
-    let options = {
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    ImagePicker.launchImageLibrary(options, response => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        const source = {uri: response.assets[0].uri};
-        console.log('itis Profile', response.assets[0].uri);
-        setprofilePhoto(response.assets);
-        setprofilePhotoUris(source);
-      }
-    });
+  const launchImageLibrary = method => {
+    if (method === 'camera') {
+      ImageCropPicker.openCamera({}).then(image => {
+        console.log('imageuri:', image.path, 'imgType:', image.mime);
+      });
+    } else {
+      ImageCropPicker.openPicker({}).then(image => {
+        console.log('imageuri:', image.path, 'imgType:', image.mime);
+      });
+    }
+    // let options = {
+    //   storageOptions: {
+    //     skipBackup: true,
+    //     path: 'images',
+    //   },
+    // };
+    // ImagePicker.launchImageLibrary(options, response => {
+    //   if (response.didCancel) {
+    //     console.log('User cancelled image picker');
+    //   } else if (response.error) {
+    //     console.log('ImagePicker Error: ', response.error);
+    //   } else if (response.customButton) {
+    //     console.log('User tapped custom button: ', response.customButton);
+    //   } else {
+    //     const source = {uri: response.assets[0].uri};
+    //     console.log('itis Profile', response.assets[0].uri);
+    //     setprofilePhoto(response.assets);
+    //     setprofilePhotoUris(source);
+    //   }
+    // });
   };
   const onChangeName = val => {
     setUserName(val);

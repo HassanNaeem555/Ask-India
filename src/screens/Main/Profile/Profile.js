@@ -196,11 +196,7 @@ const Profile = ({navigation}) => {
               onPress={() => {
                 userProfile?.total_follower > 0 &&
                   navigation.navigate('Followers', {
-                    user_id: social_user_profile_data
-                      ? social_user_profile_data?.id
-                      : user_profile_data
-                      ? user_profile_data?.user_id
-                      : 0,
+                    user_id: user_profile_data ? user_profile_data?.user_id : 0,
                   });
               }}
               activeOpacity={0.9}
@@ -246,11 +242,7 @@ const Profile = ({navigation}) => {
               onPress={() => {
                 userProfile?.total_following > 0 &&
                   navigation.navigate('Following', {
-                    user_id: social_user_profile_data
-                      ? social_user_profile_data?.id
-                      : user_profile_data
-                      ? user_profile_data?.user_id
-                      : 0,
+                    user_id: user_profile_data ? user_profile_data?.user_id : 0,
                   });
               }}
               activeOpacity={0.9}

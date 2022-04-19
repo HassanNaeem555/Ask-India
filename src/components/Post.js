@@ -43,11 +43,12 @@ const Post = ({showPostImage, showTag, navigation}) => {
             styles.positionRelative,
             {marginTop: -5},
           ]}
-          onPress={() => {
-            navigation.navigate('OtherProfile', {
-              id: 0,
-            });
-          }}>
+          // onPress={() => {
+          //   navigation.navigate('OtherProfile', {
+          //     id: 0,
+          //   });
+          // }}
+        >
           <Image
             local={true}
             resizeMode={'contain'}
@@ -71,11 +72,12 @@ const Post = ({showPostImage, showTag, navigation}) => {
           style={[style.postContentDivision, styles.paddingHorizontal4Percent]}>
           <TouchableOpacity
             activeOpacity={0.9}
-            onPress={() => {
-              navigation.navigate('OtherProfile', {
-                id: 0,
-              });
-            }}>
+            // onPress={() => {
+            //   navigation.navigate('OtherProfile', {
+            //     id: 0,
+            //   });
+            // }}
+          >
             <Text style={style.postHeading}>Mark Smith</Text>
           </TouchableOpacity>
           <Text style={style.postDate}>12-Jan-2022</Text>
