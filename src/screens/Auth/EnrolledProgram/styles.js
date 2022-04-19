@@ -20,16 +20,9 @@ const style = StyleSheet.create({
     fontSize: size.small,
     fontWeight: '400',
   },
-  customSelectionCircle: {
-    backgroundColor: colors.white,
-    width: WP('5%'),
-    height: HP('2.7%'),
-    borderRadius: 50,
-    borderWidth: 1,
-    borderColor: colors.gray,
-  },
-  customSelectionCircleActive: {
-    backgroundColor: colors.primary,
+  selectedImage: {
+    width: WP('4.5%'),
+    height: HP('4.5%'),
   },
 });
 

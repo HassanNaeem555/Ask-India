@@ -70,6 +70,7 @@ const Search = ({navigation}) => {
   };
   const handleSearch = val => {
     setSearchText(val);
+    handlePress();
   };
   const handlePress = async () => {
     if (searchText == '') {

@@ -195,7 +195,13 @@ const Profile = ({navigation}) => {
             <TouchableOpacity
               onPress={() => {
                 userProfile?.total_follower > 0 &&
-                  navigation.navigate('Followers');
+                  navigation.navigate('Followers', {
+                    user_id: social_user_profile_data
+                      ? social_user_profile_data?.id
+                      : user_profile_data
+                      ? user_profile_data?.user_id
+                      : 0,
+                  });
               }}
               activeOpacity={0.9}
               style={[
@@ -239,7 +245,13 @@ const Profile = ({navigation}) => {
             <TouchableOpacity
               onPress={() => {
                 userProfile?.total_following > 0 &&
-                  navigation.navigate('Following');
+                  navigation.navigate('Following', {
+                    user_id: social_user_profile_data
+                      ? social_user_profile_data?.id
+                      : user_profile_data
+                      ? user_profile_data?.user_id
+                      : 0,
+                  });
               }}
               activeOpacity={0.9}
               style={[styles.alignCenter, styles.paddingHorizontal4Percent]}>

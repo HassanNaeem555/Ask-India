@@ -5,8 +5,6 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
-  Image,
-  ImageBackground,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import Toast from 'react-native-simple-toast';
@@ -39,11 +37,17 @@ export default function DrawerContent({navigation}) {
       Toast.show(message, Toast.LONG);
     }
   };
-  console.log('user_profile_data', user_profile_data);
+  const handleNavigate = () => {
+    navigation.closeDrawer();
+    navigation.navigate('ProfileStack');
+  };
+  console.log('user_profile_data', user_profile_data, 'navigation', navigation);
   return (
     <View style={styles.mainContainer}>
       <View style={[style.header, styles.justifyCenter, styles.alignCenter]}>
-        <View
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={handleNavigate}
           style={[
             styles.margin1Percent,
             styles.justifyCenter,
@@ -71,7 +75,7 @@ export default function DrawerContent({navigation}) {
               ? social_user_profile_data?.email
               : user_profile_data?.user_email}
           </Text>
-        </View>
+        </TouchableOpacity>
       </View>
       <View style={style.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -222,8 +226,9 @@ const style = StyleSheet.create({
     backgroundColor: colors.white,
   },
   profileImage: {
-    width: WP('38%'),
-    height: HP('20%'),
+    alignSelf: 'center',
+    height: 170,
+    width: 170,
     borderRadius: 1000,
     borderWidth: 5,
     borderColor: colors.primary,

@@ -11,7 +11,8 @@ import {WP, HP, colors, size} from '../../../utilities';
 import styles from '../style';
 import style from './styles';
 
-const Following = ({navigation}) => {
+const Following = ({navigation, route}) => {
+  const {user_id} = route.params;
   const [followingList, setFollowingList] = useState([]);
   const [preFabText, setPreFabText] = useState('');
   const [loading, setLoading] = useState(true);
@@ -22,7 +23,7 @@ const Following = ({navigation}) => {
   const getUserFollowing = async () => {
     if (!loading) setLoading(!loading);
     const {data, message, status} = await getApi(
-      `${listUserFollowUnFollow}?type=following`,
+      `${listUserFollowUnFollow}?type=following&user_id=${user_id}`,
       bearer_token,
     );
     if (status == 1) {

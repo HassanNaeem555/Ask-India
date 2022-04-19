@@ -207,10 +207,12 @@ const OtherProfile = ({navigation, route}) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              // onPress={() => {
-              //   userProfile?.total_follower > 0 &&
-              //     navigation.navigate('Followers');
-              // }}
+              onPress={() => {
+                userProfile?.total_follower > 0 &&
+                  navigation.navigate('Followers', {
+                    user_id: userProfile ? userProfile?.user_id : 0,
+                  });
+              }}
               activeOpacity={0.9}
               style={[
                 styles.alignCenter,
@@ -251,10 +253,12 @@ const OtherProfile = ({navigation, route}) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              // onPress={() => {
-              //   userProfile?.total_following > 0 &&
-              //     navigation.navigate('Following');
-              // }}
+              onPress={() => {
+                userProfile?.total_following > 0 &&
+                  navigation.navigate('Following', {
+                    user_id: userProfile ? userProfile?.user_id : 0,
+                  });
+              }}
               activeOpacity={0.9}
               style={[styles.alignCenter, styles.paddingHorizontal4Percent]}>
               {userProfile ? (
@@ -298,13 +302,15 @@ const OtherProfile = ({navigation, route}) => {
               styles.alignCenter,
               styles.marginVerticle2Percent,
             ]}>
-            <Button
-              buttonText={
-                userProfile?.is_following == 0 ? 'FOLLOW' : 'UNFOLLOW'
-              }
-              handlePress={handleNavigate}
-              width={WP('90%')}
-            />
+            {userProfile && (
+              <Button
+                buttonText={
+                  userProfile?.is_following == 0 ? 'FOLLOW' : 'UNFOLLOW'
+                }
+                handlePress={handleNavigate}
+                width={WP('90%')}
+              />
+            )}
           </View>
         </Card>
         <ScrollView

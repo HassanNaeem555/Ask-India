@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import {useSelector} from 'react-redux';
 import Toast from 'react-native-simple-toast';
 import HeaderMain from '../../../components/HeaderMain';
 import Logo from '../../../components/logo';
+import Image from '../../../components/Img';
 import {appLogos} from '../../../assets';
-import Button from '../../../components/Button';
 import {colors, WP, HP} from '../../../utilities';
+import {appImages} from '../../../assets';
 import {enrollProgram} from '../../../utils/api';
 import {getApi} from '../../../utils/apiFunction';
 import styles from '../style';
@@ -65,14 +65,26 @@ const EnrolledProgram = ({navigation}) => {
         <Text style={[style.selectionBoxText, styles.colorBlack]}>
           {item?.item?.board_name}
         </Text>
-        <View
+        {/* <View
           style={
             selectedProgram.length > 0 &&
             selectedProgram.filter(e => e?.board_id === item?.item?.board_id)
               .length > 0
               ? [style.customSelectionCircle, style.customSelectionCircleActive]
               : style.customSelectionCircle
-          }></View>
+          }></View> */}
+        <Image
+          local={true}
+          resizeMode={'contain'}
+          style={style.selectedImage}
+          src={
+            selectedProgram.length > 0 &&
+            selectedProgram.filter(e => e?.board_id === item?.item?.board_id)
+              .length > 0
+              ? appImages?.selectedTopic
+              : appImages?.unselectTopic
+          }
+        />
       </TouchableOpacity>
     );
   };

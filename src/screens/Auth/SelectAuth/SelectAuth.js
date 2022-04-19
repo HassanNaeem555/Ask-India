@@ -8,6 +8,7 @@ import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import {appleAuth} from '@invertase/react-native-apple-authentication';
 import {colors, HP} from '../../../utilities';
 import SplashScreen from 'react-native-splash-screen';
 import {appLogos} from '../../../assets';
@@ -30,6 +31,25 @@ const SelectAuth = ({navigation}) => {
   const dispatch = useDispatch();
   const onAppleButtonPress = async () => {
     console.log('onAppleButtonPress');
+    // performs login request
+    try {
+      const appleAuthRequestResponse = await appleAuth.performRequest({
+        requestedOperation: appleAuth.Operation.LOGIN,
+        requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+      });
+      const {identityToken, nonce} = appleAuthRequestResponse;
+      const appleCredential = Auth?.AppleAuthProvider?.credential(
+        identityToken,
+        nonce,
+      );
+      const credentialState = await Auth()?.signInWithCredential(
+        appleCredential,
+      );
+      console.log('credentialState', credentialState);
+    } catch (error) {
+      console.log(error);
+      Toast.show('Unable to sign in with Apple');
+    }
   };
   const onFacebookButtonPress = async () => {
     LoginManager.logInWithPermissions(['public_profile', 'email'])
@@ -121,9 +141,9 @@ const SelectAuth = ({navigation}) => {
               gradientColor={colors.secondary}
               iconName={'mail'}
               iconText={'LOGIN WITH EMAIL'}
+              iconType={true}
               navigate={navigate}
               screen_name={'Login'}
-              iconType={true}
             />
             <SocialButton
               backgroundColor={'#4A4949'}
@@ -131,6 +151,8 @@ const SelectAuth = ({navigation}) => {
               iconName={'phone'}
               iconText={'LOGIN WITH PHONE'}
               iconType={false}
+              navigate={navigate}
+              screen_name={'MobileNumber'}
             />
             {Platform.OS == 'ios' && (
               <SocialButton

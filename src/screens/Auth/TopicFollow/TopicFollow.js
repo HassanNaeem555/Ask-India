@@ -8,7 +8,8 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Toast from 'react-native-simple-toast';
 import HeaderMain from '../../../components/HeaderMain';
 import Logo from '../../../components/logo';
-import {appLogos} from '../../../assets';
+import Image from '../../../components/Img';
+import {appLogos, appImages} from '../../../assets';
 import Button from '../../../components/Button';
 import LoadingButton from '../../../components/LoadingButton';
 import {enrolledTopic, updateProfile} from '../../../utils/api';
@@ -80,14 +81,26 @@ const TopicFollow = ({navigation, route}) => {
           handlePress(item?.item);
         }}>
         <Text style={style.selectionBoxText}>{item?.item?.grade_name}</Text>
-        <View
+        {/* <View
           style={
             selectedProgram.length > 0 &&
             selectedProgram.filter(e => e?.grade_id === item?.item.grade_id)
               .length > 0
               ? [style.customSelectionCircle, style.customSelectionCircleActive]
               : style.customSelectionCircle
-          }></View>
+          }></View> */}
+        <Image
+          local={true}
+          resizeMode={'contain'}
+          style={style.selectedImage}
+          src={
+            selectedProgram.length > 0 &&
+            selectedProgram.filter(e => e?.grade_id === item?.item?.grade_id)
+              .length > 0
+              ? appImages?.selectedTopic
+              : appImages?.unselectTopic
+          }
+        />
       </TouchableOpacity>
     );
   };

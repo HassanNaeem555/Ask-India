@@ -37,8 +37,11 @@ const style = StyleSheet.create({
     color: colors.white,
   },
   profileImage: {
-    width: WP('38%'),
-    height: HP('20%'),
+    // width: WP('38%'),
+    // height: HP('20%'),
+    alignSelf: 'center',
+    height: 170,
+    width: 170,
     borderRadius: 1000,
     borderWidth: 5,
     borderColor: colors.primary,
