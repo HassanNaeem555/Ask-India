@@ -72,14 +72,12 @@ const MobileNumber = ({ navigation }) => {
     }
   };
   const handlePhoneLogin = async () => {
-    console.log('code',code);
+    console.log('code', code);
     try {
       await confirm?.confirm(code);
-      socialLogin(phoneAccessToken, 'phone');
       setConfirm(null);
+      socialLogin(phoneAccessToken, 'phone');
     } catch (error) {
-      // setConfirm(null);
-      // socialLogin(phoneAccessToken, 'phone');
       Toast.show('Invalid code.', Toast.LONG);
     }
   };
@@ -98,9 +96,13 @@ const MobileNumber = ({ navigation }) => {
       params,
     );
     if (status == 1) {
-      dispatch(saveUserProfile(data));
-      dispatch(saveBearerToken(bearer_token));
-      dispatch(validateUserLogin());
+      if (data?.user_profile_complete === '0') {
+        navigation.navigate('CreateProfile');
+      } else if (data?.user_profile_complete === '1') {
+        dispatch(saveUserProfile(data));
+        dispatch(saveBearerToken(bearer_token));
+        dispatch(validateUserLogin());
+      }
       Toast.show(message, Toast.LONG);
     } else if (status == 0) {
       Toast.show(message, Toast.LONG);
@@ -116,7 +118,7 @@ const MobileNumber = ({ navigation }) => {
         setCode={setCode}
       />
     );
-  } 
+  }
   else {
     return (
       <View style={[styles.mainContainer, { padding: 16 }]}>

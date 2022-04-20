@@ -1,17 +1,17 @@
-import React, {useEffect} from 'react';
-import {View, Text, Platform} from 'react-native';
-import {useDispatch} from 'react-redux';
+import React, { useEffect } from 'react';
+import { View, Text, Platform } from 'react-native';
+import { useDispatch } from 'react-redux';
 import Auth from '@react-native-firebase/auth';
 import Toast from 'react-native-simple-toast';
-import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
+import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
 import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-import {appleAuth} from '@invertase/react-native-apple-authentication';
-import {colors, HP} from '../../../utilities';
+import { appleAuth } from '@invertase/react-native-apple-authentication';
+import { colors, HP } from '../../../utilities';
 import SplashScreen from 'react-native-splash-screen';
-import {appLogos} from '../../../assets';
+import { appLogos } from '../../../assets';
 import FooterAuth from '../../../components/footerAuth';
 import Logo from '../../../components/logo';
 import SocialButton from '../../../components/socialButton';
@@ -21,13 +21,13 @@ import {
   saveUserProfile,
   saveBearerToken,
 } from '../../../store/actions/authAction';
-import {user_social_login} from '../../../utils/api';
-import {postApi, getDeviceToken} from '../../../utils/apiFunction';
+import { user_social_login } from '../../../utils/api';
+import { postApi, getDeviceToken } from '../../../utils/apiFunction';
 import styles from '../style';
 import style from './styles';
 
-const SelectAuth = ({navigation}) => {
-  const {navigate} = navigation;
+const SelectAuth = ({ navigation }) => {
+  const { navigate } = navigation;
   const dispatch = useDispatch();
   const onAppleButtonPress = async () => {
     console.log('onAppleButtonPress');
@@ -37,12 +37,12 @@ const SelectAuth = ({navigation}) => {
         requestedOperation: appleAuth.Operation.LOGIN,
         requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
       });
-      const {identityToken, nonce} = appleAuthRequestResponse;
+      const { identityToken, nonce } = appleAuthRequestResponse;
       const appleCredential = Auth?.AppleAuthProvider?.credential(
         identityToken,
         nonce,
       );
-      const {additionalUserInfo, user} = await Auth()?.signInWithCredential(
+      const { additionalUserInfo, user } = await Auth()?.signInWithCredential(
         appleCredential,
       );
       console.log('credentialState user', user?._user);
@@ -64,9 +64,9 @@ const SelectAuth = ({navigation}) => {
             );
             const userAuth = await Auth().signInWithCredential(fbCredential);
             const access_token = await userAuth.user.getIdToken();
-            const {additionalUserInfo, user} = userAuth;
+            const { additionalUserInfo, user } = userAuth;
             socialLogin(access_token, 'facebook', user);
-          } catch (error) {}
+          } catch (error) { }
         }
       })
       .catch(error => console.log('Error generating audio file: ' + error));
@@ -85,7 +85,7 @@ const SelectAuth = ({navigation}) => {
 
       const userAuth = await Auth().signInWithCredential(googleCredential);
       const access_token = await (await userAuth.user.getIdToken()).toString();
-      const {additionalUserInfo, user} = userAuth;
+      const { additionalUserInfo, user } = userAuth;
       console.log(access_token, 'google');
       console.log(user, 'user google');
       socialLogin(access_token, 'google', user);
@@ -111,15 +111,19 @@ const SelectAuth = ({navigation}) => {
       user_device_type,
     };
     console.log('isnide socialLogin user_device_token: ', user_device_token);
-    const {status, message, bearer_token, data} = await postApi(
+    const { status, message, bearer_token, data } = await postApi(
       user_social_login,
       params,
     );
     if (status == 1) {
-      dispatch(saveSocialUserProfile(user));
       dispatch(saveUserProfile(data));
-      dispatch(saveBearerToken(bearer_token));
-      dispatch(validateUserLogin());
+      dispatch(saveSocialUserProfile(user));
+      if (data?.user_profile_complete === '0' || 0) {
+        navigation.navigate('CreateProfile');
+      } else if (data?.user_profile_complete === '1' || 1) {
+        dispatch(saveBearerToken(bearer_token));
+        dispatch(validateUserLogin());
+      }
       Toast.show(message, Toast.LONG);
     } else if (status == 0) {
       Toast.show(message, Toast.LONG);
@@ -132,7 +136,7 @@ const SelectAuth = ({navigation}) => {
     <View style={styles.mainContainer}>
       <View style={styles.flex8}>
         <View style={[styles.alignCenter, styles.alignSelfStretch]}>
-          <Text style={[style.heading, {marginVertical: HP('5%')}]}>
+          <Text style={[style.heading, { marginVertical: HP('5%') }]}>
             PRE LOGIN
           </Text>
           <Logo logo={appLogos.logo} />

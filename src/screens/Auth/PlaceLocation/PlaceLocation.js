@@ -1,28 +1,36 @@
-import React, {useState} from 'react';
-import {View} from 'react-native';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
-import {useSelector, useDispatch} from 'react-redux';
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import { useSelector, useDispatch } from 'react-redux';
 import Toast from 'react-native-simple-toast';
-import {appLogos} from '../../../assets';
+import { appLogos } from '../../../assets';
 import HeaderMain from '../../../components/HeaderMain';
 import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
 import LoadingButton from '../../../components/LoadingButton';
-import {saveUserProfile} from '../../../store/actions/authAction';
-import {updateProfile} from '../../../utils/api';
-import {postApiFetch} from '../../../utils/apiFunction';
-import {WP, HP} from '../../../utilities';
+import { saveUserProfile } from '../../../store/actions/authAction';
+import { updateProfile } from '../../../utils/api';
+import { postApiFetch } from '../../../utils/apiFunction';
+import { WP, HP } from '../../../utilities';
 import styles from '../style';
 
-const PlaceLocation = ({navigation, route}) => {
+const PlaceLocation = ({ navigation, route }) => {
   const dispatch = useDispatch();
-  const {user_name, profilePhoto} = route.params;
+  const social_user_profile_data = useSelector(
+    state => state.authReducer.user_social,
+  );
+  const { user_name, profilePhoto } = route.params;
   const [user_state, setUserState] = useState('');
   const [user_city, setUserCity] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [loading, setLoading] = useState(false);
-  const {user_id} = useSelector(state => state.authReducer.temporaryUserId);
+  let user_stored = null;
+  if (social_user_profile_data === null) {
+    user_stored = useSelector(state => state.authReducer.temporaryUserId);
+  } else {
+    user_stored = useSelector(state => state.authReducer.user);
+  }
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
   const onChangeState = val => {
     setUserState(val);
@@ -40,11 +48,15 @@ const PlaceLocation = ({navigation, route}) => {
       return;
     }
     setLoading(!loading);
+    console.log('social_user_profile_data', social_user_profile_data)
     const params = new FormData();
+    if (social_user_profile_data !== null && social_user_profile_data?.email) {
+      params.append('user_email', social_user_profile_data?.email);
+    }
     params.append('user_name', user_name);
     params.append('user_state', user_state);
     params.append('user_city', user_city);
-    params.append('user_id', user_id);
+    params.append('user_id', user_stored !== null ? user_stored?.user_id : 0);
     if (profilePhoto && profilePhoto.length > 0) {
       params.append('user_image', {
         uri: profilePhoto[0].uri,
@@ -54,7 +66,7 @@ const PlaceLocation = ({navigation, route}) => {
         )}`,
       });
     }
-    const {data, message, status} = await postApiFetch(
+    const { data, message, status } = await postApiFetch(
       updateProfile,
       params,
       bearer_token,
@@ -70,7 +82,7 @@ const PlaceLocation = ({navigation, route}) => {
     }
   };
   return (
-    <View style={[styles.mainContainer, {padding: 16}]}>
+    <View style={[styles.mainContainer, { padding: 16 }]}>
       <KeyboardAwareScrollView
         contentContainerStyle={{
           flexGrow: 1,

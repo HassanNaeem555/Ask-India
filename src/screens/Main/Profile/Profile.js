@@ -38,9 +38,6 @@ const Profile = ({ navigation }) => {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [userProfile, setUserProfile] = useState(null);
   const user_profile_data = useSelector(state => state.authReducer.user);
-  const social_user_profile_data = useSelector(
-    state => state.authReducer.user_social,
-  );
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
   const selectTab = ({ id, title }) => {
     const foundItem = selectedCategory.filter(e => e?.id === id);
@@ -113,19 +110,16 @@ const Profile = ({ navigation }) => {
               resizeMode={'cover'}
               style={[style.profileImage]}
               src={
-                social_user_profile_data !== null
-                  ? { uri: social_user_profile_data?.photoURL }
-                  : user_profile_data?.user_image !== null
-                    ? { uri: image_url + user_profile_data?.user_image }
-                    : appImages?.profileImageRound
+                user_profile_data?.user_image !== null
+                  ? { uri: image_url + user_profile_data?.user_image }
+                  : appImages?.profileImageRound
               }
             />
             <Text
               numberOfLines={1}
               style={[style.heading, styles.fontBold, styles.margin1Percent]}>
-              {social_user_profile_data !== null
-                ? social_user_profile_data?.displayName
-                : user_profile_data?.user_name}
+              {user_profile_data
+                && user_profile_data?.user_name}
             </Text>
             <Text
               numberOfLines={1}
@@ -135,9 +129,8 @@ const Profile = ({ navigation }) => {
                 styles.colorGray,
                 styles.marginVerticleHalfPercent,
               ]}>
-              {social_user_profile_data !== null
-                ? social_user_profile_data?.email
-                : user_profile_data?.user_email}
+              {user_profile_data
+                && user_profile_data?.user_email}
             </Text>
           </View>
           {/* <Text

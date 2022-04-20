@@ -1,35 +1,43 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 // import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import {useSelector, useDispatch} from 'react-redux';
-import {Card} from 'react-native-elements';
+import { useSelector, useDispatch } from 'react-redux';
+import { Card } from 'react-native-elements';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Toast from 'react-native-simple-toast';
 import HeaderMain from '../../../components/HeaderMain';
 import Logo from '../../../components/logo';
 import Image from '../../../components/Img';
-import {appLogos, appImages} from '../../../assets';
+import { appLogos, appImages } from '../../../assets';
 import Button from '../../../components/Button';
 import LoadingButton from '../../../components/LoadingButton';
-import {enrolledTopic, updateProfile} from '../../../utils/api';
-import {saveUserProfile} from '../../../store/actions/authAction';
-import {getApi, postApiFetch} from '../../../utils/apiFunction';
-import {colors, WP, HP, size} from '../../../utilities';
+import { enrolledTopic, updateProfile } from '../../../utils/api';
+import { saveUserProfile, validateUserLogin } from '../../../store/actions/authAction';
+import { getApi, postApiFetch } from '../../../utils/apiFunction';
+import { colors, WP, HP, size } from '../../../utilities';
 import styles from '../style';
 import style from './styles';
 
-const TopicFollow = ({navigation, route}) => {
+const TopicFollow = ({ navigation, route }) => {
   const dispatch = useDispatch();
-  const {board_id} = route.params;
+  const { board_id } = route.params;
   const [topicList, setTopicList] = useState([]);
   const [selectedProgram, setSelectedProgram] = useState([]);
   const [sendList, setSendList] = useState([]);
   const [loading, setLoading] = useState(false);
-  const {user_id} = useSelector(state => state.authReducer.temporaryUserId);
+  const social_user_profile_data = useSelector(
+    state => state.authReducer.user_social,
+  );
+  let user_stored = null;
+  if (social_user_profile_data == null) {
+    user_stored = useSelector(state => state.authReducer.temporaryUserId);
+  } else {
+    user_stored = useSelector(state => state.authReducer.user);
+  }
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
   const handlePress = item => {
-    const {grade_name, grade_id} = item;
+    const { grade_name, grade_id } = item;
     const foundItem = selectedProgram.filter(e => e?.grade_id === grade_id);
     const foundItemSend = sendList.filter(e => e === grade_id);
     if (foundItem && foundItem.length > 0) {
@@ -38,7 +46,7 @@ const TopicFollow = ({navigation, route}) => {
       setSendList(foundItemSend);
       console.log('inside if');
     } else {
-      const idSave = [{grade_id, grade_name}];
+      const idSave = [{ grade_id, grade_name }];
       const idSend = [grade_id];
       const newUpdatedArray = selectedProgram?.concat(idSave);
       const newUpdatedArraySend = sendList?.concat(idSend);
@@ -48,7 +56,7 @@ const TopicFollow = ({navigation, route}) => {
     }
   };
   const getTopicFollow = async () => {
-    const {data, message, status} = await getApi(
+    const { data, message, status } = await getApi(
       `${enrolledTopic}?board_id=${board_id}`,
       bearer_token,
     );
@@ -70,12 +78,12 @@ const TopicFollow = ({navigation, route}) => {
           styles.paddingHorizontal4Percent,
           style.customSelectionBox,
           selectedProgram.length > 0 &&
-          selectedProgram.filter(e => e?.grade_id === item?.item?.grade_id)
-            .length > 0
+            selectedProgram.filter(e => e?.grade_id === item?.item?.grade_id)
+              .length > 0
             ? {
-                borderColor: colors.primary,
-              }
-            : {borderColor: colors.lightGray},
+              borderColor: colors.primary,
+            }
+            : { borderColor: colors.lightGray },
         ]}
         onPress={() => {
           handlePress(item?.item);
@@ -95,8 +103,8 @@ const TopicFollow = ({navigation, route}) => {
           style={style.selectedImage}
           src={
             selectedProgram.length > 0 &&
-            selectedProgram.filter(e => e?.grade_id === item?.item?.grade_id)
-              .length > 0
+              selectedProgram.filter(e => e?.grade_id === item?.item?.grade_id)
+                .length > 0
               ? appImages?.selectedTopic
               : appImages?.unselectTopic
           }
@@ -111,9 +119,9 @@ const TopicFollow = ({navigation, route}) => {
     }
     setLoading(!loading);
     const params = new FormData();
-    params.append('user_id', user_id);
+    params.append('user_id', user_stored !== null ? user_stored?.user_id : 0);
     params.append('user_tags', JSON.stringify(sendList));
-    const {data, message, status} = await postApiFetch(
+    const { data, message, status } = await postApiFetch(
       updateProfile,
       params,
       bearer_token,
@@ -123,7 +131,11 @@ const TopicFollow = ({navigation, route}) => {
       console.log('data', data);
       dispatch(saveUserProfile(data));
       Toast.show(message, Toast.LONG);
-      navigation.navigate('Login');
+      if (social_user_profile_data !== null) {
+        dispatch(validateUserLogin());
+      } else {
+        navigation.navigate('Login');
+      }
     } else if (status == 0) {
       Toast.show(message, Toast.LONG);
     }
@@ -132,7 +144,7 @@ const TopicFollow = ({navigation, route}) => {
     getTopicFollow();
   }, []);
   return (
-    <View style={[styles.mainContainer, {padding: 16}]}>
+    <View style={[styles.mainContainer, { padding: 16 }]}>
       {/* <KeyboardAwareScrollView
         contentContainerStyle={{
           flexGrow: 1,
@@ -159,7 +171,7 @@ const TopicFollow = ({navigation, route}) => {
                 marginBottom: HP('2%'),
               },
             ]}>
-            <View style={[styles.directionRow, {flexWrap: 'wrap'}]}>
+            <View style={[styles.directionRow, { flexWrap: 'wrap' }]}>
               {selectedProgram.map((item, index) => {
                 return (
                   <TouchableOpacity
