@@ -1,18 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
-import {Card} from 'react-native-elements';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { Card } from 'react-native-elements';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import Button from '../../../components/Button';
 import HeaderMain from '../../../components/HeaderMain';
 import Image from '../../../components/Img';
 import Post from '../../../components/Post';
-import {appImages} from '../../../assets';
-import {image_url} from '../../../utils/url';
-import {user_profile} from '../../../utils/api';
-import {getApi} from '../../../utils/apiFunction';
-import {WP, HP, colors} from '../../../utilities';
+import { appImages } from '../../../assets';
+import { image_url } from '../../../utils/url';
+import { user_profile } from '../../../utils/api';
+import { getApi } from '../../../utils/apiFunction';
+import { WP, HP, colors } from '../../../utilities';
 import styles from '../style';
 import style from './styles';
 
@@ -34,7 +34,7 @@ const category = [
     id: 3,
   },
 ];
-const Profile = ({navigation}) => {
+const Profile = ({ navigation }) => {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [userProfile, setUserProfile] = useState(null);
   const user_profile_data = useSelector(state => state.authReducer.user);
@@ -42,17 +42,17 @@ const Profile = ({navigation}) => {
     state => state.authReducer.user_social,
   );
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
-  const selectTab = ({id, title}) => {
+  const selectTab = ({ id, title }) => {
     const foundItem = selectedCategory.filter(e => e?.id === id);
     if (foundItem && foundItem.length > 0) {
       const foundItem = selectedCategory.filter(e => e?.id !== id);
     } else {
-      const idSave = [{id, title}];
+      const idSave = [{ id, title }];
       setSelectedCategory(idSave);
     }
   };
   const getUserProfile = async () => {
-    const {data, message, status} = await getApi(
+    const { data, message, status } = await getApi(
       `${user_profile}?other_id=${user_profile_data?.user_id}`,
       bearer_token,
     );
@@ -70,7 +70,7 @@ const Profile = ({navigation}) => {
     navigation.navigate('EditProfile');
   };
   useEffect(() => {
-    setSelectedCategory([{id: category[0]?.id, title: category[0]?.title}]);
+    setSelectedCategory([{ id: category[0]?.id, title: category[0]?.title }]);
     getUserProfile();
   }, []);
   return (
@@ -114,10 +114,10 @@ const Profile = ({navigation}) => {
               style={[style.profileImage]}
               src={
                 social_user_profile_data !== null
-                  ? {uri: social_user_profile_data?.photoURL}
+                  ? { uri: social_user_profile_data?.photoURL }
                   : user_profile_data?.user_image !== null
-                  ? {uri: image_url + user_profile_data?.user_image}
-                  : appImages?.profileImageRound
+                    ? { uri: image_url + user_profile_data?.user_image }
+                    : appImages?.profileImageRound
               }
             />
             <Text
@@ -281,27 +281,25 @@ const Profile = ({navigation}) => {
               </Text>
             </TouchableOpacity>
           </View>
-          {social_user_profile_data == null && (
-            <View
-              style={[
-                styles.directionRow,
-                styles.justifyCenter,
-                styles.alignCenter,
-                styles.marginVerticle2Percent,
-              ]}>
-              <Button
-                buttonText={'EDIT PROFILE'}
-                handlePress={handleNavigate}
-                width={WP('90%')}
-              />
-            </View>
-          )}
+          <View
+            style={[
+              styles.directionRow,
+              styles.justifyCenter,
+              styles.alignCenter,
+              styles.marginVerticle2Percent,
+            ]}>
+            <Button
+              buttonText={'EDIT PROFILE'}
+              handlePress={handleNavigate}
+              width={WP('90%')}
+            />
+          </View>
         </Card>
         <ScrollView
           horizontal={true}
           style={[
             styles.margin2Percent,
-            {marginLeft: WP('2%'), marginRight: WP('3%')},
+            { marginLeft: WP('2%'), marginRight: WP('3%') },
           ]}>
           {category.map((item, index) => {
             return (
@@ -309,8 +307,8 @@ const Profile = ({navigation}) => {
                 {selectedCategory[0]?.id == item?.id ? (
                   <LinearGradient
                     colors={[colors.primary, colors.secondary]}
-                    start={{x: 1, y: 1}}
-                    end={{x: 1, y: 0}}
+                    start={{ x: 1, y: 1 }}
+                    end={{ x: 1, y: 0 }}
                     style={[
                       styles.justifyCenter,
                       styles.alignCenter,

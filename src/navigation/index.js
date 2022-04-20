@@ -20,7 +20,7 @@ const navigation = () => {
       <View style={{flex: 1, backgroundColor: 'rgba(206,21,127,0)'}}>
         <StatusBar
           backgroundColor={colors.primary}
-          barStyle={'light-content'}
+          barStyle={'dark-content'}
         />
         {userValidate ? <AppNavigation /> : <AuthNavigation />}
       </View>

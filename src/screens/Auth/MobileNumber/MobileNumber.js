@@ -80,8 +80,8 @@ const MobileNumber = ({navigation}) => {
     const user_device_token = await getDeviceToken();
     const user_device_type = Platform.OS;
     const params = {
-      user_social_type,
       user_social_token,
+      user_social_type,
       user_device_token,
       user_device_type,
     };

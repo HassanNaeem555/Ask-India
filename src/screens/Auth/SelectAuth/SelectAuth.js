@@ -42,10 +42,11 @@ const SelectAuth = ({navigation}) => {
         identityToken,
         nonce,
       );
-      const credentialState = await Auth()?.signInWithCredential(
+      const {additionalUserInfo, user} = await Auth()?.signInWithCredential(
         appleCredential,
       );
-      console.log('credentialState', credentialState);
+      console.log('credentialState user', user?._user);
+      socialLogin(appleAuthRequestResponse?.user, 'apple', user?._user);
     } catch (error) {
       console.log(error);
       Toast.show('Unable to sign in with Apple');
@@ -104,8 +105,8 @@ const SelectAuth = ({navigation}) => {
     const user_device_token = await getDeviceToken();
     const user_device_type = Platform.OS;
     const params = {
-      user_social_type,
       user_social_token,
+      user_social_type,
       user_device_token,
       user_device_type,
     };

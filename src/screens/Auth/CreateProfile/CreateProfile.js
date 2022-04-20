@@ -19,35 +19,35 @@ const CreateProfile = ({navigation}) => {
   const [user_name, setUserName] = useState('');
   const [profilePhoto, setprofilePhoto] = useState([]);
   const launchImageLibrary = method => {
-    if (method === 'camera') {
-      ImageCropPicker.openCamera({}).then(image => {
-        console.log('imageuri:', image.path, 'imgType:', image.mime);
-      });
-    } else {
-      ImageCropPicker.openPicker({}).then(image => {
-        console.log('imageuri:', image.path, 'imgType:', image.mime);
-      });
-    }
-    // let options = {
-    //   storageOptions: {
-    //     skipBackup: true,
-    //     path: 'images',
-    //   },
-    // };
-    // ImagePicker.launchImageLibrary(options, response => {
-    //   if (response.didCancel) {
-    //     console.log('User cancelled image picker');
-    //   } else if (response.error) {
-    //     console.log('ImagePicker Error: ', response.error);
-    //   } else if (response.customButton) {
-    //     console.log('User tapped custom button: ', response.customButton);
-    //   } else {
-    //     const source = {uri: response.assets[0].uri};
-    //     console.log('itis Profile', response.assets[0].uri);
-    //     setprofilePhoto(response.assets);
-    //     setprofilePhotoUris(source);
-    //   }
-    // });
+    // if (method === 'camera') {
+    //   ImageCropPicker.openCamera({}).then(image => {
+    //     console.log('imageuri:', image.path, 'imgType:', image.mime);
+    //   });
+    // } else {
+    //   ImageCropPicker.openPicker({}).then(image => {
+    //     console.log('imageuri:', image.path, 'imgType:', image.mime);
+    //   });
+    // }
+    let options = {
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = {uri: response.assets[0].uri};
+        console.log('itis Profile', response.assets[0].uri);
+        setprofilePhoto(response.assets);
+        setprofilePhotoUris(source);
+      }
+    });
   };
   const onChangeName = val => {
     setUserName(val);
