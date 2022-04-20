@@ -118,10 +118,11 @@ const SelectAuth = ({ navigation }) => {
     if (status == 1) {
       dispatch(saveUserProfile(data));
       dispatch(saveSocialUserProfile(user));
+      dispatch(saveBearerToken(bearer_token));
+      console.log('data?.user_profile_complete',data?.user_profile_complete)
       if (data?.user_profile_complete === '0' || 0) {
         navigation.navigate('CreateProfile');
       } else if (data?.user_profile_complete === '1' || 1) {
-        dispatch(saveBearerToken(bearer_token));
         dispatch(validateUserLogin());
       }
       Toast.show(message, Toast.LONG);

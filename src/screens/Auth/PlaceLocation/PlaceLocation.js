@@ -32,6 +32,9 @@ const PlaceLocation = ({ navigation, route }) => {
     user_stored = useSelector(state => state.authReducer.user);
   }
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
+  console.log("place location bearer_token", bearer_token);
+  console.log("place location social_user_profile_data", social_user_profile_data);
+  console.log("place location user_stored", user_stored);
   const onChangeState = val => {
     setUserState(val);
   };
