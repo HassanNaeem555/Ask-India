@@ -6,18 +6,18 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Toast from 'react-native-simple-toast';
 import Img from '../../components/Img';
-import {validateUserLogOut} from '../../store/actions/authAction';
-import {colors, WP, HP, size} from '../../utilities';
-import {appImages, appIcons} from '../../assets';
-import {getApi} from '../../utils/apiFunction';
-import {image_url} from '../../utils/url';
-import {logOut} from '../../utils/api';
+import { validateUserLogOut } from '../../store/actions/authAction';
+import { colors, WP, HP, size } from '../../utilities';
+import { appImages, appIcons } from '../../assets';
+import { getApi } from '../../utils/apiFunction';
+import { image_url } from '../../utils/url';
+import { logOut } from '../../utils/api';
 import styles from '../Main/style';
 
-export default function DrawerContent({navigation}) {
+export default function DrawerContent({ navigation }) {
   console.log('drawer Navigation');
   const dispatch = useDispatch();
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
@@ -26,7 +26,7 @@ export default function DrawerContent({navigation}) {
     state => state.authReducer.user_social,
   );
   const logOutUser = async () => {
-    const {status, message} = await getApi(
+    const { status, message } = await getApi(
       `${logOut}?user_id=${user_profile_data?.user_id}`,
       bearer_token,
     );
@@ -58,22 +58,16 @@ export default function DrawerContent({navigation}) {
             resizeMode={'cover'}
             style={style.profileImage}
             src={
-              social_user_profile_data !== null
-                ? {uri: social_user_profile_data?.photoURL}
-                : user_profile_data?.user_image !== null
-                ? {uri: image_url + user_profile_data?.user_image}
+              user_profile_data?.user_image !== null
+                ? { uri: image_url + user_profile_data?.user_image }
                 : appImages?.profileImageRound
             }
           />
           <Text style={[style.name, styles.margin1Percent]}>
-            {social_user_profile_data !== null
-              ? social_user_profile_data?.displayName
-              : user_profile_data?.user_name}
+            {user_profile_data?.user_name && user_profile_data?.user_name}
           </Text>
           <Text style={style.email}>
-            {social_user_profile_data !== null
-              ? social_user_profile_data?.email
-              : user_profile_data?.user_email}
+            {user_profile_data?.user_email && user_profile_data?.user_email}
           </Text>
         </TouchableOpacity>
       </View>
