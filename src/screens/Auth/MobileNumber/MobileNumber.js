@@ -96,11 +96,11 @@ const MobileNumber = ({ navigation }) => {
       params,
     );
     if (status == 1) {
-      if (data?.user_profile_complete === '0') {
+      dispatch(saveUserProfile(data));
+      dispatch(saveBearerToken(bearer_token));
+      if (data?.user_profile_complete === '0' || 0) {
         navigation.navigate('CreateProfile');
-      } else if (data?.user_profile_complete === '1') {
-        dispatch(saveUserProfile(data));
-        dispatch(saveBearerToken(bearer_token));
+      } else if (data?.user_profile_complete === '1' || 1) {
         dispatch(validateUserLogin());
       }
       Toast.show(message, Toast.LONG);

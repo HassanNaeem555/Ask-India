@@ -45,8 +45,9 @@ const SelectAuth = ({ navigation }) => {
       const { additionalUserInfo, user } = await Auth()?.signInWithCredential(
         appleCredential,
       );
-      console.log('credentialState user', user?._user);
-      socialLogin(appleAuthRequestResponse?.user, 'apple', user?._user);
+      const access_token = await (await user.getIdToken()).toString();
+      console.log('credentialState access_token',access_token);
+      await socialLogin(access_token, 'apple', user?._user);
     } catch (error) {
       console.log(error);
       Toast.show('Unable to sign in with Apple');
@@ -65,7 +66,7 @@ const SelectAuth = ({ navigation }) => {
             const userAuth = await Auth().signInWithCredential(fbCredential);
             const access_token = await userAuth.user.getIdToken();
             const { additionalUserInfo, user } = userAuth;
-            socialLogin(access_token, 'facebook', user);
+            await socialLogin(access_token, 'facebook', user);
           } catch (error) { }
         }
       })
@@ -88,7 +89,7 @@ const SelectAuth = ({ navigation }) => {
       const { additionalUserInfo, user } = userAuth;
       console.log(access_token, 'google');
       console.log(user, 'user google');
-      socialLogin(access_token, 'google', user);
+      await socialLogin(access_token, 'google', user);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         Toast.show('User Cancelled the Login Flow', Toast.LONG);
