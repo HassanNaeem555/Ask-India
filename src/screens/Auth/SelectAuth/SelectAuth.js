@@ -45,9 +45,12 @@ const SelectAuth = ({ navigation }) => {
       const { additionalUserInfo, user } = await Auth()?.signInWithCredential(
         appleCredential,
       );
-      const access_token = await (await user.getIdToken()).toString();
-      console.log('credentialState access_token',access_token);
-      await socialLogin(access_token, 'apple', user?._user);
+      // const access_token = await (await user.getIdToken()).toString();
+      // console.log('credentialState access_token',access_token);
+      const user_firebase = await Auth().currentUser;
+      if (user_firebase) {
+        socialLogin(user?.uid, 'apple', user?._user);
+      }
     } catch (error) {
       console.log(error);
       Toast.show('Unable to sign in with Apple');
@@ -64,9 +67,13 @@ const SelectAuth = ({ navigation }) => {
               fbAuth.accessToken,
             );
             const userAuth = await Auth().signInWithCredential(fbCredential);
-            const access_token = await userAuth.user.getIdToken();
+            // const access_token = await userAuth.user.getIdToken();
+            const user_firebase = await Auth().currentUser;
             const { additionalUserInfo, user } = userAuth;
-            await socialLogin(access_token, 'facebook', user);
+            if (user_firebase) {
+              console.log(user, 'user google');
+              socialLogin(user?.uid, 'facebook', user);
+            }
           } catch (error) { }
         }
       })
@@ -85,11 +92,13 @@ const SelectAuth = ({ navigation }) => {
       );
 
       const userAuth = await Auth().signInWithCredential(googleCredential);
-      const access_token = await (await userAuth.user.getIdToken()).toString();
+      // const access_token = await (await userAuth.user.getIdToken()).toString();
       const { additionalUserInfo, user } = userAuth;
-      console.log(access_token, 'google');
-      console.log(user, 'user google');
-      await socialLogin(access_token, 'google', user);
+      const user_firebase = await Auth().currentUser;
+      if (user_firebase) {
+        console.log(user, 'user google');
+        socialLogin(user?.uid, 'google', user);
+      }
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         Toast.show('User Cancelled the Login Flow', Toast.LONG);
@@ -120,7 +129,7 @@ const SelectAuth = ({ navigation }) => {
       dispatch(saveUserProfile(data));
       dispatch(saveSocialUserProfile(user));
       dispatch(saveBearerToken(bearer_token));
-      console.log('data?.user_profile_complete',data?.user_profile_complete)
+      console.log('data?.user_profile_complete', data?.user_profile_complete)
       if (data?.user_profile_complete === '0' || 0) {
         navigation.navigate('CreateProfile');
       } else if (data?.user_profile_complete === '1' || 1) {
@@ -166,7 +175,7 @@ const SelectAuth = ({ navigation }) => {
                 backgroundColor={'#4A4949'}
                 gradientColor={'#1E1E1E'}
                 iconName={'apple1'}
-                iconText={'Signin with Apple'}
+                iconText={'LOGIN WITH APPLE'}
                 iconType={true}
                 is_social={true}
                 socialLogin={onAppleButtonPress}

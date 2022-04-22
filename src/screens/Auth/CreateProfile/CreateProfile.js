@@ -1,18 +1,18 @@
-import React, {useState} from 'react';
-import {View, Image, ImageBackground, TouchableOpacity} from 'react-native';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
+import React, { useState } from 'react';
+import { View, Image, ImageBackground, TouchableOpacity } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import * as ImagePicker from 'react-native-image-picker';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import Toast from 'react-native-simple-toast';
 import HeaderMain from '../../../components/HeaderMain';
-import {appLogos, appImages, appIcons} from '../../../assets';
+import { appLogos, appImages, appIcons } from '../../../assets';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
 import styles from '../style';
-import {colors, HP, WP, size} from '../../../utilities';
+import { colors, HP, WP, size } from '../../../utilities';
 // redux stuff
 
-const CreateProfile = ({navigation}) => {
+const CreateProfile = ({ navigation }) => {
   const [errorMsg, setErrorMsg] = useState('');
   const [profilePhotoUri, setprofilePhotoUri] = useState(appIcons?.camera);
   const [profilePhotoUris, setprofilePhotoUris] = useState('');
@@ -42,7 +42,7 @@ const CreateProfile = ({navigation}) => {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        const source = {uri: response.assets[0].uri};
+        const source = { uri: response.assets[0].uri };
         console.log('itis Profile', response.assets[0].uri);
         setprofilePhoto(response.assets);
         setprofilePhotoUris(source);
@@ -57,10 +57,10 @@ const CreateProfile = ({navigation}) => {
       Toast.show('Please enter Fullname', Toast.LONG);
       return;
     }
-    navigation.navigate('PlaceLocation', {user_name, profilePhoto});
+    navigation.navigate('PlaceLocation', { user_name, profilePhoto });
   };
   return (
-    <View style={[styles.mainContainer, {padding: 16}]}>
+    <View style={[styles.mainContainer, { padding: 16 }]}>
       <KeyboardAwareScrollView
         contentContainerStyle={{
           flexGrow: 1,
@@ -87,22 +87,31 @@ const CreateProfile = ({navigation}) => {
               style={{
                 width: WP('30%'),
                 height: HP('20%'),
-              }}>
+              }}
+            >
               <TouchableOpacity
-                style={[styles.alignCenter, {top: HP('4%')}]}
+                style={[styles.alignCenter, { top: HP('4%') }]}
                 activeOpacity={0.8}
                 onPress={launchImageLibrary}>
                 <Image
-                  resizeMode={'contain'}
+                  resizeMode={profilePhotoUris ? 'cover' : 'contain'}
                   source={
                     profilePhotoUris == '' ? profilePhotoUri : profilePhotoUris
                   }
-                  style={[
-                    styles.w_15,
-                    {
-                      height: HP('12%'),
-                    },
-                  ]}
+                  style={
+                    profilePhotoUris ?
+                      [
+                        styles.w_25,
+                        {
+                          height: HP('12%'),
+                          borderRadius: 10000,
+                        }
+                      ]
+                      : [styles.w_15,
+                      {
+                        height: HP('12%'),
+                      }]
+                  }
                 />
               </TouchableOpacity>
             </ImageBackground>

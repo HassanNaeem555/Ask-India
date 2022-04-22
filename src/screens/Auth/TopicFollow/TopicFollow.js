@@ -21,7 +21,7 @@ import style from './styles';
 
 const TopicFollow = ({ navigation, route }) => {
   const dispatch = useDispatch();
-  const { board_id } = route.params;
+  const { preference_id, user_preference } = route.params;
   const [topicList, setTopicList] = useState([]);
   const [selectedProgram, setSelectedProgram] = useState([]);
   const [sendList, setSendList] = useState([]);
@@ -37,17 +37,17 @@ const TopicFollow = ({ navigation, route }) => {
   }
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
   const handlePress = item => {
-    const { grade_name, grade_id } = item;
-    const foundItem = selectedProgram.filter(e => e?.grade_id === grade_id);
-    const foundItemSend = sendList.filter(e => e === grade_id);
+    const { tag_name, tag_id } = item;
+    const foundItem = selectedProgram.filter(e => e?.tag_id === tag_id);
+    const foundItemSend = sendList.filter(e => e === tag_id);
     if (foundItem && foundItem.length > 0) {
-      const foundItem = selectedProgram.filter(e => e?.grade_id !== grade_id);
+      const foundItem = selectedProgram.filter(e => e?.tag_id !== tag_id);
       setSelectedProgram(foundItem);
       setSendList(foundItemSend);
       console.log('inside if');
     } else {
-      const idSave = [{ grade_id, grade_name }];
-      const idSend = [grade_id];
+      const idSave = [{ tag_id, tag_name }];
+      const idSend = [tag_id];
       const newUpdatedArray = selectedProgram?.concat(idSave);
       const newUpdatedArraySend = sendList?.concat(idSend);
       setSelectedProgram(newUpdatedArray);
@@ -57,7 +57,7 @@ const TopicFollow = ({ navigation, route }) => {
   };
   const getTopicFollow = async () => {
     const { data, message, status } = await getApi(
-      `${enrolledTopic}?board_id=${board_id}`,
+      `${enrolledTopic}?preference_id=${preference_id}`,
       bearer_token,
     );
     if (status == 1) {
@@ -74,11 +74,11 @@ const TopicFollow = ({ navigation, route }) => {
           styles.directionRow,
           styles.justifySpaceBetween,
           styles.margin1Percent,
-          styles.padding2Percent,
+          styles.padding1Percent,
           styles.paddingHorizontal4Percent,
           style.customSelectionBox,
           selectedProgram.length > 0 &&
-            selectedProgram.filter(e => e?.grade_id === item?.item?.grade_id)
+            selectedProgram.filter(e => e?.tag_id === item?.item?.tag_id)
               .length > 0
             ? {
               borderColor: colors.primary,
@@ -88,7 +88,7 @@ const TopicFollow = ({ navigation, route }) => {
         onPress={() => {
           handlePress(item?.item);
         }}>
-        <Text style={style.selectionBoxText}>{item?.item?.grade_name}</Text>
+        <Text style={[style.selectionBoxText, styles.marginVerticle1HalfPercent]}>{item?.item?.tag_name}</Text>
         {/* <View
           style={
             selectedProgram.length > 0 &&
@@ -103,7 +103,7 @@ const TopicFollow = ({ navigation, route }) => {
           style={style.selectedImage}
           src={
             selectedProgram.length > 0 &&
-              selectedProgram.filter(e => e?.grade_id === item?.item?.grade_id)
+              selectedProgram.filter(e => e?.tag_id === item?.item?.tag_id)
                 .length > 0
               ? appImages?.selectedTopic
               : appImages?.unselectTopic
@@ -120,6 +120,7 @@ const TopicFollow = ({ navigation, route }) => {
     setLoading(!loading);
     const params = new FormData();
     params.append('user_id', user_stored !== null ? user_stored?.user_id : 0);
+    params.append('user_preference', user_preference);
     params.append('user_tags', JSON.stringify(sendList));
     const { data, message, status } = await postApiFetch(
       updateProfile,
@@ -140,25 +141,9 @@ const TopicFollow = ({ navigation, route }) => {
       Toast.show(message, Toast.LONG);
     }
   };
-  useEffect(() => {
-    getTopicFollow();
-  }, []);
-  return (
-    <View style={[styles.mainContainer, { padding: 16 }]}>
-      {/* <KeyboardAwareScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-        }}
-        showsVerticalScrollIndicator={false}> */}
-      <HeaderMain
-        navigateLeftIcon={navigation.pop}
-        leftIcon={'chevron-back'}
-        showSearch={false}
-        showNotifications={false}
-        headerText={'FOLLOW TOPICS'}
-        navigation={navigation}
-      />
-      <View style={styles.alignSelfStretch}>
+  const listHeaderComponent = () => {
+    return (
+      <>
         <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
         {selectedProgram.length > 0 && (
           <Card
@@ -187,7 +172,7 @@ const TopicFollow = ({ navigation, route }) => {
                         styles.paddingHalfPercent,
                         style.selectedTopic,
                       ]}>
-                      {item?.grade_name}
+                      {item?.tag_name}
                     </Text>
                     <Entypo
                       name={'circle-with-cross'}
@@ -199,83 +184,112 @@ const TopicFollow = ({ navigation, route }) => {
               })}
             </View>
           </Card>
-        )}
-        {topicList.length > 0 ? (
-          <FlatList
-            data={topicList}
-            renderItem={renderItem}
-            keyExtractor={item => item.grade_id}
-          />
-        ) : (
-          <>
-            <SkeletonPlaceholder>
-              <SkeletonPlaceholder.Item
-                flexDirection="row"
-                alignItems="center"
-                marginVertical={HP('0.8%')}>
-                <SkeletonPlaceholder.Item
-                  width={WP('90%')}
-                  height={50}
-                  borderRadius={10}
-                />
-              </SkeletonPlaceholder.Item>
-            </SkeletonPlaceholder>
-            <SkeletonPlaceholder>
-              <SkeletonPlaceholder.Item
-                flexDirection="row"
-                alignItems="center"
-                marginVertical={HP('0.8%')}>
-                <SkeletonPlaceholder.Item
-                  width={WP('90%')}
-                  height={50}
-                  borderRadius={10}
-                />
-              </SkeletonPlaceholder.Item>
-            </SkeletonPlaceholder>
-            <SkeletonPlaceholder>
-              <SkeletonPlaceholder.Item
-                flexDirection="row"
-                alignItems="center"
-                marginVertical={HP('0.8%')}>
-                <SkeletonPlaceholder.Item
-                  width={WP('90%')}
-                  height={50}
-                  borderRadius={10}
-                />
-              </SkeletonPlaceholder.Item>
-            </SkeletonPlaceholder>
-            <SkeletonPlaceholder>
-              <SkeletonPlaceholder.Item
-                flexDirection="row"
-                alignItems="center"
-                marginVertical={HP('0.8%')}>
-                <SkeletonPlaceholder.Item
-                  width={WP('90%')}
-                  height={50}
-                  borderRadius={10}
-                />
-              </SkeletonPlaceholder.Item>
-            </SkeletonPlaceholder>
-          </>
-        )}
-        <View
-          style={[
-            styles.directionRow,
-            styles.alignCenter,
-            styles.marginVerticle2Percent,
-          ]}>
-          {loading ? (
-            <LoadingButton width={WP('90%')} />
-          ) : (
-            <Button
-              buttonText={'DONE'}
-              handlePress={updateProfileUsers}
+        )
+        }
+      </>
+    )
+  }
+  const ListEmptyComponent = () => {
+    return (
+      <>
+        <SkeletonPlaceholder>
+          <SkeletonPlaceholder.Item
+            flexDirection="row"
+            alignItems="center"
+            marginVertical={HP('0.8%')}>
+            <SkeletonPlaceholder.Item
               width={WP('90%')}
+              height={50}
+              borderRadius={10}
             />
-          )}
-        </View>
+          </SkeletonPlaceholder.Item>
+        </SkeletonPlaceholder>
+        <SkeletonPlaceholder>
+          <SkeletonPlaceholder.Item
+            flexDirection="row"
+            alignItems="center"
+            marginVertical={HP('0.8%')}>
+            <SkeletonPlaceholder.Item
+              width={WP('90%')}
+              height={50}
+              borderRadius={10}
+            />
+          </SkeletonPlaceholder.Item>
+        </SkeletonPlaceholder>
+        <SkeletonPlaceholder>
+          <SkeletonPlaceholder.Item
+            flexDirection="row"
+            alignItems="center"
+            marginVertical={HP('0.8%')}>
+            <SkeletonPlaceholder.Item
+              width={WP('90%')}
+              height={50}
+              borderRadius={10}
+            />
+          </SkeletonPlaceholder.Item>
+        </SkeletonPlaceholder>
+        <SkeletonPlaceholder>
+          <SkeletonPlaceholder.Item
+            flexDirection="row"
+            alignItems="center"
+            marginVertical={HP('0.8%')}>
+            <SkeletonPlaceholder.Item
+              width={WP('90%')}
+              height={50}
+              borderRadius={10}
+            />
+          </SkeletonPlaceholder.Item>
+        </SkeletonPlaceholder>
+      </>
+    )
+  }
+  const ListFooterComponent = () => {
+    return (
+      <View
+        style={[
+          styles.directionRow,
+          styles.alignCenter,
+          styles.marginVerticle2Percent,
+        ]}>
+        {loading ? (
+          <LoadingButton width={WP('90%')} />
+        ) : (
+          <Button
+            buttonText={'DONE'}
+            handlePress={updateProfileUsers}
+            width={WP('90%')}
+          />
+        )}
       </View>
-      {/* </KeyboardAwareScrollView> */}
+    )
+  }
+  useEffect(() => {
+    getTopicFollow();
+  }, []);
+  return (
+    <View style={[styles.mainContainer, { padding: 16 }]}>
+      {/* <KeyboardAwareScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
+        showsVerticalScrollIndicator={false}> */}
+      <HeaderMain
+        navigateLeftIcon={navigation.pop}
+        leftIcon={'chevron-back'}
+        showSearch={false}
+        showNotifications={false}
+        headerText={'FOLLOW TOPICS'}
+        navigation={navigation}
+      />
+      <FlatList
+        data={topicList}
+        ListHeaderComponent={listHeaderComponent}
+        ListEmptyComponent={ListEmptyComponent}
+        ListFooterComponent={ListFooterComponent}
+        renderItem={renderItem}
+        keyExtractor={item => item.grade_id}
+        style={[styles.alignSelfStretch, { paddingBottom: 50 }]}
+      />
     </View>
   );
 };

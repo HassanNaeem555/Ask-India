@@ -24,6 +24,7 @@ import {
   validateUserLogin,
   saveUserProfile,
   saveBearerToken,
+  saveSocialUserProfile
 } from '../../../store/actions/authAction';
 import { user_social_login } from '../../../utils/api';
 import { postApi, getDeviceToken } from '../../../utils/apiFunction';
@@ -76,7 +77,12 @@ const MobileNumber = ({ navigation }) => {
     try {
       await confirm?.confirm(code);
       setConfirm(null);
-      socialLogin(phoneAccessToken, 'phone');
+      const user = await Auth().currentUser;
+      if (user) {
+        console.log('User email: ', user?.uid);
+        dispatch(saveSocialUserProfile(user));
+        socialLogin(user?.uid, 'phone');
+      }
     } catch (error) {
       Toast.show('Invalid code.', Toast.LONG);
     }

@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {Input} from 'react-native-elements';
-import {colors, size, HP} from '../utilities';
+import { StyleSheet } from 'react-native';
+import { Input } from 'react-native-elements';
+import { colors, size, HP } from '../utilities';
 
 const CustomInput = ({
   handlePress,
@@ -22,7 +22,7 @@ const CustomInput = ({
   return (
     <Input
       label={label && label}
-      labelStyle={{color: colors.black, marginVertical: HP('0.5%')}}
+      labelStyle={{ color: colors.gray, marginVertical: HP('0.5%'), fontWeight: '500' }}
       placeholder={placeholder}
       leftIcon={
         leftIconShow && {

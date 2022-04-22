@@ -18,17 +18,17 @@ const EnrolledProgram = ({ navigation }) => {
   const [enrolledProgramList, setEnrolledProgramList] = useState([]);
   const [selectedProgram, setSelectedProgram] = useState([]);
   const bearer_token = useSelector(state => state.authReducer.bearer_token);
-  const handlePress = board_id => {
-    const foundItem = selectedProgram.filter(e => e?.board_id === board_id);
+  const handlePress = ({ preference_id, preference_name }) => {
+    const foundItem = selectedProgram.filter(e => e?.preference_id === preference_id);
     if (foundItem && foundItem.length > 0) {
-      const foundItem = selectedProgram.filter(e => e?.board_id !== board_id);
+      const foundItem = selectedProgram.filter(e => e?.preference_id !== preference_id);
       setSelectedProgram(foundItem);
       console.log('inside if');
     } else {
-      const idSave = [{ board_id }];
+      const idSave = [{ preference_id }];
       const newUpdatedArray = selectedProgram?.concat(idSave);
       setSelectedProgram(newUpdatedArray);
-      navigation.navigate('TopicFollow', { board_id });
+      navigation.navigate('TopicFollow', { preference_id, user_preference: preference_name });
       console.log('inside else', idSave);
     }
   };
@@ -48,11 +48,11 @@ const EnrolledProgram = ({ navigation }) => {
           styles.directionRow,
           styles.justifySpaceBetween,
           styles.margin1Percent,
-          styles.padding2Percent,
+          styles.padding1Percent,
           styles.paddingHorizontal4Percent,
           style.customSelectionBox,
           selectedProgram.length > 0 &&
-            selectedProgram.filter(e => e?.board_id === item?.item?.board_id)
+            selectedProgram.filter(e => e?.preference_id === item?.item?.preference_id)
               .length > 0
             ? {
               borderColor: colors.primary,
@@ -60,10 +60,10 @@ const EnrolledProgram = ({ navigation }) => {
             : { borderColor: colors.lightGray },
         ]}
         onPress={() => {
-          handlePress(item?.item?.board_id);
+          handlePress(item?.item?.preference_id, item?.item?.preference_name);
         }}>
-        <Text style={[style.selectionBoxText, styles.colorBlack]}>
-          {item?.item?.board_name}
+        <Text style={[style.selectionBoxText, styles.colorBlack, styles.marginVerticle1HalfPercent]}>
+          {item?.item?.preference_name}
         </Text>
         {/* <View
           style={
@@ -79,7 +79,7 @@ const EnrolledProgram = ({ navigation }) => {
           style={style.selectedImage}
           src={
             selectedProgram.length > 0 &&
-              selectedProgram.filter(e => e?.board_id === item?.item?.board_id)
+              selectedProgram.filter(e => e?.preference_id === item?.item?.preference_id)
                 .length > 0
               ? appImages?.selectedTopic
               : appImages?.unselectTopic
@@ -88,6 +88,65 @@ const EnrolledProgram = ({ navigation }) => {
       </TouchableOpacity>
     );
   };
+  const ListEmptyComponent = () => {
+    return (
+      <>
+        <SkeletonPlaceholder>
+          <SkeletonPlaceholder.Item
+            flexDirection="row"
+            alignItems="center"
+            marginVertical={HP('0.8%')}>
+            <SkeletonPlaceholder.Item
+              width={WP('90%')}
+              height={50}
+              borderRadius={10}
+            />
+          </SkeletonPlaceholder.Item>
+        </SkeletonPlaceholder>
+        <SkeletonPlaceholder>
+          <SkeletonPlaceholder.Item
+            flexDirection="row"
+            alignItems="center"
+            marginVertical={HP('0.8%')}>
+            <SkeletonPlaceholder.Item
+              width={WP('90%')}
+              height={50}
+              borderRadius={10}
+            />
+          </SkeletonPlaceholder.Item>
+        </SkeletonPlaceholder>
+        <SkeletonPlaceholder>
+          <SkeletonPlaceholder.Item
+            flexDirection="row"
+            alignItems="center"
+            marginVertical={HP('0.8%')}>
+            <SkeletonPlaceholder.Item
+              width={WP('90%')}
+              height={50}
+              borderRadius={10}
+            />
+          </SkeletonPlaceholder.Item>
+        </SkeletonPlaceholder>
+        <SkeletonPlaceholder>
+          <SkeletonPlaceholder.Item
+            flexDirection="row"
+            alignItems="center"
+            marginVertical={HP('0.8%')}>
+            <SkeletonPlaceholder.Item
+              width={WP('90%')}
+              height={50}
+              borderRadius={10}
+            />
+          </SkeletonPlaceholder.Item>
+        </SkeletonPlaceholder>
+      </>
+    )
+  }
+  const ListHeaderComponent = () => {
+    return (
+      <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
+    )
+  }
   useEffect(() => {
     getEnrolled();
   }, []);
@@ -101,67 +160,14 @@ const EnrolledProgram = ({ navigation }) => {
         headerText={'SELECT ENROLLED'}
         navigation={navigation}
       />
-      <View style={styles.alignSelfStretch}>
-        <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
-        {enrolledProgramList.length > 0 ? (
-          <FlatList
-            data={enrolledProgramList}
-            renderItem={renderItem}
-            keyExtractor={item => item.board_id}
-          />
-        ) : (
-          <>
-            <SkeletonPlaceholder>
-              <SkeletonPlaceholder.Item
-                flexDirection="row"
-                alignItems="center"
-                marginVertical={HP('0.8%')}>
-                <SkeletonPlaceholder.Item
-                  width={WP('90%')}
-                  height={50}
-                  borderRadius={10}
-                />
-              </SkeletonPlaceholder.Item>
-            </SkeletonPlaceholder>
-            <SkeletonPlaceholder>
-              <SkeletonPlaceholder.Item
-                flexDirection="row"
-                alignItems="center"
-                marginVertical={HP('0.8%')}>
-                <SkeletonPlaceholder.Item
-                  width={WP('90%')}
-                  height={50}
-                  borderRadius={10}
-                />
-              </SkeletonPlaceholder.Item>
-            </SkeletonPlaceholder>
-            <SkeletonPlaceholder>
-              <SkeletonPlaceholder.Item
-                flexDirection="row"
-                alignItems="center"
-                marginVertical={HP('0.8%')}>
-                <SkeletonPlaceholder.Item
-                  width={WP('90%')}
-                  height={50}
-                  borderRadius={10}
-                />
-              </SkeletonPlaceholder.Item>
-            </SkeletonPlaceholder>
-            <SkeletonPlaceholder>
-              <SkeletonPlaceholder.Item
-                flexDirection="row"
-                alignItems="center"
-                marginVertical={HP('0.8%')}>
-                <SkeletonPlaceholder.Item
-                  width={WP('90%')}
-                  height={50}
-                  borderRadius={10}
-                />
-              </SkeletonPlaceholder.Item>
-            </SkeletonPlaceholder>
-          </>
-        )}
-      </View>
+      <FlatList
+        data={enrolledProgramList}
+        renderItem={renderItem}
+        ListHeaderComponent={ListHeaderComponent}
+        ListEmptyComponent={ListEmptyComponent}
+        keyExtractor={item => item.preference_id}
+        style={[styles.alignSelfStretch, { paddingBottom: 50 }]}
+      />
     </View>
   );
 };

@@ -53,8 +53,12 @@ const PlaceLocation = ({ navigation, route }) => {
     setLoading(!loading);
     console.log('social_user_profile_data', social_user_profile_data)
     const params = new FormData();
-    if (social_user_profile_data !== null && social_user_profile_data?.email) {
-      params.append('user_email', social_user_profile_data?.email);
+    if (social_user_profile_data !== null) {
+      if (social_user_profile_data?.email) {
+        params.append('user_email', social_user_profile_data?.email);
+      } else if (social_user_profile_data?.phoneNumber) {
+        params.append('user_email', social_user_profile_data?.phoneNumber);
+      }
     }
     params.append('user_name', user_name);
     params.append('user_state', user_state);
@@ -69,7 +73,7 @@ const PlaceLocation = ({ navigation, route }) => {
         )}`,
       });
     }
-    const { data, message, status } = await postApiFetch(
+    const { data, status, message } = await postApiFetch(
       updateProfile,
       params,
       bearer_token,

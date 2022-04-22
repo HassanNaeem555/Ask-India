@@ -75,7 +75,7 @@ const FeedStack = ({navigation}) => {
         <TouchableOpacity
           activeOpacity={0.9}
           style={style.searchBar}
-          onPress={() => navigation.navigate('Search')}>
+          onPress={() => navigation.navigate('CreatePost')}>
           <Text>Ask Something</Text>
         </TouchableOpacity>
         <HorizontalCategories
