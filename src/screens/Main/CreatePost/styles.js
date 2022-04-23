@@ -1,5 +1,5 @@
-import { Dimensions, StyleSheet, Platform } from 'react-native';
-import { colors, HP, WP, size, family } from '../../../utilities';
+import {Dimensions, StyleSheet, Platform} from 'react-native';
+import {colors, HP, WP, size, family} from '../../../utilities';
 
 const style = StyleSheet.create({
   normalText: {

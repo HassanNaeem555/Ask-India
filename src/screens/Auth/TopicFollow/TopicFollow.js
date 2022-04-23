@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
-// import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import { useSelector, useDispatch } from 'react-redux';
 import { Card } from 'react-native-elements';
@@ -120,7 +119,7 @@ const TopicFollow = ({ navigation, route }) => {
     setLoading(!loading);
     const params = new FormData();
     params.append('user_id', user_stored !== null ? user_stored?.user_id : 0);
-    params.append('user_preference', user_preference);
+    // params.append('user_preference', user_preference);
     params.append('user_tags', JSON.stringify(sendList));
     const { data, message, status } = await postApiFetch(
       updateProfile,
@@ -268,11 +267,6 @@ const TopicFollow = ({ navigation, route }) => {
   }, []);
   return (
     <View style={[styles.mainContainer, { padding: 16 }]}>
-      {/* <KeyboardAwareScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-        }}
-        showsVerticalScrollIndicator={false}> */}
       <HeaderMain
         navigateLeftIcon={navigation.pop}
         leftIcon={'chevron-back'}

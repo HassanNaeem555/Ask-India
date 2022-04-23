@@ -81,6 +81,7 @@ const Search = ({navigation}) => {
       );
       return;
     }
+    if (searchUserData.length > 0) setSearchUserData([]);
     setLoading(!loading);
     if (selectedCategory[0]?.title == 'People') {
       const {status, message, data} = await getApi(
@@ -165,10 +166,32 @@ const Search = ({navigation}) => {
       />
     );
   };
+  const ListEmptyComponent = () => {
+    return (
+      <View
+        style={[
+          styles.justifyCenter,
+          styles.alignCenter,
+          {marginTop: HP('25%')},
+        ]}>
+        {loading ? (
+          <ActivityIndicator
+            size="large"
+            color={colors.primary}
+            style={{
+              fontSize: size.small,
+              fontWeight: 'bold',
+            }}
+          />
+        ) : (
+          <Text style={style.normalText}>{preFabText}</Text>
+        )}
+      </View>
+    );
+  };
   useEffect(() => {
     setSelectedCategory([{id: category[0]?.id, title: category[0]?.title}]);
   }, []);
-  console.log('selectedCategory', selectedCategory);
   return (
     <View style={[styles.mainContainer, styles.paddingHorizontal2Percent]}>
       <HeaderMain
@@ -196,35 +219,12 @@ const Search = ({navigation}) => {
           selectedCategory={selectedCategory}
         />
         {selectedCategory[0]?.title == 'People' ? (
-          <>
-            {searchUserData.length > 0 ? (
-              <FlatList
-                data={searchUserData}
-                renderItem={renderItem}
-                keyExtractor={item => item?.user_id}
-              />
-            ) : (
-              <View
-                style={[
-                  styles.justifyCenter,
-                  styles.alignCenter,
-                  {marginTop: HP('25%')},
-                ]}>
-                {loading ? (
-                  <ActivityIndicator
-                    size="large"
-                    color={colors.primary}
-                    style={{
-                      fontSize: size.small,
-                      fontWeight: 'bold',
-                    }}
-                  />
-                ) : (
-                  <Text style={style.normalText}>{preFabText}</Text>
-                )}
-              </View>
-            )}
-          </>
+          <FlatList
+            data={searchUserData}
+            renderItem={renderItem}
+            keyExtractor={item => item?.user_id}
+            ListEmptyComponent={ListEmptyComponent}
+          />
         ) : selectedCategory[0]?.title == 'Topics' ? (
           <>
             <TopicCard name={'technology'} navigation={navigation} />

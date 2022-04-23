@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   TextInput,
+  Platform,
 } from 'react-native';
 import {Card} from 'react-native-elements';
 import {useSelector} from 'react-redux';
@@ -164,9 +165,11 @@ const CreatePost = ({navigation}) => {
                       key={index}>
                       <Image
                         local={true}
-                        resizeMode={'contain'}
+                        resizeMode={'cover'}
                         style={[style.galleryImage]}
-                        src={{uri: item?.sourceURL.replace('file://', '')}}
+                        src={{
+                          uri: item?.path.replace('file://', ''),
+                        }}
                       />
                       <Image
                         local={true}

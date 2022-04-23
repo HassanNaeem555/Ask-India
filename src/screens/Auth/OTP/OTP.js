@@ -80,7 +80,7 @@ const OTP = ({navigation, route}) => {
       user_device_token: deviceId,
       type: from,
     };
-    console.log('send_data', send_data);
+    setLoaderVisible(!loaderVisible);
     if (from == 'signup') {
       const {bearer_token, data, message, status} = await postApi(
         verificationCode,
@@ -88,11 +88,13 @@ const OTP = ({navigation, route}) => {
       );
       // console.log('result', result);
       if (status == 1) {
+        setLoaderVisible(!loaderVisible);
         dispatch(saveUserProfile(data));
         dispatch(saveBearerToken(bearer_token));
         Toast.show(message, Toast.LONG);
         navigation.navigate('CreateProfile');
       } else if (status == 0) {
+        setLoaderVisible(!loaderVisible);
         Toast.show(message, Toast.LONG);
       }
     } else if (from == 'forgot') {
@@ -104,10 +106,12 @@ const OTP = ({navigation, route}) => {
       // console.log('result', result);
       if (status == 1) {
         dispatch(saveUserProfile(data));
+        setLoaderVisible(!loaderVisible);
         dispatch(saveBearerToken(bearer_token));
         Toast.show(message, Toast.LONG);
         navigation.navigate('ForgetPassword');
       } else if (status == 0) {
+        setLoaderVisible(!loaderVisible);
         Toast.show(message, Toast.LONG);
       }
     }
@@ -211,7 +215,11 @@ const OTP = ({navigation, route}) => {
                   ? [styles.footerTextAuth, styles.colorPrimary]
                   : [styles.footerTextAuth, styles.colorGray]
               }
-              onPress={resendOtp}>
+              onPress={() => {
+                resendOtpActive
+                  ? resendOtp()
+                  : Toast.show('Wait For The Timer To Finish Then Press It');
+              }}>
               Resend
             </Text>
           </Text>
