@@ -1,58 +1,55 @@
-import React, { useEffect } from 'react';
-import { View, Text, Platform } from 'react-native';
-import { useDispatch } from 'react-redux';
+import React, {useState, useEffect} from 'react';
+import {View, Text, Platform} from 'react-native';
+import {useDispatch} from 'react-redux';
 import Auth from '@react-native-firebase/auth';
 import Toast from 'react-native-simple-toast';
-import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
+import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
 import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-import { appleAuth } from '@invertase/react-native-apple-authentication';
-import { colors, HP } from '../../../utilities';
+import {appleAuth} from '@invertase/react-native-apple-authentication';
+import {colors, HP} from '../../../utilities';
 import SplashScreen from 'react-native-splash-screen';
-import { appLogos } from '../../../assets';
+import {appLogos} from '../../../assets';
 import FooterAuth from '../../../components/footerAuth';
 import Logo from '../../../components/logo';
 import SocialButton from '../../../components/socialButton';
+import Loader from '../../../components/Loader';
 import {
   validateUserLogin,
   saveSocialUserProfile,
   saveUserProfile,
   saveBearerToken,
 } from '../../../store/actions/authAction';
-import { user_social_login } from '../../../utils/api';
-import { postApi, getDeviceToken } from '../../../utils/apiFunction';
+import {user_social_login} from '../../../services/api';
+import {postApi, getDeviceToken} from '../../../services/apiFunction';
 import styles from '../style';
 import style from './styles';
 
-const SelectAuth = ({ navigation }) => {
-  const { navigate } = navigation;
+const SelectAuth = ({navigation}) => {
+  const {navigate} = navigation;
   const dispatch = useDispatch();
+  const [loaderVisible, setLoaderVisible] = useState(false);
   const onAppleButtonPress = async () => {
-    console.log('onAppleButtonPress');
-    // performs login request
     try {
       const appleAuthRequestResponse = await appleAuth.performRequest({
         requestedOperation: appleAuth.Operation.LOGIN,
         requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
       });
-      const { identityToken, nonce } = appleAuthRequestResponse;
+      const {identityToken, nonce} = appleAuthRequestResponse;
       const appleCredential = Auth?.AppleAuthProvider?.credential(
         identityToken,
         nonce,
       );
-      const { additionalUserInfo, user } = await Auth()?.signInWithCredential(
+      const {additionalUserInfo, user} = await Auth()?.signInWithCredential(
         appleCredential,
       );
-      // const access_token = await (await user.getIdToken()).toString();
-      // console.log('credentialState access_token',access_token);
       const user_firebase = await Auth().currentUser;
       if (user_firebase) {
         socialLogin(user?.uid, 'apple', user?._user);
       }
     } catch (error) {
-      console.log(error);
       Toast.show('Unable to sign in with Apple');
     }
   };
@@ -60,6 +57,7 @@ const SelectAuth = ({ navigation }) => {
     LoginManager.logInWithPermissions(['public_profile', 'email'])
       .then(async login => {
         if (login.isCancelled) {
+          Toast.show('Unfortunately Facebook Login Is Cancelled');
         } else {
           try {
             const fbAuth = await AccessToken.getCurrentAccessToken();
@@ -67,46 +65,42 @@ const SelectAuth = ({ navigation }) => {
               fbAuth.accessToken,
             );
             const userAuth = await Auth().signInWithCredential(fbCredential);
-            // const access_token = await userAuth.user.getIdToken();
             const user_firebase = await Auth().currentUser;
-            const { additionalUserInfo, user } = userAuth;
+            const {additionalUserInfo, user} = userAuth;
             if (user_firebase) {
-              console.log(user, 'user google');
               socialLogin(user?.uid, 'facebook', user);
             }
-          } catch (error) { }
+          } catch (error) {
+            Toast.show('Unfortunately Facebook Login Is Cancelled');
+          }
         }
       })
-      .catch(error => console.log('Error generating audio file: ' + error));
+      .catch(error => {
+        Toast.show('Error Generated While Facebook Login: ' + error);
+      });
   };
   const onGoogleButtonPress = async () => {
     try {
       await GoogleSignin.hasPlayServices({
-        // Check if device has Google Play Services installed
-        // Always resolves to true on iOS
         showPlayServicesUpdateDialog: true,
       });
       const userInfo = await GoogleSignin.signIn();
       const googleCredential = Auth.GoogleAuthProvider.credential(
         userInfo.idToken,
       );
-
       const userAuth = await Auth().signInWithCredential(googleCredential);
-      // const access_token = await (await userAuth.user.getIdToken()).toString();
-      const { additionalUserInfo, user } = userAuth;
+      const {additionalUserInfo, user} = userAuth;
       const user_firebase = await Auth().currentUser;
       if (user_firebase) {
-        console.log(user, 'user google');
         socialLogin(user?.uid, 'google', user);
       }
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        Toast.show('User Cancelled the Login Flow', Toast.LONG);
+        Toast.show('User Cancelled the Google Login', Toast.LONG);
       } else if (error.code === statusCodes.IN_PROGRESS) {
         Toast.show('Signing In', Toast.LONG);
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
       } else {
-        console.log('error.message', error.message);
         Toast.show(error.message, Toast.LONG);
       }
     }
@@ -120,8 +114,7 @@ const SelectAuth = ({ navigation }) => {
       user_device_token,
       user_device_type,
     };
-    console.log('isnide socialLogin user_device_token: ', user_device_token);
-    const { status, message, bearer_token, data } = await postApi(
+    const {status, message, bearer_token, data} = await postApi(
       user_social_login,
       params,
     );
@@ -129,7 +122,6 @@ const SelectAuth = ({ navigation }) => {
       dispatch(saveUserProfile(data));
       dispatch(saveSocialUserProfile(user));
       dispatch(saveBearerToken(bearer_token));
-      console.log('data?.user_profile_complete', data?.user_profile_complete)
       if (data?.user_profile_complete === '0' || 0) {
         navigation.navigate('CreateProfile');
       } else if (data?.user_profile_complete === '1' || 1) {
@@ -147,7 +139,7 @@ const SelectAuth = ({ navigation }) => {
     <View style={styles.mainContainer}>
       <View style={styles.flex8}>
         <View style={[styles.alignCenter, styles.alignSelfStretch]}>
-          <Text style={[style.heading, { marginVertical: HP('5%') }]}>
+          <Text style={[style.heading, {marginVertical: HP('5%')}]}>
             PRE LOGIN
           </Text>
           <Logo logo={appLogos.logo} />
@@ -210,6 +202,7 @@ const SelectAuth = ({ navigation }) => {
           screen_name={'Signup'}
         />
       </View>
+      <Loader visible={loaderVisible} />
     </View>
   );
 };

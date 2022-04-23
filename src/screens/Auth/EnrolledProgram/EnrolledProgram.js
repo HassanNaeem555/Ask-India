@@ -9,8 +9,8 @@ import Image from '../../../components/Img';
 import { appLogos } from '../../../assets';
 import { colors, WP, HP } from '../../../utilities';
 import { appImages } from '../../../assets';
-import { enrollProgram } from '../../../utils/api';
-import { getApi } from '../../../utils/apiFunction';
+import { enrollProgram } from '../../../services/api';
+import { getApi } from '../../../services/apiFunction';
 import styles from '../style';
 import style from './styles';
 

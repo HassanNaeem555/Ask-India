@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Card} from 'react-native-elements';
 import Image from './Img';
-import {image_url} from '../utils/url';
+import {image_url} from '../services/url';
 import {appImages, appIcons} from '../assets';
 import {WP, HP, colors, size} from '../utilities';
 import styles from '../screens/Main/style';

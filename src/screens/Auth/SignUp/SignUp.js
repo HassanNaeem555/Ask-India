@@ -13,9 +13,9 @@ import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
 import LoadingButton from '../../../components/LoadingButton';
-import {postApi} from '../../../utils/apiFunction';
+import {postApi} from '../../../services/apiFunction';
 import {saveTemporaryUserId} from '../../../store/actions/authAction';
-import {register} from '../../../utils/api';
+import {register} from '../../../services/api';
 import styles from '../style';
 
 var passwordValidator = require('password-validator');

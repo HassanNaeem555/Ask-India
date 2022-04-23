@@ -15,10 +15,10 @@ import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
 import LoadingButton from '../../../components/LoadingButton';
 import { saveUserProfile } from '../../../store/actions/authAction';
-import { updateProfile } from '../../../utils/api';
-import { postApiFetch } from '../../../utils/apiFunction';
+import { updateProfile } from '../../../services/api';
+import { postApiFetch } from '../../../services/apiFunction';
 import { appImages, appIcons } from '../../../assets';
-import { image_url } from '../../../utils/url';
+import { image_url } from '../../../services/url';
 import { WP, HP, colors, size } from '../../../utilities';
 import styles from '../style';
 

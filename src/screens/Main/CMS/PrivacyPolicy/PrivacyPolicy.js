@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import HeaderMain from '../../../../components/HeaderMain';
-import {getApi} from '../../../../utils/apiFunction';
-import {cmsContent} from '../../../../utils/api';
+import {getApi} from '../../../../services/apiFunction';
+import {cmsContent} from '../../../../services/api';
 import styles from '../../style';
 import style from './styles';
 

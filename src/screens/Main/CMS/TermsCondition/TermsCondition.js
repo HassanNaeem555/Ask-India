@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import Toast from 'react-native-simple-toast';
 import HeaderMain from '../../../../components/HeaderMain';
-import {getApi} from '../../../../utils/apiFunction';
-import {cmsContent} from '../../../../utils/api';
+import {getApi} from '../../../../services/apiFunction';
+import {cmsContent} from '../../../../services/api';
 import styles from '../../style';
 import style from './styles';
 

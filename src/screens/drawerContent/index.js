@@ -12,9 +12,9 @@ import Img from '../../components/Img';
 import { validateUserLogOut } from '../../store/actions/authAction';
 import { colors, WP, HP, size } from '../../utilities';
 import { appImages, appIcons } from '../../assets';
-import { getApi } from '../../utils/apiFunction';
-import { image_url } from '../../utils/url';
-import { logOut } from '../../utils/api';
+import { getApi } from '../../services/apiFunction';
+import { image_url } from '../../services/url';
+import { logOut } from '../../services/api';
 import styles from '../Main/style';
 
 export default function DrawerContent({ navigation }) {

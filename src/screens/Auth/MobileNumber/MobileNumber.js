@@ -1,22 +1,23 @@
-import React, { useState, useRef } from 'react';
-import { View, Text } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import React, {useState, useRef} from 'react';
+import {View, Text} from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import Auth from '@react-native-firebase/auth';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {
   CodeField,
   Cursor,
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
-import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
+import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
 import PhoneInput from 'react-native-phone-number-input';
-import { phone } from 'phone-shape';
-import { appLogos } from '../../../assets';
+import {phone} from 'phone-shape';
+import {appLogos} from '../../../assets';
 import Toast from 'react-native-simple-toast';
-import { WP, HP, colors, size } from '../../../utilities';
+import {WP, HP, colors, size} from '../../../utilities';
 import HeaderMain from '../../../components/HeaderMain';
 import FooterAuth from '../../../components/footerAuth';
+import Loader from '../../../components/Loader';
 import Logo from '../../../components/logo';
 import Button from '../../../components/Button';
 import LoadingButton from '../../../components/LoadingButton';
@@ -24,22 +25,23 @@ import {
   validateUserLogin,
   saveUserProfile,
   saveBearerToken,
-  saveSocialUserProfile
+  saveSocialUserProfile,
 } from '../../../store/actions/authAction';
-import { user_social_login } from '../../../utils/api';
-import { postApi, getDeviceToken } from '../../../utils/apiFunction';
+import {user_social_login} from '../../../services/api';
+import {postApi, getDeviceToken} from '../../../services/apiFunction';
 import styles from '../style';
 import style from './styles';
 
 const CELL_COUNT = 6;
 
-const MobileNumber = ({ navigation }) => {
+const MobileNumber = ({navigation}) => {
   const phoneInput = useRef(null);
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [formattedValue, setFormattedValue] = useState('');
   const [confirm, setConfirm] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loaderVisible, setLoaderVisible] = useState(false);
   const [phoneAccessToken, setPhoneAccessToken] = useState('');
   const [code, setCode] = useState('');
 
@@ -48,7 +50,7 @@ const MobileNumber = ({ navigation }) => {
       Toast.show('Please Enter Phone Number', Toast.LONG);
       return;
     }
-    const { countryCode, countryIso2, countryIso3, isValid, phoneNumber } =
+    const {countryCode, countryIso2, countryIso3, isValid, phoneNumber} =
       phone(formattedValue);
     if (isValid) {
       setLoading(!loading);
@@ -58,10 +60,7 @@ const MobileNumber = ({ navigation }) => {
         setPhoneAccessToken(confirmation?._verificationId);
       } catch (error) {
         console.log('Invalid error.', error);
-        Toast.show(
-          'Maximum Number Of OTP Send Limit Reached',
-          Toast.LONG,
-        );
+        Toast.show('Maximum Number Of OTP Send Limit Reached', Toast.LONG);
       }
       setLoading(false);
     } else {
@@ -97,7 +96,7 @@ const MobileNumber = ({ navigation }) => {
       user_device_type,
     };
     console.log('isnide socialLogin user_device_token: ', user_device_token);
-    const { status, message, bearer_token, data } = await postApi(
+    const {status, message, bearer_token, data} = await postApi(
       user_social_login,
       params,
     );
@@ -124,10 +123,9 @@ const MobileNumber = ({ navigation }) => {
         setCode={setCode}
       />
     );
-  }
-  else {
+  } else {
     return (
-      <View style={[styles.mainContainer, { padding: 16 }]}>
+      <View style={[styles.mainContainer, {padding: 16}]}>
         <KeyboardAwareScrollView
           contentContainerStyle={{
             flexGrow: 1,
@@ -154,9 +152,9 @@ const MobileNumber = ({ navigation }) => {
                   defaultValue={value}
                   defaultCode="US"
                   layout="first"
-                  containerStyle={{ padding: 0, borderRadius: 10 }}
-                  textContainerStyle={{ padding: 0, borderRadius: 10 }}
-                  textInputStyle={{ padding: 0 }}
+                  containerStyle={{padding: 0, borderRadius: 10}}
+                  textContainerStyle={{padding: 0, borderRadius: 10}}
+                  textInputStyle={{padding: 0}}
                   onChangeText={text => {
                     setValue(text);
                   }}
@@ -192,6 +190,7 @@ const MobileNumber = ({ navigation }) => {
             />
           </View>
         </KeyboardAwareScrollView>
+        <Loader visible={loaderVisible} />
       </View>
     );
   }
@@ -199,9 +198,15 @@ const MobileNumber = ({ navigation }) => {
 
 export default MobileNumber;
 
-const ValidateOtp = ({ navigation, setConfirm, handlePhoneLogin, code, setCode }) => {
+const ValidateOtp = ({
+  navigation,
+  setConfirm,
+  handlePhoneLogin,
+  code,
+  setCode,
+}) => {
   const [enableMask, setEnableMask] = useState(true);
-  const ref = useBlurOnFulfill({ code, cellCount: CELL_COUNT });
+  const ref = useBlurOnFulfill({code, cellCount: CELL_COUNT});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     code,
     setCode,
@@ -209,7 +214,7 @@ const ValidateOtp = ({ navigation, setConfirm, handlePhoneLogin, code, setCode }
   const backHandler = () => {
     setConfirm(null);
   };
-  const renderCell = ({ index, symbol, isFocused }) => {
+  const renderCell = ({index, symbol, isFocused}) => {
     let textChild = null;
     if (symbol) {
       textChild = enableMask ? '•' : symbol;
@@ -220,14 +225,14 @@ const ValidateOtp = ({ navigation, setConfirm, handlePhoneLogin, code, setCode }
       <Text
         key={index}
         style={[style.cell, isFocused && style.focusCell]}
-      // onLayout={getCellOnLayoutHandler(index)}
+        // onLayout={getCellOnLayoutHandler(index)}
       >
         {textChild}
       </Text>
     );
   };
   return (
-    <View style={[styles.mainContainer, { padding: 16 }]}>
+    <View style={[styles.mainContainer, {padding: 16}]}>
       <KeyboardAwareScrollView
         contentContainerStyle={{
           flexGrow: 1,
@@ -244,7 +249,7 @@ const ValidateOtp = ({ navigation, setConfirm, handlePhoneLogin, code, setCode }
           />
           <View style={[styles.alignCenter, styles.alignSelfStretch]}>
             <Logo logo={appLogos.logo} marginVertical={HP('1%')} />
-            <View style={{ paddingHorizontal: WP('2%') }}>
+            <View style={{paddingHorizontal: WP('2%')}}>
               <View
                 style={[
                   styles.w_100,
@@ -256,7 +261,7 @@ const ValidateOtp = ({ navigation, setConfirm, handlePhoneLogin, code, setCode }
                     style.subHeading,
                     styles.colorBlack,
                     styles.w_85,
-                    { textAlign: 'center' },
+                    {textAlign: 'center'},
                   ]}>
                   We have sent you an email containing VERIFICATION CODE and
                   instructions, please follow the instructions to verify your
@@ -287,7 +292,7 @@ const ValidateOtp = ({ navigation, setConfirm, handlePhoneLogin, code, setCode }
                   colors={[colors.secondary, colors.primary]}
                   colorsTime={[6, 4]}
                   size={140}>
-                  {({ remainingTime }) => {
+                  {({remainingTime}) => {
                     const minutes = Math.floor((remainingTime % 3600) / 60);
                     const seconds = remainingTime % 60;
                     return (

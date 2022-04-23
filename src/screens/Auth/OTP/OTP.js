@@ -12,14 +12,15 @@ import {useSelector, useDispatch} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
 import HeaderMain from '../../../components/HeaderMain';
+import Loader from '../../../components/Loader';
 import {appLogos} from '../../../assets';
 import {colors, size, WP, HP} from '../../../utilities';
 import {
   saveUserProfile,
   saveBearerToken,
 } from '../../../store/actions/authAction';
-import {resendVerificationCode, verificationCode} from '../../../utils/api';
-import {getApi, postApi} from '../../../utils/apiFunction';
+import {resendVerificationCode, verificationCode} from '../../../services/api';
+import {getApi, postApi} from '../../../services/apiFunction';
 import Logo from '../../../components/logo';
 import styles from '../style';
 import style from './styles';
@@ -35,6 +36,7 @@ const OTP = ({navigation, route}) => {
   const [key, setKey] = useState(0);
   const [enableMask, setEnableMask] = useState(true);
   const [resendOtpActive, setResendOtpActive] = useState(false);
+  const [loaderVisible, setLoaderVisible] = useState(false);
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
@@ -215,6 +217,7 @@ const OTP = ({navigation, route}) => {
           </Text>
         </View>
       </KeyboardAwareScrollView>
+      <Loader visible={loaderVisible} />
     </View>
   );
 };

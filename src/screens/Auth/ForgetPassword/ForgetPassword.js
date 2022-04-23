@@ -10,8 +10,8 @@ import Logo from '../../../components/logo';
 import CustomInput from '../../../components/CustomInput';
 import Button from '../../../components/Button';
 import LoadingButton from '../../../components/LoadingButton';
-import {updatePassword} from '../../../utils/api';
-import {putApi} from '../../../utils/apiFunction';
+import {updatePassword} from '../../../services/api';
+import {putApi} from '../../../services/apiFunction';
 import styles from '../style';
 
 var passwordValidator = require('password-validator');

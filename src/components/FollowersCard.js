@@ -5,7 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Image from './Img';
 import {appImages, appLogos} from '../assets';
-import {image_url} from '../utils/url';
+import {image_url} from '../services/url';
 import {WP, HP, colors, size} from '../utilities';
 import styles from '../screens/Main/style';
 const FollowersCard = ({data, navigation}) => {
