@@ -1,5 +1,7 @@
 export const register = 'user_create';
 export const login = 'user_login';
+export const state = 'state';
+export const city = 'city';
 export const user_social_login = '/user_social_login';
 export const forgotPassword = 'forgot_password';
 export const resendVerificationCode = 're_send_code';
@@ -9,7 +11,7 @@ export const updatePassword = 'update_password';
 export const cmsContent = 'content';
 export const enrollProgram = 'preference';
 export const enrolledTopic = 'tag';
-export const searchUser = 'social_media/user_search';
+export const searchUser = 'social_media/search';
 export const userFollowUnFollow = 'social_media/follow/create_follow';
 export const listUserFollowUnFollow = 'social_media/follow/list_follow';
 export const user_profile = 'user_profile';
